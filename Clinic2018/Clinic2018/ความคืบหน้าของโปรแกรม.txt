@@ -1,0 +1,24 @@
+﻿clinic_login
+เพิ่มติมเมื่อล็อคอินเสร็จ ก็โปรแกรมปิดตัว และเมื่อออกจากระบบให้กลับมาที่ล็อคอิน
+
+clinic_search
+-ติดปัญหาเรื่องการค้นหา และการเชื่อมต่อไปที่ฟอร์มอื่น
+
+
+
+select opd.opd_id, opd.opd_name, opd.opd_idcard, opd.opd_birthday, position.pos_name
+from opd
+inner join position On opd.pos_id = position.pos_id
+where opd.opd_idcard = 1102700111444
+
+
+select opd.opd_idcard, opd.opd_name, user_control.uct_user, user_control.uct_password, position.pos_name
+from opd
+inner join position On opd.pos_id = position.pos_id
+inner join user_control On user_control.opd_idcard = opd.opd_idcard
+where user_control.uct_user = 1102700111444
+
+insert into queue_visit_record(qvr_record,qvr_time,qvr_date,emp_ru_id,vr_id,opd_idcard)
+values('"+tb11.Text+"', SYSDATETIME(), SYSDATETIME(),'"+tb11.Text+"','"+tb11.Text+"','"+tb11.Text+"')");
+อัพเดต
+login : แยกประเภทคนไข้ได้แล้วนะ

@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D5A4AEB-A0B5-41DD-9B9A-B31E0B8E1F93}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Clinic2018</RootNamespace>
+    <AssemblyName>Clinic2018</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>..\..\..\..\..\download\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\..\download\itextsharp-all-5.5.10\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
+    <Reference Include="System.Windows.Input.Manipulations" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tulpep.NotificationWindow, Version=1.1.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tulpep.NotificationWindow.1.1.25\lib\net40\Tulpep.NotificationWindow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebCamCapture">
+      <HintPath>..\..\..\..\..\..\Downloads\Webcam Capture\C#\WebCamCapture\bin\Debug\WebCamCapture.dll</HintPath>
+    </Reference>
+    <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729.1\lib\Zen.Barcode.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Zen.Barcode.Design, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Zen.Barcode.Web, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Zen.Barcode.Web.Mvc, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clinc_nurse_service.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinc_nurse_service.Designer.cs">
+      <DependentUpon>clinc_nurse_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_111.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_111.Designer.cs">
+      <DependentUpon>clinic_111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_222.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_222.Designer.cs">
+      <DependentUpon>clinic_222.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_appointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_appointment.Designer.cs">
+      <DependentUpon>clinic_appointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_approve_step2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_approve_step2.Designer.cs">
+      <DependentUpon>clinic_approve_step2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_app_ms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_app_ms.Designer.cs">
+      <DependentUpon>clinic_app_ms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_app_service.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_app_service.Designer.cs">
+      <DependentUpon>clinic_app_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_barcode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_barcode.Designer.cs">
+      <DependentUpon>clinic_barcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clinic_boss.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clinic_boss.Designer.cs">
+      <DependentUpon>Clinic_boss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_calendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_calendar.Designer.cs">
+      <DependentUpon>clinic_calendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_confirm_send.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_confirm_send.Designer.cs">
+      <DependentUpon>clinic_confirm_send.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clinic_doctor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clinic_doctor.Designer.cs">
+      <DependentUpon>Clinic_doctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clinic_doctor2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clinic_doctor2.Designer.cs">
+      <DependentUpon>Clinic_doctor2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_doctor3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_doctor3.Designer.cs">
+      <DependentUpon>clinic_doctor3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_doctor_service.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_doctor_service.Designer.cs">
+      <DependentUpon>clinic_doctor_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_doctor_service2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_doctor_service2.Designer.cs">
+      <DependentUpon>clinic_doctor_service2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_doctor_service3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_doctor_service3.Designer.cs">
+      <DependentUpon>clinic_doctor_service3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_identity_card.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_identity_card.Designer.cs">
+      <DependentUpon>clinic_identity_card.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_insert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_insert.Designer.cs">
+      <DependentUpon>clinic_insert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_insert_employee1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_insert_employee1.Designer.cs">
+      <DependentUpon>clinic_insert_employee1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_insert_employee2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_insert_employee2.Designer.cs">
+      <DependentUpon>clinic_insert_employee2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_login.Designer.cs">
+      <DependentUpon>clinic_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_managetime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_managetime.Designer.cs">
+      <DependentUpon>clinic_managetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_medicine_main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_medicine_main.designer.cs">
+      <DependentUpon>clinic_medicine_main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_nurse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_nurse.Designer.cs">
+      <DependentUpon>clinic_nurse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_opd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_opd.Designer.cs">
+      <DependentUpon>clinic_opd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_main_sub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_main_sub.Designer.cs">
+      <DependentUpon>clinic_main_sub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_notification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_notification.Designer.cs">
+      <DependentUpon>clinic_notification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_pharmacist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_pharmacist.Designer.cs">
+      <DependentUpon>clinic_pharmacist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_pharmacist_ms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_pharmacist_ms.Designer.cs">
+      <DependentUpon>clinic_pharmacist_ms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_pharmacist_service.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_pharmacist_service.designer.cs">
+      <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_schedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_schedule.Designer.cs">
+      <DependentUpon>clinic_schedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_test_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_test_1.Designer.cs">
+      <DependentUpon>clinic_test_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_search.Designer.cs">
+      <DependentUpon>clinic_search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_approve.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_approve.Designer.cs">
+      <DependentUpon>clinic_approve.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_timeschedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_timeschedule.Designer.cs">
+      <DependentUpon>clinic_timeschedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_timeswd_ms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_timeswd_ms.designer.cs">
+      <DependentUpon>clinic_timeswd_ms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_time_attendance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_time_attendance.Designer.cs">
+      <DependentUpon>clinic_time_attendance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_time_attendance_welcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_time_attendance_welcome.Designer.cs">
+      <DependentUpon>clinic_time_attendance_welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_user_control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_user_control.Designer.cs">
+      <DependentUpon>clinic_user_control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cmd\SqlDataAdapter.cs" />
+    <Compile Include="conn_patient.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>conn_patient.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form4.Designer.cs">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form5.Designer.cs">
+      <DependentUpon>Form5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form6.Designer.cs">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form7.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form7.Designer.cs">
+      <DependentUpon>Form7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form8.Designer.cs">
+      <DependentUpon>Form8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="pdfwork.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="q_visit_record.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="q_visit_record.Designer.cs">
+      <DependentUpon>q_visit_record.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sent_room.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sent_room.Designer.cs">
+      <DependentUpon>sent_room.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Show_text.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Show_text.Designer.cs">
+      <DependentUpon>Show_text.cs</DependentUpon>
+    </Compile>
+    <Compile Include="System\Data\Odbc\SqlDataAdapter.cs" />
+    <Compile Include="textBox1\Text.cs" />
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs" />
+    <Compile Include="UserControl11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserControl1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_visit_record.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_visit_record.designer.cs">
+      <DependentUpon>clinic_visit_record.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="clinc_nurse_service.resx">
+      <DependentUpon>clinc_nurse_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_111.resx">
+      <DependentUpon>clinic_111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_222.resx">
+      <DependentUpon>clinic_222.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_appointment.resx">
+      <DependentUpon>clinic_appointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_approve_step2.resx">
+      <DependentUpon>clinic_approve_step2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_app_ms.resx">
+      <DependentUpon>clinic_app_ms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_app_service.resx">
+      <DependentUpon>clinic_app_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_barcode.resx">
+      <DependentUpon>clinic_barcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clinic_boss.resx">
+      <DependentUpon>Clinic_boss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_calendar.resx">
+      <DependentUpon>clinic_calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_confirm_send.resx">
+      <DependentUpon>clinic_confirm_send.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clinic_doctor.resx">
+      <DependentUpon>Clinic_doctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clinic_doctor2.resx">
+      <DependentUpon>Clinic_doctor2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_doctor3.resx">
+      <DependentUpon>clinic_doctor3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_doctor_service.resx">
+      <DependentUpon>clinic_doctor_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_doctor_service2.resx">
+      <DependentUpon>clinic_doctor_service2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_doctor_service3.resx">
+      <DependentUpon>clinic_doctor_service3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_identity_card.resx">
+      <DependentUpon>clinic_identity_card.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_insert.resx">
+      <DependentUpon>clinic_insert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_insert_employee1.resx">
+      <DependentUpon>clinic_insert_employee1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_insert_employee2.resx">
+      <DependentUpon>clinic_insert_employee2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_login.resx">
+      <DependentUpon>clinic_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_managetime.resx">
+      <DependentUpon>clinic_managetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_medicine_main.resx">
+      <DependentUpon>clinic_medicine_main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_nurse.resx">
+      <DependentUpon>clinic_nurse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_opd.resx">
+      <DependentUpon>clinic_opd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_main_sub.resx">
+      <DependentUpon>clinic_main_sub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_notification.resx">
+      <DependentUpon>clinic_notification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_pharmacist.resx">
+      <DependentUpon>clinic_pharmacist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_pharmacist_ms.resx">
+      <DependentUpon>clinic_pharmacist_ms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_pharmacist_service.resx">
+      <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_schedule.resx">
+      <DependentUpon>clinic_schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_test_1.resx">
+      <DependentUpon>clinic_test_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_search.resx">
+      <DependentUpon>clinic_search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_approve.resx">
+      <DependentUpon>clinic_approve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_timeschedule.resx">
+      <DependentUpon>clinic_timeschedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_timeswd_ms.resx">
+      <DependentUpon>clinic_timeswd_ms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_time_attendance.resx">
+      <DependentUpon>clinic_time_attendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_time_attendance_welcome.resx">
+      <DependentUpon>clinic_time_attendance_welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_user_control.resx">
+      <DependentUpon>clinic_user_control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form4.resx">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form5.resx">
+      <DependentUpon>Form5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form6.resx">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form7.resx">
+      <DependentUpon>Form7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form8.resx">
+      <DependentUpon>Form8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="q_visit_record.resx">
+      <DependentUpon>q_visit_record.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sent_room.resx">
+      <DependentUpon>sent_room.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Show_text.resx">
+      <DependentUpon>Show_text.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserControl11.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_visit_record.resx">
+      <DependentUpon>clinic_visit_record.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="conn_patient.xsc">
+      <DependentUpon>conn_patient.xsd</DependentUpon>
+    </None>
+    <None Include="conn_patient.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>conn_patient.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="conn_patient.xss">
+      <DependentUpon>conn_patient.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsc">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet2.xss">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="font\THSarabun.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_Heart_Care.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_cancel1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x-01-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\มหาวิทยาลัยรามคำแหง_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_documents.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_user1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24068730_1602140229809333_8581241208102830372_o.jpg" />
+    <None Include="Resources\มหาวิทยาลัยรามคำแหง_21.png" />
+    <None Include="Resources\ic_text_document.png" />
+    <None Include="Resources\folder-documents-icon.png" />
+    <None Include="Resources\folder-documents-icon1.png" />
+    <Content Include="Resources\31580984884cdc8.jpg" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\check.png" />
+    <Content Include="Resources\DrB_welcome-2-e1498564511141.png" />
+    <Content Include="Resources\folder-documents-icon2.png" />
+    <Content Include="Resources\ic_archive.png" />
+    <Content Include="Resources\ic_bookmark.png" />
+    <Content Include="Resources\ic_cancel2.png" />
+    <Content Include="Resources\ic_cancel3.png" />
+    <Content Include="Resources\ic_documents1.png" />
+    <Content Include="Resources\ic_edit.png" />
+    <Content Include="Resources\ic_list.png" />
+    <Content Include="Resources\ic_pin.png" />
+    <Content Include="Resources\ic_plus.png" />
+    <Content Include="Resources\ic_plus1.png" />
+    <Content Include="Resources\ic_power.png" />
+    <Content Include="Resources\ic_right_circle.png" />
+    <Content Include="Resources\ic_settings.png" />
+    <Content Include="Resources\ic_tag.png" />
+    <Content Include="Resources\ic_target.png" />
+    <Content Include="Resources\ic_target1.png" />
+    <Content Include="Resources\ic_text_document1.png" />
+    <Content Include="Resources\ic_up_circle.png" />
+    <Content Include="Resources\ic_users.png" />
+    <Content Include="Resources\ic_zoom1.png" />
+    <Content Include="Resources\ic_zoom2.png" />
+    <Content Include="Resources\image1.jpg" />
+    <Content Include="Resources\nurse-icon.png" />
+    <Content Include="Resources\order.png" />
+    <Content Include="Resources\order1.png" />
+    <Content Include="Resources\printer-with-printed-paper_icon-icons.com_56230.png" />
+    <Content Include="Resources\search-icon-7.png" />
+    <Content Include="Resources\search-icon-71.png" />
+    <Content Include="ความคืบหน้าของโปรแกรม.txt" />
+    <Content Include="โค๊ดที่ต้องใช้.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxCALENDARLib">
+      <Guid>{A035D4AC-4104-4772-AD67-C48F484EA961}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxCALENDARLib2">
+      <Guid>{2E4A81F4-DD51-43EE-A5DE-58370DBD2D31}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxCALENDARLib3">
+      <Guid>{42857667-AD5D-4E1B-A89E-2CA5CE2E8214}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="CALENDARLib">
+      <Guid>{A035D4AC-4104-4772-AD67-C48F484EA961}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CALENDARLib2">
+      <Guid>{2E4A81F4-DD51-43EE-A5DE-58370DBD2D31}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CALENDARLib3">
+      <Guid>{42857667-AD5D-4E1B-A89E-2CA5CE2E8214}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pdf\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
