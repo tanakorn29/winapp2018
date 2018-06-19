@@ -58,11 +58,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -283,11 +281,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(165, 141);
+            this.button1.Location = new System.Drawing.Point(122, 141);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(118, 23);
             this.button1.TabIndex = 6;
-            this.button1.Text = "จ่ายยา";
+            this.button1.Text = "จัดเก็บใบจ่ายยา";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -339,31 +337,14 @@
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column11,
-            this.Column12,
-            this.Column1,
             this.Column13,
-            this.Column14});
+            this.Column14,
+            this.Column1});
             this.dataGridView3.Location = new System.Drawing.Point(9, 19);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(450, 112);
             this.dataGridView3.TabIndex = 1;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "ลำดับใบสั่งยา";
-            this.Column11.Name = "Column11";
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "ชื่อยา";
-            this.Column12.Name = "Column12";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "จำนวนยาที่สั่ง";
-            this.Column1.Name = "Column1";
             // 
             // Column13
             // 
@@ -374,6 +355,11 @@
             // 
             this.Column14.HeaderText = "ชื่อคนไข้";
             this.Column14.Name = "Column14";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "ลำดับคิวการสั่งยา";
+            this.Column1.Name = "Column1";
             // 
             // panel2
             // 
@@ -459,11 +445,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mspToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -484,5 +465,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblunit;
         private System.Windows.Forms.Label lblname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

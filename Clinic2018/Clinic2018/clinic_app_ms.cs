@@ -200,7 +200,7 @@ namespace Clinic2018
             }
             else if (time >= 12.01)
             {
-                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'บ่าย' AND swd_day_work = '" + day + "'");
+                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'บ่าย' AND swd_day_work = '" + day + "' AND swd_date_work = '" + date + "' ");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();

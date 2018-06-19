@@ -22,7 +22,7 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-            string  query = ("select medicine_use.medi_use_id , medical.medi_name, medicine_use.medi_num,treatment_record.treatr_id, opd.opd_name from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2");
+            string  query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -34,11 +34,10 @@ namespace Clinic2018
 
 
 
-                dataGridView3.Rows[n].Cells[0].Value = item["medi_use_id"].ToString();
-                dataGridView3.Rows[n].Cells[1].Value = item["medi_name"].ToString();
-                dataGridView3.Rows[n].Cells[2].Value = item["medi_num"].ToString();
-                dataGridView3.Rows[n].Cells[3].Value = item["treatr_id"].ToString();
-                dataGridView3.Rows[n].Cells[4].Value = item["opd_name"].ToString();
+                dataGridView3.Rows[n].Cells[0].Value = item["treatr_id"].ToString();
+                dataGridView3.Rows[n].Cells[1].Value = item["opd_name"].ToString();
+                dataGridView3.Rows[n].Cells[2].Value = item["treatr_medi_queue"].ToString();
+
             }
 
             query = ("select medi_id,medi_name,medi_qty,medi_unit,medi_qty_type from medical");
@@ -73,7 +72,9 @@ namespace Clinic2018
         //    textBox1.Text = row.Cells[0].Value.ToString();
           //  textBox2.Text = row.Cells[1].Value.ToString();
             // textBox3.Text = row.Cells[2].Value.ToString();
-            txttrea.Text = row.Cells[3].Value.ToString();
+            txttrea.Text = row.Cells[0].Value.ToString();
+          //  textBox4.Text = row.Cells[0].Value.ToString();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,82 +93,150 @@ namespace Clinic2018
                 MessageBox.Show("มีการนัดหมาย");
             }else
             {
-                
+                query = ("select count(*) from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + txttrea.Text + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
 
-         query = ("select medi_qty from medical where medi_name = '" + textBox2.Text + "'");
-         cmd = new SqlCommand(query, conn);
-         sda = new SqlDataAdapter(cmd);
-         dt = new DataTable();
-         sda.Fill(dt);
-         sdr = cmd.ExecuteReader();
+                int count_app = (int)cmd.ExecuteScalar();
+                if (count_app > 0)
+                {
+                    query = ("Select count(*) from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id =  '" + txttrea.Text + "' AND medical.medi_name = '" + textBox2.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
 
-         if (sdr.Read())
-         {
-             int nummed = Convert.ToInt32(sdr["medi_qty"].ToString());
-             int cut_stock = nummed - Convert.ToInt32(textBox3.Text);
-             if (nummed < 5)
-             {
-                 MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                 query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
-                 cmd = new SqlCommand(query, conn);
-                 sda = new SqlDataAdapter(cmd);
-                 dt = new DataTable();
-                 sda.Fill(dt);
+                    int count_select = (int)cmd.ExecuteScalar();
+                    if (count_select == 1)
+                    {
+                        query = ("select medi_qty from medical where medi_name = '" + textBox2.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        sdr = cmd.ExecuteReader();
 
-                 query = ("UPDATE medicine_use SET medi_use_status = 0 where treatr_id = '" + textBox4.Text + "'");
-                 cmd = new SqlCommand(query, conn);
-                 sda = new SqlDataAdapter(cmd);
-                 dt = new DataTable();
-                 sda.Fill(dt);
-
-                 clinic_pharmacist_service m3 = new clinic_pharmacist_service();
-                 m3.Show();
-                 clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
-                 clnlog.Close();
-                 Visible = false;
-
-
-                 MessageBox.Show("จ่ายยาเรียบร้อย");
-
-             }
-             else if (nummed < 0)
-             {
-                 MessageBox.Show("ยาหมดคลังแล้ว");
-
-             }
-             else if (nummed > 5)
-             {
-                 query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
-                 cmd = new SqlCommand(query, conn);
-                 sda = new SqlDataAdapter(cmd);
-                 dt = new DataTable();
-                 sda.Fill(dt);
-
-                 query = ("UPDATE medicine_use SET medi_use_status = 0 where treatr_id = '" + textBox4.Text + "'");
-                 cmd = new SqlCommand(query, conn);
-                 sda = new SqlDataAdapter(cmd);
-                 dt = new DataTable();
-                 sda.Fill(dt);
-
-                 clinic_pharmacist_service m3 = new clinic_pharmacist_service();
-                 m3.Show();
-                 clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
-                 clnlog.Close();
-                 Visible = false;
+                        if (sdr.Read())
+                        {
+                            int nummed = Convert.ToInt32(sdr["medi_qty"].ToString());
+                            // int cut_stock = nummed - Convert.ToInt32(textBox3.Text);
+                            if (nummed < 5)
+                            {
+                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
 
 
-                 MessageBox.Show("จ่ายยาเรียบร้อย");
 
 
-             }
+                                query = ("Update medicine_use set medi_use_status = 0 from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + textBox4.Text + "' AND medical.medi_name = '" + textBox2.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+                                clinic_pharmacist_service m3 = new clinic_pharmacist_service();
+                                m3.Show();
+                                clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
+                                clnlog.Close();
+                                Visible = false;
+
+
+                                MessageBox.Show("จ่ายยาเรียบร้อย");
 
 
 
 
 
 
-         }
-         
+
+
+
+
+
+                            }
+                            else if (nummed < 0)
+                            {
+                                MessageBox.Show("ยาหมดคลังแล้ว");
+
+                            }
+                            else if (nummed > 5)
+                            {
+                                query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+
+
+                                query = ("Update medicine_use set medi_use_status = 0 from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + textBox4.Text + "' AND medical.medi_name = '" + textBox2.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+                                clinic_pharmacist_service m3 = new clinic_pharmacist_service();
+                                m3.Show();
+                                clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
+                                clnlog.Close();
+                                Visible = false;
+
+
+                                MessageBox.Show("จ่ายยาเรียบร้อย");
+
+
+
+
+
+
+
+
+
+                            }
+
+
+
+
+
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("กรุณาเลือกยาที่จ่าย");
+                    }
+                        
+       
+
+                }
+                else
+                {
+                    query = ("Update treatment_record set treatr_status = 0 where treatr_id = '"+ txttrea.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+
+                    clinic_pharmacist_service m3 = new clinic_pharmacist_service();
+                    m3.Show();
+                    clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
+                    clnlog.Close();
+                    Visible = false;
+
+
+                    MessageBox.Show("จัดเก็บใบสั่งยาเรียบร้อย");
+             
+
+                }
+      
             }
 
             /*

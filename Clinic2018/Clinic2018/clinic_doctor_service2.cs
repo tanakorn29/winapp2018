@@ -360,6 +360,7 @@ namespace Clinic2018
 
         private void button24_Click(object sender, EventArgs e)
         {
+            conn.Open();
             string query = ("UPDATE medicine_use SET medi_use_status = 2 where treatr_id = '" + lblidt.Text + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
@@ -368,20 +369,50 @@ namespace Clinic2018
 
 
 
-            query = ("Update treatment_record SET treatr_status = 0 where treatr_id = '" + lblidt.Text + "'");
+            /*   query = ("Update treatment_record SET treatr_status = 0 where treatr_id = '" + lblidt.Text + "'");
+               cmd = new SqlCommand(query, conn);
+               sda = new SqlDataAdapter(cmd);
+               dt = new DataTable();
+               sda.Fill(dt);*/
+            query = ("Update treatment_record set treatr_status = 2 where treatr_id = " + lblidt.Text + "");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+            sda.Fill(dt);
+
+            Queue<int> collection = new Queue<int>();
+            query = ("select count(*) from treatment_record where treatr_status = 2");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
 
-            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-            m3.Show();
-            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-            clnlog.Close();
-            Visible = false;
+            int queue = (int)cmd.ExecuteScalar();
+            collection.Enqueue(queue);
+
+            foreach (int value in collection)
+            {
+                query = ("Update treatment_record set treatr_medi_queue = '" + value + "' where treatr_id = '" + lblidt.Text + "'");
+                //  
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+
+                clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                m3.Show();
+                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                clnlog.Close();
+                Visible = false;
 
 
-            MessageBox.Show("จ่ายยาเรียบร้อย");
+                MessageBox.Show("จ่ายยาเรียบร้อย คิวการจ่ายยาที่  " + value);
+
+
+
+            }
+            conn.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)

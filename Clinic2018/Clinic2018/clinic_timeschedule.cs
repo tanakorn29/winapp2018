@@ -94,12 +94,13 @@ namespace Clinic2018
             dt = new DataTable();
 
             sda.Fill(dt);
-            clinic_timeschedule doc1 = new clinic_timeschedule();
-            doc1.Show();
-            clinic_timeschedule clnlog = new clinic_timeschedule();
-            clnlog.Close();
-            Visible = false;
             MessageBox.Show("เปลี่ยนแปลงตารางเรียบร้อย");
+            /*    clinic_timeschedule doc1 = new clinic_timeschedule();
+                doc1.Show();
+                clinic_timeschedule clnlog = new clinic_timeschedule();
+                clnlog.Close();
+                Visible = false;
+                MessageBox.Show("เปลี่ยนแปลงตารางเรียบร้อย");*/
 
         }
         int selectedRow;

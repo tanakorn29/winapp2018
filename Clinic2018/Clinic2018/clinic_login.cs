@@ -123,7 +123,7 @@ namespace Clinic2018
                             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
                             string time_remark = dr1["remark"].ToString();
                             string date_work = dr1["swd_date_work"].ToString();
-                            if(today == date_work)
+                            if(today != date_work)
                             {
                                 if (time_remark == "เข้างาน")
                                 {
