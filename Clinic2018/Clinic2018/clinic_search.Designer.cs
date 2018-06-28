@@ -28,14 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbltime = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.conferm = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb1 = new System.Windows.Forms.GroupBox();
             this.gb2 = new System.Windows.Forms.GroupBox();
+            this.statusapp = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.bt2 = new System.Windows.Forms.Button();
             this.bt1 = new System.Windows.Forms.Button();
             this.lb55 = new System.Windows.Forms.Label();
@@ -51,14 +61,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableAdapterManager1 = new Clinic2018.conn_patientTableAdapters.TableAdapterManager();
-            this.label1 = new System.Windows.Forms.Label();
-            this.statusapp = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -69,6 +72,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lbltime);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -80,6 +84,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(851, 610);
             this.panel1.TabIndex = 0;
+            // 
+            // lbltime
+            // 
+            this.lbltime.AutoSize = true;
+            this.lbltime.Font = new System.Drawing.Font("TH SarabunPSK", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbltime.Location = new System.Drawing.Point(768, 24);
+            this.lbltime.Name = "lbltime";
+            this.lbltime.Size = new System.Drawing.Size(80, 42);
+            this.lbltime.TabIndex = 10;
+            this.lbltime.Text = "00.00";
             // 
             // menuStrip1
             // 
@@ -102,7 +116,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("TH SarabunPSK", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(79, 29);
+            this.label3.Location = new System.Drawing.Point(67, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 42);
             this.label3.TabIndex = 8;
@@ -111,7 +125,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 71);
+            this.label2.Location = new System.Drawing.Point(23, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(246, 13);
             this.label2.TabIndex = 7;
@@ -136,6 +150,49 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.HeaderText = "บัตรประชาชน";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "ชื่อ/สกุล";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column3
+            // 
+            this.Column3.FillWeight = 150F;
+            this.Column3.HeaderText = "วัน เดือน ปีเกิด";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column3.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "โทรศัพท์";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "สถานะสิทธิ";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "สถานะการนัดหมาย";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             // 
             // gb1
             // 
@@ -170,6 +227,25 @@
             this.gb2.Size = new System.Drawing.Size(754, 270);
             this.gb2.TabIndex = 10;
             this.gb2.TabStop = false;
+            // 
+            // statusapp
+            // 
+            this.statusapp.AutoSize = true;
+            this.statusapp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.statusapp.Location = new System.Drawing.Point(150, 186);
+            this.statusapp.Name = "statusapp";
+            this.statusapp.Size = new System.Drawing.Size(0, 20);
+            this.statusapp.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Location = new System.Drawing.Point(6, 186);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "สถานะการนัดหมาย:";
             // 
             // bt2
             // 
@@ -291,7 +367,7 @@
             // 
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox2.Location = new System.Drawing.Point(491, 30);
+            this.groupBox2.Location = new System.Drawing.Point(446, 30);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(316, 88);
             this.groupBox2.TabIndex = 3;
@@ -320,67 +396,9 @@
             this.tableAdapterManager1.patientTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = Clinic2018.conn_patientTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // label1
+            // timer1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(6, 186);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 20);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "สถานะการนัดหมาย:";
-            // 
-            // statusapp
-            // 
-            this.statusapp.AutoSize = true;
-            this.statusapp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.statusapp.Location = new System.Drawing.Point(150, 186);
-            this.statusapp.Name = "statusapp";
-            this.statusapp.Size = new System.Drawing.Size(0, 20);
-            this.statusapp.TabIndex = 14;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "บัตรประชาชน";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.HeaderText = "ชื่อ/สกุล";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column3
-            // 
-            this.Column3.FillWeight = 150F;
-            this.Column3.HeaderText = "วัน เดือน ปีเกิด";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Column3.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "โทรศัพท์";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "สถานะสิทธิ";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "สถานะการนัดหมาย";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // clinic_search
             // 
@@ -391,6 +409,7 @@
             this.Name = "clinic_search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ค้นหาประวัติ - ระบบบริหารจัดการงานบริการงานแพทย์และอนามัย ";
+            this.Load += new System.EventHandler(this.clinic_search_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -438,5 +457,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Label lbltime;
+        private System.Windows.Forms.Timer timer1;
     }
 }

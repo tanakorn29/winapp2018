@@ -123,7 +123,7 @@ namespace Clinic2018
 
         private void lblopdid_TextChanged(object sender, EventArgs e)
         {
-            conn.Open();
+        
             string query = ("select visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id from visit_record where opd_id = '" + lblopdid.Text + "'");
             cmd = new SqlCommand(query, conn);
 
@@ -150,7 +150,7 @@ namespace Clinic2018
 
    
 
-            conn.Close();
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -566,6 +566,39 @@ namespace Clinic2018
 
 
             MessageBox.Show("เก็บประวัติการรักษาเรียบร้อย");
+        }
+
+        private void clinic_doctor_service3_Load(object sender, EventArgs e)
+        {
+            conn.Open();
+            string query = ("select queue_diag_room.qdr_record,opd.opd_id,opd.opd_name,position.pos_name,employee_doctor.emp_doc_id   from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join position on position.pos_id = opd.pos_id where queue_diag_room.status_queue = 1 AND room_id = 3");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                int queue = Convert.ToInt32(sdr["qdr_record"].ToString());
+
+                lblqueue.Text = "" + queue;
+                int id = Convert.ToInt32(sdr["opd_id"].ToString());
+                string name = sdr["opd_name"].ToString();
+                string position = sdr["pos_name"].ToString();
+                int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
+                lblopdid.Text = "" + id;
+                lblsername.Text = name;
+                // lblopd.Text = row.Cells[7].Value.ToString();
+                txtdocid.Text = "" + doc_id;
+                //    string position = sdr["pos_name"].ToString();
+                lblposition.Text = position;
+            }
+
+
+
+
+
+            conn.Close();
         }
     }
 }

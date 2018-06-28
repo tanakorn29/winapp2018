@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace Clinic2018
 {
@@ -37,7 +38,7 @@ namespace Clinic2018
                 textBox1.ForeColor = Color.Silver;
             }
         }
-
+        Timer t = new Timer();
         SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
@@ -222,7 +223,8 @@ namespace Clinic2018
         {
             try
             {
-        
+                DateTime today_th = DateTime.Today;
+                string today = today_th.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
                 if (lb11.Text != cmd.Connection.Database &&
                     lb22.Text != cmd.Connection.Database &&
                     lb33.Text != cmd.Connection.Database &&
@@ -255,8 +257,8 @@ namespace Clinic2018
                                         {
                                             int emp_ru_id = Convert.ToInt32(sdr["emp_ru_id"].ToString());
                                             int opd_id = Convert.ToInt32(sdr["opd_id"].ToString());
-
-                       query = ("select Count(*) from appointment where opd_id = '"+opd_id+ "' AND status_approve = 2");
+             
+                            query = ("select Count(*) from appointment where opd_id = '"+opd_id+ "' AND status_approve = 2");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -265,7 +267,7 @@ namespace Clinic2018
                         int app_count = (int)cmd.ExecuteScalar();
                         if(app_count == 1)
                         {
-                            query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', SYSDATETIME(), SYSDATETIME(),5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                            query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '"+lbltime.Text+"', SYSDATETIME(),5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
                             dt = new DataTable();
@@ -273,6 +275,57 @@ namespace Clinic2018
                             DialogResult dialogResult = MessageBox.Show("ส่งคิวการนัดหมาย", "คุณต้องการส่งคิวการนัดหมายหรือไม่", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
+                                query = ("select appointment.app_date from appointment where opd_id = '" + opd_id + "' AND status_approve = 2");
+                                cmd = new SqlCommand(query, conn);
+
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+                                sdr = cmd.ExecuteReader();
+                                if (sdr.Read())
+                                {
+                                    string date = sdr["app_date"].ToString();
+                                    DateTime date_app = Convert.ToDateTime(date);
+                                    int date_day = date_app.Day;
+                                    int today_day = today_th.Day;
+
+                                    if(today_day >= date_day)
+                                    {
+                                        query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        //  sdr = cmd.ExecuteReader();
+                                        int queue = (int)cmd.ExecuteScalar();
+                                        collection.Enqueue(queue);
+
+                                        foreach (int value in collection)
+                                        {
+                                            query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
+                                            //  
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            clinic_search m3 = new clinic_search();
+                                            m3.Show();
+                                            clinic_search clnlog = new clinic_search();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("ส่วนของการนัดหมาย คิวที่    " + value + " ");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("ยังไม่ถึงเวลานัดหมาย");
+                                    }
+                                 
+
+
+                                }
+                                /*
                                 query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
@@ -299,7 +352,7 @@ namespace Clinic2018
                                 }
 
 
-
+                            */
 
 
 
@@ -315,7 +368,7 @@ namespace Clinic2018
                         }
                         else
                         {
-                            query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', SYSDATETIME(), SYSDATETIME(),1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                            query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', SYSDATETIME(),1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
                             dt = new DataTable();
@@ -536,6 +589,54 @@ namespace Clinic2018
 
             conn.Close();
       */
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int hh = DateTime.Now.Hour;
+            int mm = DateTime.Now.Minute;
+            int ss = DateTime.Now.Second;
+
+            String time = "";
+
+            if (hh < 10)
+            {
+                time += "0" + hh;
+            }
+            else
+            {
+                time += hh;
+            }
+            time += ".";
+
+            if (mm < 10)
+            {
+                time += "0" + mm;
+            }
+            else
+            {
+                time += mm;
+            }
+       /*     time += ".";
+
+            if (ss < 10)
+            {
+                time += "0" + ss;
+            }
+            else
+            {
+                time += ss;
+            }
+            **/
+            lbltime.Text = time;
+        }
+
+        private void clinic_search_Load(object sender, EventArgs e)
+        {
+            t.Interval = 1000;
+            t.Tick += new EventHandler(this.timer1_Tick);
+            t.Start();
+            //heddgtesrg4rggasdfaaaaruohiuih8niho;hi;hg;ohguo;h;il.ijhgywe4tg4rfsdfewrwsefwesafte
         }
     }
 }

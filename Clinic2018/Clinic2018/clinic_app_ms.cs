@@ -14,6 +14,7 @@ namespace Clinic2018
 {
     public partial class clinic_app_ms : Form
     {
+        //xxxxxxx55555555555555555555555555555555555555655656569565541559959พำะ5445656นรนรน
         SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
@@ -131,6 +132,13 @@ namespace Clinic2018
 
             string date = date_app.ToString("yyyy-MM-dd", ThaiCulture);
             string day = date_app.ToString("dddd", ThaiCulture);
+            int date_app_day = date_app.Day;
+            int date_app_month = date_app.Month;
+            DateTime today_th = DateTime.Today;
+            string today = today_th.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+
+            int today_day = today_th.Day;
+            int today_month = today_th.Month;
             double time = Convert.ToDouble(comboBox1.SelectedItem.ToString());
 
             if (time <= 12.00)
@@ -154,6 +162,7 @@ namespace Clinic2018
                     sdr = cmd.ExecuteReader();
                     if (sdr.Read())
                     {
+                     
                         int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
                         string timezone = sdr["swd_timezone"].ToString();
                          query = ("select count(*) from appointment where app_time = '"+ comboBox1.SelectedItem.ToString() + "' AND day = '"+day+ "' AND swd_id = '"+swd_id+"'");
@@ -164,21 +173,32 @@ namespace Clinic2018
                         int count_app = (int)cmd.ExecuteScalar();
                         if(count_app < 1)
                         {
-                      //    MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
-                     
-                            query = ("Update appointment SET day = '" + day + "',app_date = '" + date + "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
+               //   MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
+                      if(date_app_day > today_day)
+                            {
 
-                            sda.Fill(dt);
+                                query = ("Update appointment SET day = '" + day + "',app_date = '" + date + "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
 
-                            clinic_app_ms doc1 = new clinic_app_ms();
-                            doc1.Show();
-                            clinic_app_ms clnlog = new clinic_app_ms();
-                            clnlog.Close();
-                            Visible = false;
-                            MessageBox.Show("นัดหมายเรียบร้อย");
+                                sda.Fill(dt);
+
+                                clinic_app_ms doc1 = new clinic_app_ms();
+                                doc1.Show();
+                                clinic_app_ms clnlog = new clinic_app_ms();
+                                clnlog.Close();
+                                Visible = false;
+                                MessageBox.Show("นัดหมายเรียบร้อย");
+
+
+                            }
+                            else
+                            {
+
+                            MessageBox.Show("ไม่สามารถนัดได้");
+                            }
+                       
                      
                         }
                         else
@@ -230,20 +250,31 @@ namespace Clinic2018
                         if (count_app < 1)
                         {
                             //    MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
+                            if (date_app_day > today_day)
+                            {
+                                query = ("Update appointment SET day = '" + day + "',app_date = '" + dtp1.Text + "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
 
-                            query = ("Update appointment SET day = '" + day + "',app_date = '" + dtp1.Text + "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
+                                sda.Fill(dt);
 
-                            sda.Fill(dt);
+                                clinic_app_ms doc1 = new clinic_app_ms();
+                                doc1.Show();
+                                clinic_app_ms clnlog = new clinic_app_ms();
+                                clnlog.Close();
+                                Visible = false;
+                                MessageBox.Show("นัดหมายเรียบร้อย");
 
-                            clinic_app_ms doc1 = new clinic_app_ms();
-                            doc1.Show();
-                            clinic_app_ms clnlog = new clinic_app_ms();
-                            clnlog.Close();
-                            Visible = false;
-                            MessageBox.Show("นัดหมายเรียบร้อย");
+
+
+                            }
+                            else
+                            {
+
+                                MessageBox.Show("ไม่สามารถนัดได้");
+                            }
+                      
 
                         }
                         else

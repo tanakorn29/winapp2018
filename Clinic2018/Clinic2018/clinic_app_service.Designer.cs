@@ -74,6 +74,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.manuappToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblqueue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -211,9 +213,8 @@
             this.lblidapp.AutoSize = true;
             this.lblidapp.Location = new System.Drawing.Point(157, 31);
             this.lblidapp.Name = "lblidapp";
-            this.lblidapp.Size = new System.Drawing.Size(10, 13);
+            this.lblidapp.Size = new System.Drawing.Size(0, 13);
             this.lblidapp.TabIndex = 20;
-            this.lblidapp.Text = "-";
             // 
             // label13
             // 
@@ -229,9 +230,8 @@
             this.lblname.AutoSize = true;
             this.lblname.Location = new System.Drawing.Point(157, 132);
             this.lblname.Name = "lblname";
-            this.lblname.Size = new System.Drawing.Size(10, 13);
+            this.lblname.Size = new System.Drawing.Size(0, 13);
             this.lblname.TabIndex = 18;
-            this.lblname.Text = "-";
             this.lblname.TextChanged += new System.EventHandler(this.lblname_TextChanged);
             // 
             // label9
@@ -248,18 +248,16 @@
             this.lbltime.AutoSize = true;
             this.lbltime.Location = new System.Drawing.Point(157, 104);
             this.lbltime.Name = "lbltime";
-            this.lbltime.Size = new System.Drawing.Size(10, 13);
+            this.lbltime.Size = new System.Drawing.Size(0, 13);
             this.lbltime.TabIndex = 16;
-            this.lbltime.Text = "-";
             // 
             // lbldate
             // 
             this.lbldate.AutoSize = true;
             this.lbldate.Location = new System.Drawing.Point(157, 80);
             this.lbldate.Name = "lbldate";
-            this.lbldate.Size = new System.Drawing.Size(10, 13);
+            this.lbldate.Size = new System.Drawing.Size(0, 13);
             this.lbldate.TabIndex = 15;
-            this.lbldate.Text = "-";
             // 
             // label3
             // 
@@ -284,9 +282,8 @@
             this.lbldocname.AutoSize = true;
             this.lbldocname.Location = new System.Drawing.Point(157, 55);
             this.lbldocname.Name = "lbldocname";
-            this.lbldocname.Size = new System.Drawing.Size(10, 13);
+            this.lbldocname.Size = new System.Drawing.Size(0, 13);
             this.lbldocname.TabIndex = 13;
-            this.lbldocname.Text = "-";
             this.lbldocname.TextChanged += new System.EventHandler(this.lbldocname_TextChanged);
             // 
             // label6
@@ -303,9 +300,8 @@
             this.lblopdid.AutoSize = true;
             this.lblopdid.Location = new System.Drawing.Point(168, 81);
             this.lblopdid.Name = "lblopdid";
-            this.lblopdid.Size = new System.Drawing.Size(10, 13);
+            this.lblopdid.Size = new System.Drawing.Size(0, 13);
             this.lblopdid.TabIndex = 25;
-            this.lblopdid.Text = "-";
             // 
             // label7
             // 
@@ -321,9 +317,8 @@
             this.lblswdid.AutoSize = true;
             this.lblswdid.Location = new System.Drawing.Point(168, 45);
             this.lblswdid.Name = "lblswdid";
-            this.lblswdid.Size = new System.Drawing.Size(10, 13);
+            this.lblswdid.Size = new System.Drawing.Size(0, 13);
             this.lblswdid.TabIndex = 23;
-            this.lblswdid.Text = "-";
             // 
             // label5
             // 
@@ -478,11 +473,34 @@
             this.manuappToolStripMenuItem.Text = "จัดการข้อมูลการนัดหมายการรักษา";
             this.manuappToolStripMenuItem.Click += new System.EventHandler(this.manuappToolStripMenuItem_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(213, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(140, 25);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "รอคิวการรักษาที่";
+            // 
+            // lblqueue
+            // 
+            this.lblqueue.AutoSize = true;
+            this.lblqueue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblqueue.Location = new System.Drawing.Point(373, 27);
+            this.lblqueue.Name = "lblqueue";
+            this.lblqueue.Size = new System.Drawing.Size(19, 25);
+            this.lblqueue.TabIndex = 29;
+            this.lblqueue.Text = "-";
+            this.lblqueue.TextChanged += new System.EventHandler(this.lblqueue_TextChanged);
+            // 
             // clinic_app_service
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.lblqueue);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -556,5 +574,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem manuappToolStripMenuItem;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblqueue;
     }
 }

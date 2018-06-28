@@ -271,7 +271,7 @@ namespace Clinic2018
             {
                 time += hh;
             }
-            time += ":";
+            time += ".";
 
             if (mm < 10)
             {
@@ -281,7 +281,7 @@ namespace Clinic2018
             {
                 time += mm;
             }
-            time += ":";
+            time += ".";
 
             if (ss < 10)
             {

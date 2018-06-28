@@ -84,9 +84,43 @@ namespace Clinic2018
 
             selectedRow = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[selectedRow];
-            lblidcard.Text = row.Cells[3].Value.ToString();
-            lblsername.Text = row.Cells[2].Value.ToString();
-            lblopd.Text = row.Cells[4].Value.ToString();
+ 
+            /*
+            int queue = Convert.ToInt32(row.Cells[0].Value.ToString());
+
+            conn.Open();
+
+            string query = ("select queue_visit_record.qvr_status from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_record = 1");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+
+                int status = Convert.ToInt32(sdr["qvr_status"].ToString());
+                if(status >= 1 || status != 1)
+                {
+                    lblidcard.Text = row.Cells[3].Value.ToString();
+                    lblsername.Text = row.Cells[2].Value.ToString();
+                    lblopd.Text = row.Cells[4].Value.ToString();
+                    MessageBox.Show("test1");
+                }else
+                {
+                    MessageBox.Show("test2");
+                }
+
+
+            }
+
+
+
+
+                conn.Close();
+            */
+
+
 
         }
 
@@ -124,6 +158,19 @@ namespace Clinic2018
             }
 
             */
+            string query = ("select queue_visit_record.qvr_record from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 1");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                int queue = Convert.ToInt32(sdr["qvr_record"].ToString());
+
+                label12.Text = "" + queue;
+            }
+         
             conn.Close();
 
         }
@@ -152,12 +199,23 @@ namespace Clinic2018
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
-            clinc_nurse_service m4 = new clinc_nurse_service();
-            m4.Show();
-            clinc_nurse_service clnlog = new clinc_nurse_service();
-            clnlog.Close();
-            Visible = false;
-            MessageBox.Show("บันทึกข้อมูลซักประวัติเรียบร้อย");
+
+     
+
+
+
+                clinc_nurse_service m4 = new clinc_nurse_service();
+                m4.Show();
+                clinc_nurse_service clnlog = new clinc_nurse_service();
+                clnlog.Close();
+                Visible = false;
+                MessageBox.Show("บันทึกข้อมูลซักประวัติเรียบร้อย");
+
+
+
+
+            
+  
 
 
 
@@ -437,6 +495,33 @@ namespace Clinic2018
                                    }
                                    
             }
+
+        }
+
+        private void label12_TextChanged(object sender, EventArgs e)
+        {
+            //  lblidcard.Text = "1";
+          
+         
+                string query = ("select opd.opd_idcard,opd.opd_name,opd.opd_id from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 1");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+
+
+                    lblidcard.Text = sdr["opd_idcard"].ToString();
+                    lblsername.Text = sdr["opd_name"].ToString();
+                    lblopd.Text = sdr["opd_id"].ToString();
+
+
+                }
+     //********hgojoihohihnh;oh;lgligkjfjytlhjlkkjk[;lkok***************************************************************************************45454545454545454566566656565545juihuhnfggggggghjrewet
+        
+
 
         }
         /*

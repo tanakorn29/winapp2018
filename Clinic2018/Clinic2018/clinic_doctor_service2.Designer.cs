@@ -111,6 +111,8 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblqueue = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -123,6 +125,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblqueue);
+            this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.lblposition);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.groupBox2);
@@ -142,7 +146,7 @@
             // lblposition
             // 
             this.lblposition.AutoSize = true;
-            this.lblposition.Location = new System.Drawing.Point(543, 18);
+            this.lblposition.Location = new System.Drawing.Point(722, 15);
             this.lblposition.Name = "lblposition";
             this.lblposition.Size = new System.Drawing.Size(10, 13);
             this.lblposition.TabIndex = 9;
@@ -151,7 +155,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(449, 19);
+            this.label15.Location = new System.Drawing.Point(628, 16);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 13);
             this.label15.TabIndex = 8;
@@ -425,7 +429,7 @@
             // lblsername
             // 
             this.lblsername.AutoSize = true;
-            this.lblsername.Location = new System.Drawing.Point(346, 19);
+            this.lblsername.Location = new System.Drawing.Point(525, 16);
             this.lblsername.Name = "lblsername";
             this.lblsername.Size = new System.Drawing.Size(10, 13);
             this.lblsername.TabIndex = 1;
@@ -434,7 +438,7 @@
             // lblopdid
             // 
             this.lblopdid.AutoSize = true;
-            this.lblopdid.Location = new System.Drawing.Point(131, 19);
+            this.lblopdid.Location = new System.Drawing.Point(310, 16);
             this.lblopdid.Name = "lblopdid";
             this.lblopdid.Size = new System.Drawing.Size(10, 13);
             this.lblopdid.TabIndex = 1;
@@ -445,7 +449,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(286, 19);
+            this.label13.Location = new System.Drawing.Point(465, 16);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 13);
             this.label13.TabIndex = 1;
@@ -454,7 +458,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(19, 19);
+            this.label7.Location = new System.Drawing.Point(198, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 1;
@@ -865,6 +869,24 @@
             this.Column19.HeaderText = "ตำแหน่งงาน";
             this.Column19.Name = "Column19";
             // 
+            // lblqueue
+            // 
+            this.lblqueue.AutoSize = true;
+            this.lblqueue.Location = new System.Drawing.Point(72, 15);
+            this.lblqueue.Name = "lblqueue";
+            this.lblqueue.Size = new System.Drawing.Size(10, 13);
+            this.lblqueue.TabIndex = 13;
+            this.lblqueue.Text = "-";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(14, 16);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(45, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "ลำดับคิว";
+            // 
             // clinic_doctor_service2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,6 +896,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "clinic_doctor_service2";
             this.Text = "ข้อมูลการรักษา(แพทย์ห้องตรวจที่ 2) - ระบบบริหารจัดการงานบริการงานแพทย์และอนามัย ";
+            this.Load += new System.EventHandler(this.clinic_doctor_service2_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -975,5 +998,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
+        private System.Windows.Forms.Label lblqueue;
+        private System.Windows.Forms.Label label16;
     }
 }

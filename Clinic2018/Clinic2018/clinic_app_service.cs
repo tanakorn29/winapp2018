@@ -103,6 +103,25 @@ namespace Clinic2018
             t.Interval = 1000;
             t.Tick += new EventHandler(this.timer1_Tick);
             t.Start();
+
+            conn.Open();
+
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                int queue = Convert.ToInt32(sdr["qvr_record"].ToString());
+
+                lblqueue.Text = "" + queue;
+            }
+
+       
+
+            conn.Close();
         }
 
         private void lbltime1_TextChanged(object sender, EventArgs e)
@@ -252,12 +271,15 @@ namespace Clinic2018
         int selectedRow;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             selectedRow = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[selectedRow];
 
-            lblname.Text = row.Cells[2].Value.ToString();
-            lblopdid.Text = row.Cells[4].Value.ToString();
+         //   lblname.Text = row.Cells[2].Value.ToString();
+          //  lblopdid.Text = row.Cells[4].Value.ToString();
+ 
+
+
+            //******************************************************************************
         }
 
         private void lbltimezone_Click(object sender, EventArgs e)
@@ -270,7 +292,7 @@ namespace Clinic2018
        
         try
             {
-                 conn.Open();
+           /*      conn.Open();
                 string query = ("select appointment.app_id,appointment.app_date,appointment.app_time ,opd.opd_name,employee_doctor.emp_doc_name,appointment.day from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id inner join opd on opd.opd_id = appointment.opd_id  where status_approve = 2 AND opd_name LIKE '%" + lblname.Text + "%'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
@@ -291,6 +313,8 @@ namespace Clinic2018
 
 
                conn.Close();
+
+                */
             }
             catch (Exception)
             {
@@ -446,6 +470,52 @@ namespace Clinic2018
         {
             clinic_app_ms cliapp = new clinic_app_ms();
             cliapp.Show();
+        }
+
+        private void lblqueue_TextChanged(object sender, EventArgs e)
+        {
+      
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+
+                string name = sdr["opd_name"].ToString();
+                int opd_id = Convert.ToInt32(sdr["opd_id"].ToString());
+                lblname.Text = name;
+                lblopdid.Text = ""+ opd_id;
+                query = ("select appointment.app_id,appointment.app_date,appointment.app_time ,opd.opd_name,employee_doctor.emp_doc_name,appointment.day from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id inner join opd on opd.opd_id = appointment.opd_id  where status_approve = 2 AND opd_name LIKE '%" + name + "%'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    lblidapp.Text = sdr["app_id"].ToString();
+                    DateTime date_app = Convert.ToDateTime(sdr["app_date"].ToString());
+
+                    lbldate.Text = String.Format("{0:yyyy-MM-dd}", date_app);
+                    lbltime.Text = sdr["app_time"].ToString();
+                    lbldocname.Text = sdr["emp_doc_name"].ToString();
+
+                }
+
+                //      lblname.Text = sdr["opd_name"].ToString();
+                //     lblopdid.Text = sdr["opd_id"].ToString();
+
+                //********************************mjp;onolnb lnklnlm************adadxdcfdvsdcscsyiuohpypuouเด่ำะก้ัะก่ั่ี****
+
+            }
+
+
+            //****************************54
+
         }
     }
 }
