@@ -33,6 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.datadoctorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedoctorshowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -43,8 +44,8 @@
             this.สถานะสิทธิ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Picbox = new System.Windows.Forms.PictureBox();
-            this.txtss = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtooid = new System.Windows.Forms.TextBox();
             this.txtemail = new System.Windows.Forms.TextBox();
@@ -56,7 +57,6 @@
             this.txtname = new System.Windows.Forms.TextBox();
             this.txtaddress = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.t3 = new System.Windows.Forms.Label();
@@ -82,6 +82,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -98,7 +99,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem,
-            this.datadoctorToolStripMenuItem});
+            this.datadoctorToolStripMenuItem,
+            this.namedoctorshowToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1320, 24);
@@ -119,6 +121,13 @@
             this.datadoctorToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
             this.datadoctorToolStripMenuItem.Text = "จัดการข้อมูลการทำงานแทน";
             this.datadoctorToolStripMenuItem.Click += new System.EventHandler(this.docinputToolStripMenuItem_Click);
+            // 
+            // namedoctorshowToolStripMenuItem
+            // 
+            this.namedoctorshowToolStripMenuItem.Name = "namedoctorshowToolStripMenuItem";
+            this.namedoctorshowToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.namedoctorshowToolStripMenuItem.Text = "รายชื่อแพทย์";
+            this.namedoctorshowToolStripMenuItem.Click += new System.EventHandler(this.namedoctorshowToolStripMenuItem_Click);
             // 
             // label3
             // 
@@ -154,6 +163,7 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -204,8 +214,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.Picbox);
-            this.groupBox1.Controls.Add(this.txtss);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtooid);
             this.groupBox1.Controls.Add(this.txtemail);
@@ -217,7 +227,6 @@
             this.groupBox1.Controls.Add(this.txtname);
             this.groupBox1.Controls.Add(this.txtaddress);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.t3);
@@ -230,6 +239,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "เพื่มข้อมูล";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(153, 351);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(168, 24);
+            this.comboBox1.TabIndex = 16;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Picbox
             // 
@@ -239,13 +258,6 @@
             this.Picbox.Size = new System.Drawing.Size(168, 44);
             this.Picbox.TabIndex = 15;
             this.Picbox.TabStop = false;
-            // 
-            // txtss
-            // 
-            this.txtss.Location = new System.Drawing.Point(153, 354);
-            this.txtss.Name = "txtss";
-            this.txtss.Size = new System.Drawing.Size(168, 22);
-            this.txtss.TabIndex = 14;
             // 
             // label7
             // 
@@ -330,22 +342,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(259, 404);
+            this.button2.Location = new System.Drawing.Point(182, 399);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
             this.button2.Text = "บันทึก";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(116, 404);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "ยกเลิก";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -465,7 +468,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -481,7 +483,6 @@
         private System.Windows.Forms.TextBox txttel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtss;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox Picbox;
         private System.Windows.Forms.BindingSource connpatientBindingSource;
@@ -492,5 +493,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem datadoctorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem namedoctorshowToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

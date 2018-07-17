@@ -72,6 +72,12 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lbltimezone1 = new System.Windows.Forms.Label();
+            this.lblstatusapp = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblroom = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.manuappToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label8 = new System.Windows.Forms.Label();
@@ -207,6 +213,7 @@
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ข้อมูลการนัดหมาย";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // lblidapp
             // 
@@ -298,7 +305,7 @@
             // lblopdid
             // 
             this.lblopdid.AutoSize = true;
-            this.lblopdid.Location = new System.Drawing.Point(168, 81);
+            this.lblopdid.Location = new System.Drawing.Point(170, 123);
             this.lblopdid.Name = "lblopdid";
             this.lblopdid.Size = new System.Drawing.Size(0, 13);
             this.lblopdid.TabIndex = 25;
@@ -306,7 +313,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(63, 79);
+            this.label7.Location = new System.Drawing.Point(65, 121);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 13);
             this.label7.TabIndex = 24;
@@ -315,15 +322,16 @@
             // lblswdid
             // 
             this.lblswdid.AutoSize = true;
-            this.lblswdid.Location = new System.Drawing.Point(168, 45);
+            this.lblswdid.Location = new System.Drawing.Point(170, 68);
             this.lblswdid.Name = "lblswdid";
-            this.lblswdid.Size = new System.Drawing.Size(0, 13);
+            this.lblswdid.Size = new System.Drawing.Size(13, 13);
             this.lblswdid.TabIndex = 23;
+            this.lblswdid.Text = "0";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(46, 45);
+            this.label5.Location = new System.Drawing.Point(48, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 13);
             this.label5.TabIndex = 22;
@@ -331,7 +339,7 @@
             // 
             // btnsent
             // 
-            this.btnsent.Location = new System.Drawing.Point(213, 133);
+            this.btnsent.Location = new System.Drawing.Point(213, 184);
             this.btnsent.Name = "btnsent";
             this.btnsent.Size = new System.Drawing.Size(75, 23);
             this.btnsent.TabIndex = 21;
@@ -444,17 +452,77 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lbltimezone1);
+            this.groupBox4.Controls.Add(this.lblstatusapp);
+            this.groupBox4.Controls.Add(this.label12);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.lblroom);
+            this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.btnsent);
             this.groupBox4.Controls.Add(this.lblopdid);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.lblswdid);
-            this.groupBox4.Location = new System.Drawing.Point(837, 513);
+            this.groupBox4.Location = new System.Drawing.Point(837, 481);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(492, 181);
+            this.groupBox4.Size = new System.Drawing.Size(492, 213);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "ส่งเข้าห้องตรวจ";
+            // 
+            // lbltimezone1
+            // 
+            this.lbltimezone1.AutoSize = true;
+            this.lbltimezone1.Location = new System.Drawing.Point(170, 38);
+            this.lbltimezone1.Name = "lbltimezone1";
+            this.lbltimezone1.Size = new System.Drawing.Size(13, 13);
+            this.lbltimezone1.TabIndex = 31;
+            this.lbltimezone1.Text = "0";
+            // 
+            // lblstatusapp
+            // 
+            this.lblstatusapp.AutoSize = true;
+            this.lblstatusapp.Location = new System.Drawing.Point(162, 150);
+            this.lblstatusapp.Name = "lblstatusapp";
+            this.lblstatusapp.Size = new System.Drawing.Size(0, 13);
+            this.lblstatusapp.TabIndex = 30;
+            this.lblstatusapp.Click += new System.EventHandler(this.lblstatusapp_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(77, 150);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 13);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "สถานะการมา :";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(39, 38);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(112, 13);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "ช่วงเวลาการนัดหมาย :";
+            // 
+            // lblroom
+            // 
+            this.lblroom.AutoSize = true;
+            this.lblroom.Location = new System.Drawing.Point(170, 96);
+            this.lblroom.Name = "lblroom";
+            this.lblroom.Size = new System.Drawing.Size(13, 13);
+            this.lblroom.TabIndex = 27;
+            this.lblroom.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(88, 96);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 13);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "ห้องตรวจที่ :";
             // 
             // menuStrip1
             // 
@@ -576,5 +644,11 @@
         private System.Windows.Forms.ToolStripMenuItem manuappToolStripMenuItem;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblqueue;
+        private System.Windows.Forms.Label lblroom;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbltimezone1;
+        private System.Windows.Forms.Label lblstatusapp;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }

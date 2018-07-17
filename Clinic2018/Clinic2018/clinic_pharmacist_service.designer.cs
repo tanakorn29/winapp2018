@@ -58,13 +58,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mspToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -326,7 +327,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dataGridView3);
-            this.groupBox1.Location = new System.Drawing.Point(273, 59);
+            this.groupBox1.Location = new System.Drawing.Point(273, 68);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(472, 142);
             this.groupBox1.TabIndex = 1;
@@ -346,21 +347,6 @@
             this.dataGridView3.TabIndex = 1;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
-            // Column13
-            // 
-            this.Column13.HeaderText = "หมายเลขอ้างอิงการรักษา";
-            this.Column13.Name = "Column13";
-            // 
-            // Column14
-            // 
-            this.Column14.HeaderText = "ชื่อคนไข้";
-            this.Column14.Name = "Column14";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "ลำดับคิวการสั่งยา";
-            this.Column1.Name = "Column1";
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label1);
@@ -376,7 +362,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(8, 24);
+            this.label1.Location = new System.Drawing.Point(12, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 24);
             this.label1.TabIndex = 0;
@@ -386,7 +372,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mspToolStripMenuItem});
+            this.mspToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1022, 24);
@@ -399,6 +386,31 @@
             this.mspToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.mspToolStripMenuItem.Text = "ปรับปรุงข้อมูลยา";
             this.mspToolStripMenuItem.Click += new System.EventHandler(this.mspToolStripMenuItem_Click);
+            // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(169, 20);
+            this.reportToolStripMenuItem.Text = "รายงานยาและเวชภัณฑ์ที่ต้องสั่งซื้อ";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column13.HeaderText = "หมายเลขอ้างอิงการรักษา";
+            this.Column13.Name = "Column13";
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column14.HeaderText = "ชื่อคนไข้";
+            this.Column14.Name = "Column14";
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "ลำดับคิวการสั่งยา";
+            this.Column1.Name = "Column1";
             // 
             // clinic_pharmacist_service
             // 
@@ -465,6 +477,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblunit;
         private System.Windows.Forms.Label lblname;
+        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

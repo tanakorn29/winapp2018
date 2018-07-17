@@ -436,18 +436,35 @@ namespace Clinic2018
                 }
                 else
                 {
-                    string query = ("Update schedule_work_doctor set  swd_start_time = '" + txtstarttime.Text + "' ,swd_end_time = '" + txtendtime.Text + "',swd_note = '" + txtremark.Text + "' ,swd_date_work = '"+ date_th + "' where room_id = '" + txtroom.Text + "' AND swd_timezone = '" + txttimezone.Text + "' AND swd_day_work = '" + day + "' AND swd_num_week = '"+txtweek.Text+"'");
+                    conn.Open();
+                    string query = ("select count(*) from schedule_work_doctor where swd_date_work = '" + date_th + "' AND room_id = '" + txtroom.Text + "'");
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
-
                     sda.Fill(dt);
-                    clinic_timeswd_ms doc1 = new clinic_timeswd_ms();
-                    doc1.Show();
-                    clinic_timeswd_ms clnlog = new clinic_timeswd_ms();
-                    clnlog.Close();
-                    Visible = false;
-                    MessageBox.Show("เปลี่ยนแปลงตารางเรียบร้อย");
+
+                    int swd_count = (int)cmd.ExecuteScalar();
+                    if(swd_count < 1)
+                    {
+                        query = ("Update schedule_work_doctor set  swd_note = '" + txtremark.Text + "' ,swd_date_work = '" + date_th + "' where room_id = '" + txtroom.Text + "'  AND swd_day_work = '" + day + "' AND swd_num_week = '" + txtweek.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+
+                        sda.Fill(dt);
+                        clinic_timeswd_ms doc1 = new clinic_timeswd_ms();
+                        doc1.Show();
+                        clinic_timeswd_ms clnlog = new clinic_timeswd_ms();
+                        clnlog.Close();
+                        Visible = false;
+                        MessageBox.Show("เปลี่ยนแปลงตารางเรียบร้อย");
+                    }
+                    else
+                    {
+                        MessageBox.Show("วันที่ซ้ำ");
+                    }
+                    conn.Close();
+
 
                 }
 
@@ -455,16 +472,6 @@ namespace Clinic2018
         
 
 
-        }
-
-        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
-        {
-            /* CultureInfo ThaiCulture = new CultureInfo("th-TH");
-             DateTime date = Convert.ToDateTime(dateTimePicker3.Text);
-             string date_th = date.ToString("yyyy-MMMM-dd-dddd", ThaiCulture);
-             int month_select = date.Month;
-             MessageBox.Show("" + date_th);*/
-    
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -488,7 +495,7 @@ namespace Clinic2018
 
 
 
-/*
+
             clinic_timeswd_ms doc1 = new clinic_timeswd_ms();
             doc1.Show();
 
@@ -498,8 +505,8 @@ namespace Clinic2018
  
 
             MessageBox.Show("จัดตารางปฏิบัติงานแพทย์ประจำเดือน  " + comboBox1.SelectedItem.ToString());
-
             */
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -572,11 +579,6 @@ namespace Clinic2018
           //  MessageBox.Show(""+end_date);
         }
 
-        private void lbldate_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label10_TextChanged(object sender, EventArgs e)
         {
             conn.Open();
@@ -636,11 +638,6 @@ namespace Clinic2018
             }
 
             conn.Close();
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -714,6 +711,11 @@ namespace Clinic2018
                     clnlog.Close();
                     Visible = false;
                     MessageBox.Show("เปลี่ยนแปลงตารางเรียบร้อย");
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
 
         }
     }

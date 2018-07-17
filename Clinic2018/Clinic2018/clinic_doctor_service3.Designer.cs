@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblqueue = new System.Windows.Forms.Label();
             this.lblposition = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtdocid = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtiddis = new System.Windows.Forms.TextBox();
@@ -40,7 +43,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtsystoms = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -111,8 +113,6 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblqueue = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -143,6 +143,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ข้อมูลคนไข้";
             // 
+            // lblqueue
+            // 
+            this.lblqueue.AutoSize = true;
+            this.lblqueue.Location = new System.Drawing.Point(81, 23);
+            this.lblqueue.Name = "lblqueue";
+            this.lblqueue.Size = new System.Drawing.Size(10, 13);
+            this.lblqueue.TabIndex = 15;
+            this.lblqueue.Text = "-";
+            // 
             // lblposition
             // 
             this.lblposition.AutoSize = true;
@@ -161,8 +170,18 @@
             this.label15.TabIndex = 8;
             this.label15.Text = "ตำแหน่งงาน :";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 24);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(45, 13);
+            this.label16.TabIndex = 14;
+            this.label16.Text = "ลำดับคิว";
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.txtdocid);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtiddis);
@@ -171,16 +190,25 @@
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.txtsystoms);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(6, 253);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(440, 354);
+            this.groupBox2.Size = new System.Drawing.Size(440, 307);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ข้อมูลการรักษาแพทย์";
+            // 
+            // textBox1
+            // 
+            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBox1.Location = new System.Drawing.Point(136, 85);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(198, 20);
+            this.textBox1.TabIndex = 32;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // txtdocid
             // 
@@ -202,7 +230,7 @@
             // txtiddis
             // 
             this.txtiddis.Enabled = false;
-            this.txtiddis.Location = new System.Drawing.Point(136, 201);
+            this.txtiddis.Location = new System.Drawing.Point(136, 156);
             this.txtiddis.Name = "txtiddis";
             this.txtiddis.Size = new System.Drawing.Size(198, 20);
             this.txtiddis.TabIndex = 25;
@@ -210,7 +238,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(80, 201);
+            this.label5.Location = new System.Drawing.Point(75, 159);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 24;
@@ -219,14 +247,14 @@
             // txtdis
             // 
             this.txtdis.Enabled = false;
-            this.txtdis.Location = new System.Drawing.Point(136, 244);
+            this.txtdis.Location = new System.Drawing.Point(136, 198);
             this.txtdis.Name = "txtdis";
             this.txtdis.Size = new System.Drawing.Size(198, 20);
             this.txtdis.TabIndex = 23;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(65, 291);
+            this.button3.Location = new System.Drawing.Point(65, 239);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(107, 36);
             this.button3.TabIndex = 22;
@@ -237,7 +265,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(136, 157);
+            this.comboBox1.Location = new System.Drawing.Point(136, 124);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(198, 21);
             this.comboBox1.TabIndex = 21;
@@ -246,26 +274,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(96, 160);
+            this.label4.Location = new System.Drawing.Point(91, 127);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 20;
             this.label4.Text = "โรค :";
             // 
-            // txtsystoms
-            // 
-            this.txtsystoms.Location = new System.Drawing.Point(136, 88);
-            this.txtsystoms.Multiline = true;
-            this.txtsystoms.Name = "txtsystoms";
-            this.txtsystoms.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtsystoms.Size = new System.Drawing.Size(198, 53);
-            this.txtsystoms.TabIndex = 19;
-            // 
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button1.Location = new System.Drawing.Point(233, 290);
+            this.button1.Location = new System.Drawing.Point(233, 239);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 36);
             this.button1.TabIndex = 17;
@@ -276,7 +295,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 247);
+            this.label2.Location = new System.Drawing.Point(30, 201);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 18;
@@ -326,10 +345,9 @@
             // 
             this.txtremark.Enabled = false;
             this.txtremark.Location = new System.Drawing.Point(242, 36);
-            this.txtremark.Multiline = true;
             this.txtremark.Name = "txtremark";
             this.txtremark.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtremark.Size = new System.Drawing.Size(198, 130);
+            this.txtremark.Size = new System.Drawing.Size(198, 20);
             this.txtremark.TabIndex = 2;
             // 
             // txthert
@@ -868,24 +886,6 @@
             this.Column19.HeaderText = "ตำแหน่งงาน";
             this.Column19.Name = "Column19";
             // 
-            // lblqueue
-            // 
-            this.lblqueue.AutoSize = true;
-            this.lblqueue.Location = new System.Drawing.Point(81, 23);
-            this.lblqueue.Name = "lblqueue";
-            this.lblqueue.Size = new System.Drawing.Size(10, 13);
-            this.lblqueue.TabIndex = 15;
-            this.lblqueue.Text = "-";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 24);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(45, 13);
-            this.label16.TabIndex = 14;
-            this.label16.Text = "ลำดับคิว";
-            // 
             // clinic_doctor_service3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -926,7 +926,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtsystoms;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -999,5 +998,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
         private System.Windows.Forms.Label lblqueue;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

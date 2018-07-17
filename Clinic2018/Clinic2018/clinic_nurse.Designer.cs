@@ -156,7 +156,7 @@
             this.Controls.Add(this.statusStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.Name = "clinic_nurse";
-            this.Text = "clinic_nurse";
+            this.Text = "ระบบการจัดการข้อมูลการตรวจรักษา";
             this.Load += new System.EventHandler(this.clinic_nurse_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

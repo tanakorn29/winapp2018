@@ -137,7 +137,7 @@
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Name = "Clinic_boss";
-            this.Text = "Clinic_boss";
+            this.Text = "ระบบการจัดการข้อมูลภายในหน่วยงาน";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

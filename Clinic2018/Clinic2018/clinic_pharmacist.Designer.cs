@@ -129,7 +129,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "clinic_pharmacist";
-            this.Text = "clinic_pharmacist";
+            this.Text = "ระบบบริหารจัดการคลังยา";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

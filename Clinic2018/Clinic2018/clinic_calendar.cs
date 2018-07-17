@@ -51,10 +51,23 @@ namespace Clinic2018
 
 
             }
+/*
+            query = ("select emp_doc_specialistid,emp_doc_specialist from specialist");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
 
+            foreach (DataRow item in dt.Rows)
+            {
+                // int n = dataGridView1.Rows.Add();
 
+            //    comboBox1.Items.Add(item["emp_doc_specialistid"].ToString());
+                comboBox1.Items.Add(item["emp_doc_specialist"].ToString());
 
+            }
 
+            */
 
 
 
@@ -68,6 +81,34 @@ namespace Clinic2018
          //   this.districtsTableAdapter.Fill(this.dataSet1.districts);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "yyyy-MM-dd";
+            conn.Open();
+
+            string query = ("select emp_doc_specialistid,emp_doc_specialist from specialist");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+
+            foreach (DataRow item in dt.Rows)
+            {
+                // int n = dataGridView1.Rows.Add();
+
+                int id = Convert.ToInt32(item["emp_doc_specialistid"].ToString());
+                string specialist = item["emp_doc_specialist"].ToString();
+
+      
+           
+          
+                comboBox1.Items.Add(specialist);
+     
+                
+          
+
+            }
+
+
+
+            conn.Close();
         }
 
 
@@ -78,26 +119,48 @@ namespace Clinic2018
             try
             {
                 conn.Open();
-                string query = ("insert into employee_doctor(emp_doc_name, emp_doc_idcard, emp_doc_birth, emp_doc_address, emp_doc_tel, emp_doc_email, emp_doc_occupation_id, emp_doc_specialist)values('" + txtname.Text + "', '" + txtidcard.Text + "', '" + dateTimePicker1.Text + "', '" + txtaddress.Text + "', '" + txttel.Text + "', '" + txtemail.Text + "', '" + txtooid.Text + "', '" + txtss.Text + "'); ");
+                string query = ("select emp_doc_specialistid from specialist where emp_doc_specialist = '" + comboBox1.SelectedItem.ToString() + "'");
                 cmd = new SqlCommand(query, conn);
-                sda = new SqlDataAdapter(cmd);
-                dt = new DataTable();
-                sda.Fill(dt);
 
-                query = ("select emp_doc_id from employee_doctor where emp_doc_idcard = '" + txtidcard.Text + "'");
-                cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
                 sdr = cmd.ExecuteReader();
+
                 if (sdr.Read())
                 {
-                    int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
-                    query = ("Insert into user_control(uct_user, uct_password, emp_doc_id) values('" + txtidcard.Text + "', '" + dateTimePicker1.Text + "', '" + doc_id + "');  ");
+
+                  int id = Convert.ToInt32(sdr["emp_doc_specialistid"].ToString());
+
+                    query = ("insert into employee_doctor(emp_doc_name, emp_doc_idcard, emp_doc_birth, emp_doc_address, emp_doc_tel, emp_doc_email, emp_doc_occupation_id,emp_doc_specialistid)values('" + txtname.Text + "', '" + txtidcard.Text + "', '" + dateTimePicker1.Text + "', '" + txtaddress.Text + "', '" + txttel.Text + "', '" + txtemail.Text + "', '" + txtooid.Text + "','"+id+"'); ");
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
                     sda.Fill(dt);
+
+                    query = ("select emp_doc_id from employee_doctor where emp_doc_idcard = '" + txtidcard.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
+                    {
+                        int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
+                        query = ("Insert into user_control(uct_user, uct_password, emp_doc_id) values('" + txtidcard.Text + "', '" + dateTimePicker1.Text + "', '" + doc_id + "');  ");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                    }
+
+
+
+
+
+
+
 
                 }
 
@@ -203,7 +266,7 @@ namespace Clinic2018
 
         private void timeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            clinic_timeswd_ms sc = new clinic_timeswd_ms();
+            clinic_time_schms sc = new clinic_time_schms();
             sc.Show();
         }
 
@@ -220,6 +283,27 @@ namespace Clinic2018
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void namedoctorshowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clinic_doctor_show sc = new clinic_doctor_show();
+            sc.Show();
         }
     }
 }

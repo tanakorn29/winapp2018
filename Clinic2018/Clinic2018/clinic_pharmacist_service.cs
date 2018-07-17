@@ -475,20 +475,143 @@ namespace Clinic2018
         private void lblnum_TextChanged(object sender, EventArgs e)
         {
             int num = Convert.ToInt32(lblnum.Text);
-            if (num < 5)
+            string unit_medi = lblunit.Text;
+            if(unit_medi == "เม็ด")
             {
-                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                if (num < 5)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 5)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
 
 
             }
-            else if (num < 0)
+            else if (unit_medi == "ขวด")
             {
-                MessageBox.Show("ยาหมดคลังแล้ว");
+
+                if (num < 2)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 2)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
+
             }
-            else if (num > 5)
+            else if(unit_medi == "ถุงเล็ก")
             {
-                MessageBox.Show("จ่ายยาได้ตามปกติ");
+                if (num < 2)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 2)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
             }
+            else if (unit_medi == "ชิ้น")
+            {
+                if (num < 2)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 2)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
+            }
+            else if (unit_medi == "กล่อง")
+            {
+                if (num < 5)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 5)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
+            }
+            else if (unit_medi == "ซอง")
+            {
+                if (num < 4)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 4)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
+            }
+            else if (unit_medi == "แผง")
+            {
+                if (num < 2)
+                {
+                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+
+
+                }
+                else if (num < 0)
+                {
+                    MessageBox.Show("ยาหมดคลังแล้ว");
+                }
+                else if (num > 2)
+                {
+                    MessageBox.Show("จ่ายยาได้ตามปกติ");
+                }
+
+            }
+       
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clinic_pharmacist_report cliapp = new clinic_pharmacist_report();
+            cliapp.Show();
         }
     }
 }

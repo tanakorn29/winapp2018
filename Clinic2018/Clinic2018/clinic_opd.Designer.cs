@@ -181,6 +181,7 @@
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "2.รายงานจำนวนผู้ใช้บริการ";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // ll1
             // 
@@ -214,7 +215,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "clinic_main_v2";
-            this.Text = "Medical and Health Care Management System";
+            this.Text = "ระบบงานเวชระเบียน";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.clinic_main_v2_Load);
             this.menuStrip1.ResumeLayout(false);

@@ -124,7 +124,6 @@
             this.label10.TabIndex = 5;
             this.label10.Text = "dd/MM/yyyy";
             this.label10.TextChanged += new System.EventHandler(this.label10_TextChanged);
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
@@ -379,7 +378,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox2.Location = new System.Drawing.Point(494, 100);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(736, 603);
+            this.groupBox2.Size = new System.Drawing.Size(736, 586);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ตารางงาน";
@@ -393,6 +392,7 @@
             this.label13.Size = new System.Drawing.Size(53, 16);
             this.label13.TabIndex = 32;
             this.label13.Text = "ช่วงเวลา :";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // comboBox3
             // 
@@ -431,9 +431,9 @@
             this.Column7,
             this.Column8,
             this.Column9});
-            this.dataGridView1.Location = new System.Drawing.Point(25, 104);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 80);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(688, 482);
+            this.dataGridView1.Size = new System.Drawing.Size(688, 486);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -511,7 +511,6 @@
             this.lbldate.Size = new System.Drawing.Size(14, 20);
             this.lbldate.TabIndex = 1;
             this.lbldate.Text = "-";
-            this.lbldate.Click += new System.EventHandler(this.lbldate_Click);
             // 
             // dateTimePicker2
             // 

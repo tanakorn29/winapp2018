@@ -203,6 +203,18 @@
     <Compile Include="clinic_doctor_service3.Designer.cs">
       <DependentUpon>clinic_doctor_service3.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_doctor_show.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_doctor_show.designer.cs">
+      <DependentUpon>clinic_doctor_show.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_hollyday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_hollyday.designer.cs">
+      <DependentUpon>clinic_hollyday.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_identity_card.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,11 +293,41 @@
     <Compile Include="clinic_pharmacist_ms.Designer.cs">
       <DependentUpon>clinic_pharmacist_ms.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_pharmacist_report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_pharmacist_report.designer.cs">
+      <DependentUpon>clinic_pharmacist_report.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_pharmacist_service.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="clinic_pharmacist_service.designer.cs">
       <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_report_opd1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_report_opd1.designer.cs">
+      <DependentUpon>clinic_report_opd1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_room1_swd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room1_swd.designer.cs">
+      <DependentUpon>clinic_room1_swd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_room2_swd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room2_swd.designer.cs">
+      <DependentUpon>clinic_room2_swd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_room3_swd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room3_swd.designer.cs">
+      <DependentUpon>clinic_room3_swd.cs</DependentUpon>
     </Compile>
     <Compile Include="clinic_schedule.cs">
       <SubType>Form</SubType>
@@ -334,6 +376,12 @@
     </Compile>
     <Compile Include="clinic_time_attendance_welcome.Designer.cs">
       <DependentUpon>clinic_time_attendance_welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_time_schms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_time_schms.designer.cs">
+      <DependentUpon>clinic_time_schms.cs</DependentUpon>
     </Compile>
     <Compile Include="clinic_user_control.cs">
       <SubType>Form</SubType>
@@ -497,6 +545,12 @@
     <EmbeddedResource Include="clinic_doctor_service3.resx">
       <DependentUpon>clinic_doctor_service3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_doctor_show.resx">
+      <DependentUpon>clinic_doctor_show.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_hollyday.resx">
+      <DependentUpon>clinic_hollyday.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_identity_card.resx">
       <DependentUpon>clinic_identity_card.cs</DependentUpon>
     </EmbeddedResource>
@@ -536,8 +590,23 @@
     <EmbeddedResource Include="clinic_pharmacist_ms.resx">
       <DependentUpon>clinic_pharmacist_ms.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_pharmacist_report.resx">
+      <DependentUpon>clinic_pharmacist_report.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_pharmacist_service.resx">
       <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_report_opd1.resx">
+      <DependentUpon>clinic_report_opd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room1_swd.resx">
+      <DependentUpon>clinic_room1_swd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room2_swd.resx">
+      <DependentUpon>clinic_room2_swd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room3_swd.resx">
+      <DependentUpon>clinic_room3_swd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_schedule.resx">
       <DependentUpon>clinic_schedule.cs</DependentUpon>
@@ -562,6 +631,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_time_attendance_welcome.resx">
       <DependentUpon>clinic_time_attendance_welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_time_schms.resx">
+      <DependentUpon>clinic_time_schms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_user_control.resx">
       <DependentUpon>clinic_user_control.cs</DependentUpon>
