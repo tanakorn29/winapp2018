@@ -148,7 +148,7 @@ namespace Clinic2018
         private void lblopdid_TextChanged(object sender, EventArgs e)
         {
      
-            string query = ("select visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id from visit_record where opd_id = '" + lblopdid.Text + "'");
+            string query = ("select visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id from visit_record where opd_id = '" + lblopdid.Text + "' ORDER BY vr_id DESC");
             cmd = new SqlCommand(query, conn);
 
             sda = new SqlDataAdapter(cmd);
@@ -178,7 +178,13 @@ namespace Clinic2018
 
         private void button3_Click(object sender, EventArgs e)
         {
-            conn.Open();
+            try
+            {
+
+
+
+         
+          //  conn.Open();
             string query = ("select count(disease_id)  from symtoms where symtoms_dis = '" + txtremark.Text + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
@@ -234,18 +240,65 @@ namespace Clinic2018
             else
             {
 
-                query = ("insert into treatment_record (treatr_symptom,treatr_diagnose,treatr_status,disease_id,emp_doc_id,opd_id) values ('" + textBox1.Text + "','" + txtdis.Text + "',1,'" + txtiddis.Text + "','" + txtdocid.Text + "','" + lblopdid.Text + "')");
-                cmd = new SqlCommand(query, conn);
-                sda = new SqlDataAdapter(cmd);
-                dt = new DataTable();
-                sda.Fill(dt);
-                query = ("Update queue_diag_room SET status_queue = 0 where opd_id = '" + lblopdid.Text + "'");
+                query = ("select count(*)  from symtoms where symtoms_dis = '" + textBox1.Text + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
 
+                int s_count1 = (int)cmd.ExecuteScalar();
+                if (s_count1 < 1)
+                {
+                    query = ("insert into treatment_record (treatr_symptom,treatr_diagnose,treatr_status,disease_id,emp_doc_id,opd_id) values ('" + textBox1.Text + "','" + txtdis.Text + "',1,'" + txtiddis.Text + "','" + txtdocid.Text + "','" + lblopdid.Text + "')");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    query = ("Update queue_diag_room SET status_queue = 0 where opd_id = '" + lblopdid.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    query = ("select employee_doctor.emp_doc_specialistid from employee_doctor where employee_doctor.emp_doc_id = '" + txtdocid.Text + "'");
+                    //  
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    sdr = cmd.ExecuteReader();
 
+                    if (sdr.Read())
+                    {
+                        int id = Convert.ToInt32(sdr["emp_doc_specialistid"].ToString());
+                        query = ("insert into symtoms(symtoms_dis,emp_doc_specialistid,disease_id) values ('" + textBox1.Text + "','" + id + "','" + txtiddis.Text + "');");
+                        //  
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                    }
+
+
+                }
+                else
+                {
+                    query = ("insert into treatment_record (treatr_symptom,treatr_diagnose,treatr_status,disease_id,emp_doc_id,opd_id) values ('" + textBox1.Text + "','" + txtdis.Text + "',1,'" + txtiddis.Text + "','" + txtdocid.Text + "','" + lblopdid.Text + "')");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    query = ("Update queue_diag_room SET status_queue = 0 where opd_id = '" + lblopdid.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+
+
+
+
+
+                }
 
 
 
@@ -264,7 +317,13 @@ namespace Clinic2018
             MessageBox.Show("บันทึกการรักษาเรียบร้อย");
 
 
-            conn.Close();
+          //  conn.Close();
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void textBox20_TextChanged(object sender, EventArgs e)
@@ -1261,24 +1320,34 @@ namespace Clinic2018
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            conn.Open();
-            string query = ("select symtoms_dis,disease.disease,disease.disease_id  from symtoms  inner join disease on disease.disease_id = symtoms.disease_id where symtoms_dis = '" + textBox1.Text + "'");
-            cmd = new SqlCommand(query, conn);
-            sda = new SqlDataAdapter(cmd);
-            dt = new DataTable();
-            sda.Fill(dt);
-            sdr = cmd.ExecuteReader();
-            if (sdr.Read())
+            try
             {
 
+                conn.Open();
+                string query = ("select symtoms_dis,disease.disease,disease.disease_id  from symtoms  inner join disease on disease.disease_id = symtoms.disease_id where symtoms_dis = '" + textBox1.Text + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
 
-                txtdis.Text = sdr["disease"].ToString();
-                txtiddis.Text = sdr["disease_id"].ToString();
 
+                    txtdis.Text = sdr["disease"].ToString();
+                    txtiddis.Text = sdr["disease_id"].ToString();
+
+
+                }
+                conn.Close();
 
             }
+            catch (Exception)
+            {
 
-            conn.Close();
+            }
+         
+
         }
 
      

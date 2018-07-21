@@ -305,6 +305,12 @@
     <Compile Include="clinic_pharmacist_service.designer.cs">
       <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_report_dis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_report_dis.designer.cs">
+      <DependentUpon>clinic_report_dis.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_report_opd1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -595,6 +601,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_pharmacist_service.resx">
       <DependentUpon>clinic_pharmacist_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_report_dis.resx">
+      <DependentUpon>clinic_report_dis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_report_opd1.resx">
       <DependentUpon>clinic_report_opd1.cs</DependentUpon>

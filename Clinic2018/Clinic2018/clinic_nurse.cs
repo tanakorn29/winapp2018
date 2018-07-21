@@ -42,5 +42,11 @@ namespace Clinic2018
             clinic_app_service ser = new clinic_app_service();
             ser.Show();
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            clinic_report_dis ser = new clinic_report_dis();
+            ser.Show();
+        }
     }
 }
