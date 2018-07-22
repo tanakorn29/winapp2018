@@ -14,7 +14,7 @@ namespace Clinic2018
 {
     public partial class clinic_time_attendance : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -59,7 +59,7 @@ namespace Clinic2018
             t.Start();
 
 
-            label2.Text = DateTime.Now.ToString("dddd d MMMM yyyy", new CultureInfo("th-TH"));
+            label2.Text = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
 
        
             
@@ -154,7 +154,7 @@ namespace Clinic2018
                         if (status_work < 1)
                         {
 
-                            query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values(SYSDATETIME(),'',SYSDATETIME(),'เข้างาน','" + emp_id + "','')");
+                            query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values(SYSDATETIME(),'','" + label2.Text + "','เข้างาน','" + emp_id + "','')");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
                             dt = new DataTable();

@@ -341,6 +341,12 @@
     <Compile Include="clinic_schedule.Designer.cs">
       <DependentUpon>clinic_schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_show_data_att.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_show_data_att.designer.cs">
+      <DependentUpon>clinic_show_data_att.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_test_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -619,6 +625,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_schedule.resx">
       <DependentUpon>clinic_schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_show_data_att.resx">
+      <DependentUpon>clinic_show_data_att.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_test_1.resx">
       <DependentUpon>clinic_test_1.cs</DependentUpon>

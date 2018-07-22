@@ -15,7 +15,7 @@ namespace Clinic2018
 
     public partial class clinc_nurse_service : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;

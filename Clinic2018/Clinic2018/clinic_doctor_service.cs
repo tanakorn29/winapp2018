@@ -14,7 +14,7 @@ namespace Clinic2018
     public partial class clinic_doctor_service : Form
     {
 
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -148,7 +148,7 @@ namespace Clinic2018
         {
           
             string position = lblposition.Text;
-            conn.Open();
+         //   conn.Open();
             if (position == "เจ้าหน้าที่")
             {
                 DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
@@ -256,7 +256,7 @@ namespace Clinic2018
             }
             else
             {
-                conn.Close();
+             //   conn.Close();
         //        button1.Visible = false;
             }
             /*
@@ -322,7 +322,7 @@ namespace Clinic2018
         {
             try
             {
-              //  conn.Open();
+        conn.Open();
 
 
                 string query = ("select count(disease_id)  from symtoms where symtoms_dis = '" + txtremark.Text + "'");
@@ -456,13 +456,13 @@ namespace Clinic2018
 
                 MessageBox.Show("บันทึกการรักษาเรียบร้อย");
 
-          //      conn.Close();
+           conn.Close();
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OKCancel);
             }
    
 
@@ -486,7 +486,7 @@ namespace Clinic2018
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            conn.Open();
+       conn.Open();
             string query = ("select * from disease where disease = '"+comboBox1.SelectedItem.ToString()+"'");
             cmd = new SqlCommand(query, conn);
 
@@ -508,7 +508,7 @@ namespace Clinic2018
 
 
             }
-            conn.Close();
+         conn.Close();
 
         }
 

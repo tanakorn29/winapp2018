@@ -15,7 +15,7 @@ namespace Clinic2018
     public partial class clinic_time_schms : Form
     {
         Timer t = new Timer();
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-J5O17QF\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -37,7 +37,7 @@ namespace Clinic2018
             DateTime today = DateTime.Today;
             string etoday = today.ToString("yyyy-MM-dd", ThaiCulture);
             label10.Text = "" + etoday;
-    
+
             Dictionary<int, string> comboSource = new Dictionary<int, string>();
             comboSource.Add(1, "มกราคม");
             comboSource.Add(2, "กุมพาพันธ์");

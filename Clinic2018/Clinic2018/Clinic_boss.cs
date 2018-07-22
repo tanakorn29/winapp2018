@@ -40,7 +40,8 @@ namespace Clinic2018
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            clinic_show_data_att user = new clinic_show_data_att();
+            user.Show();
         }
     }
 }
