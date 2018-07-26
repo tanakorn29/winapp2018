@@ -50,12 +50,37 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r1|AnyCPU'">
+    <OutputPath>bin\r1\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r1|x64'">
+    <OutputPath>bin\x64\r1\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r1|x86'">
+    <OutputPath>bin\x86\r1\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
-      <HintPath>..\..\..\..\..\download\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>
+      <HintPath>C:\Users\somklin\Desktop\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\..\..\download\itextsharp-all-5.5.10\itextsharp.dll</HintPath>
+      <HintPath>C:\Users\somklin\Desktop\itextsharp-all-5.5.10\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -84,19 +109,19 @@
       <HintPath>..\..\..\..\..\..\Downloads\Webcam Capture\C#\WebCamCapture\bin\Debug\WebCamCapture.dll</HintPath>
     </Reference>
     <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729.1\lib\Zen.Barcode.Core.dll</HintPath>
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729\lib\Zen.Barcode.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Zen.Barcode.Design, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Design.dll</HintPath>
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729\lib\Zen.Barcode.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Zen.Barcode.Web, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Web.dll</HintPath>
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729\lib\Zen.Barcode.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Zen.Barcode.Web.Mvc, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.Web.3.1.10729.1\lib\Zen.Barcode.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729\lib\Zen.Barcode.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -347,6 +372,12 @@
     <Compile Include="clinic_show_data_att.designer.cs">
       <DependentUpon>clinic_show_data_att.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_show_data_medi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_show_data_medi.Designer.cs">
+      <DependentUpon>clinic_show_data_medi.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_test_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -464,6 +495,12 @@
     </Compile>
     <Compile Include="Form8.Designer.cs">
       <DependentUpon>Form8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form9.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form9.Designer.cs">
+      <DependentUpon>Form9.cs</DependentUpon>
     </Compile>
     <Compile Include="MyTabPage.cs">
       <SubType>Component</SubType>
@@ -629,6 +666,9 @@
     <EmbeddedResource Include="clinic_show_data_att.resx">
       <DependentUpon>clinic_show_data_att.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_show_data_medi.resx">
+      <DependentUpon>clinic_show_data_medi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_test_1.resx">
       <DependentUpon>clinic_test_1.cs</DependentUpon>
     </EmbeddedResource>
@@ -679,6 +719,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form8.resx">
       <DependentUpon>Form8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form9.resx">
+      <DependentUpon>Form9.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

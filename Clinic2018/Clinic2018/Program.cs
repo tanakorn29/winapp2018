@@ -21,19 +21,19 @@ namespace Clinic2018
             //     Application.Run(new clinic_login());
             //      Application.Run(new clinc_nurse_service());
             //  Application.Run(new clinic_search());
-            //Application.Run(new clinic_calendar());
+      //  Application.Run(new clinic_time_attendance());
             //Application.Run(new clinic_test_1()); 
-  Application.Run(new clinic_time_attendance());
-            Application.Run(new clinic_login());
-            //  Application.Run(new clinic_doctor3());
-            //  Application.Run(new clinic_schedule());
+           //Application.Run(new clinc_nurse_service());
+   Application.Run(new clinic_time_attendance());
+         //  Application.Run(new clinic_search());
+        // Application.Run(new clinic_login());
 
             //    Application.Run(new clinic_barcode());
   //  Application.Run(new clinic_time_attendance()); //run
             //    Application.Run(new clinic_user_control());
       //    Application.Run(new clinic_app_service());
        // Application.Run(new clinic_login()); //run
-        //    Application.Run(new clinic_pharmacist_service()); //run
+      //  Application.Run(new clinic_pharmacist_service()); //run
                                                           //   Application.Run(new Form8());
                                                           //      Application.Run(new clinic_login());
 

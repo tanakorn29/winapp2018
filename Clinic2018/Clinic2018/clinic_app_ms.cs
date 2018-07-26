@@ -15,7 +15,7 @@ namespace Clinic2018
     public partial class clinic_app_ms : Form
     {
         //xxxxxxx55555555555555555555555555555555555555655656569565541559959พำะ5445656นรนรน
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -79,8 +79,8 @@ namespace Clinic2018
 
 
             }
-   
-            query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1");
+
+            query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND schedule_work_doctor.swd_status_checkwork = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -108,7 +108,7 @@ namespace Clinic2018
 
 
             }
-         
+        
             conn.Close();
         }
   
@@ -447,7 +447,7 @@ namespace Clinic2018
             conn.Open();
             dataGridView3.Rows.Clear();
             dataGridView3.Refresh();
-            string query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND employee_doctor.emp_doc_name = '" + lbldoc.Text+"'");
+            string query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND employee_doctor.emp_doc_name = '" + lbldoc.Text+ "' AND schedule_work_doctor.swd_status_checkwork = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -524,6 +524,25 @@ namespace Clinic2018
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void lbltime1_TextChanged(object sender, EventArgs e)
+        {
+            conn.Open();
+            double time = Convert.ToDouble(lbltime1.Text);
+            if(time >= 15.30)
+            {
+              string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+                string query = ("Update appointment SET status_approve = 0,status_app = 0 where app_date = '"+ today + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+          
+            }
+           
+
+            conn.Close();
         }
     }
 }

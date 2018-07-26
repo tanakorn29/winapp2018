@@ -15,7 +15,7 @@ namespace Clinic2018
     public partial class clinic_time_schms : Form
     {
         Timer t = new Timer();
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -342,14 +342,14 @@ namespace Clinic2018
                                              */
 
 
-                                    query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '08.30', '11.30', 'เช้า', '" + value + "', 'เปิด','0')");
+                                    query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '08.30', '11.30', 'เช้า', '" + value + "', 'เปิด','0',0)");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
 
                                     sda.Fill(dt);
 
-                                    query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '13.00', '15.30', 'บ่าย', '" + value + "', 'เปิด','0')");
+                                    query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '13.00', '15.30', 'บ่าย', '" + value + "', 'เปิด','0',0)");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();

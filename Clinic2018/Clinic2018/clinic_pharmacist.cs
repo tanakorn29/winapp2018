@@ -31,5 +31,13 @@ namespace Clinic2018
            clinic_pharmacist_service log = new clinic_pharmacist_service();
             log.Show();
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            clinic_show_data_medi log = new clinic_show_data_medi();
+            log.Show();
+        }
+
+
     }
 }

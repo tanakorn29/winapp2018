@@ -14,7 +14,7 @@ namespace Clinic2018
 {
     public partial class clinic_schedule : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -22,7 +22,7 @@ namespace Clinic2018
         public clinic_schedule()
         {
             InitializeComponent();
-            string query = ("select schedule_work_doctor.swd_id,employee_doctor.emp_doc_id,employee_doctor.emp_doc_name,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 2");
+            string query = ("select schedule_work_doctor.swd_id,employee_doctor.emp_doc_id,employee_doctor.emp_doc_name,specialist.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where schedule_work_doctor.swd_status_room = 2");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -35,15 +35,16 @@ namespace Clinic2018
                 dataGridView1.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                 dataGridView1.Rows[n].Cells[1].Value = item["emp_doc_id"].ToString();
                 dataGridView1.Rows[n].Cells[2].Value = item["emp_doc_name"].ToString();
-                dataGridView1.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
+                dataGridView1.Rows[n].Cells[3].Value = item["emp_doc_specialist"].ToString();
+                dataGridView1.Rows[n].Cells[4].Value = item["swd_day_work"].ToString();
                 CultureInfo ThaiCulture = new CultureInfo("en-US");
                 DateTime date_work = Convert.ToDateTime(item["swd_date_work"].ToString());
                 string work_swd = date_work.ToString("yyyy-MM-dd", ThaiCulture);
 
-                dataGridView1.Rows[n].Cells[4].Value = work_swd;
-                dataGridView1.Rows[n].Cells[5].Value = item["swd_start_time"].ToString();
-                dataGridView1.Rows[n].Cells[6].Value = item["room_id"].ToString();
-                dataGridView1.Rows[n].Cells[7].Value = item["swd_note"].ToString();
+                dataGridView1.Rows[n].Cells[5].Value = work_swd;
+                dataGridView1.Rows[n].Cells[6].Value = item["swd_start_time"].ToString();
+                dataGridView1.Rows[n].Cells[7].Value = item["room_id"].ToString();
+                dataGridView1.Rows[n].Cells[8].Value = item["swd_note"].ToString();
 
 
 
@@ -63,6 +64,7 @@ namespace Clinic2018
                 dataGridView2.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                 dataGridView2.Rows[n].Cells[1].Value = item["emp_doc_id"].ToString();
                 dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_name"].ToString();
+
                 dataGridView2.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
                 CultureInfo ThaiCulture = new CultureInfo("en-US");
                 DateTime date_work = Convert.ToDateTime(item["swd_date_work"].ToString());
@@ -79,7 +81,7 @@ namespace Clinic2018
 
 
 
-            query = ("select emp_doc_name from employee_doctor");
+            query = ("select emp_doc_name from employee_doctor  inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where specialist.emp_doc_specialist = '"+ txtspecialist.Text+"' ");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -148,8 +150,10 @@ namespace Clinic2018
             selectedRow = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[selectedRow];
             txtswd.Text = row.Cells[0].Value.ToString();
-            txtday.Text = row.Cells[3].Value.ToString();
-            txttime.Text = row.Cells[4].Value.ToString();
+            txtday.Text = row.Cells[4].Value.ToString();
+            txttime.Text = row.Cells[5].Value.ToString();
+
+            txtspecialist.Text = row.Cells[3].Value.ToString();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -239,6 +243,44 @@ namespace Clinic2018
         private void txttime1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtspecialist_TextChanged(object sender, EventArgs e)
+        {
+            conn.Open();
+           string query = ("select emp_doc_name from employee_doctor  inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where specialist.emp_doc_specialist = '" + txtspecialist.Text + "' ORDER BY emp_doc_id DESC ");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                // int n = dataGridView1.Rows.Add();
+                string name = sdr["emp_doc_name"].ToString();
+                query = ("select emp_doc_name from employee_doctor where emp_doc_name = '" + name + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    string emp_doc_name = sdr["emp_doc_name"].ToString();
+                    comboBox1.Items.Add(emp_doc_name);
+                }
+
+
+            }
+
+            
+
+            conn.Close();
         }
     }
 }

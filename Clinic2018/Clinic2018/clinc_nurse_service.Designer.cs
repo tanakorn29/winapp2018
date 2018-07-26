@@ -44,7 +44,10 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +60,8 @@
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lbltimeworkzone = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.lblroom = new System.Windows.Forms.Label();
             this.lbldocname = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -70,6 +75,8 @@
             this.lblopd = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblstatusw = new System.Windows.Forms.Label();
+            this.lblstatus = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -103,6 +110,7 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.timelbl = new System.Windows.Forms.Label();
@@ -114,8 +122,6 @@
             this.dataSet2 = new Clinic2018.DataSet2();
             this.queuevisitrecordBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.queue_visit_recordTableAdapter = new Clinic2018.DataSet2TableAdapters.queue_visit_recordTableAdapter();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -257,12 +263,32 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ข้อมูลซักประวัติ";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(466, 16);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(10, 13);
+            this.label16.TabIndex = 13;
+            this.label16.Text = "-";
+            this.label16.TextChanged += new System.EventHandler(this.label16_TextChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(264, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(107, 13);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "คิวเอกสารซักประวัติที่";
+            // 
             // dataGridView3
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.AllowUserToDeleteRows = false;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column19,
             this.Column9,
             this.Column10,
             this.Column11,
@@ -279,6 +305,12 @@
             this.dataGridView3.Size = new System.Drawing.Size(749, 132);
             this.dataGridView3.TabIndex = 2;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            // 
+            // Column19
+            // 
+            this.Column19.HeaderText = "ลำดับคิวซักประวัติ";
+            this.Column19.Name = "Column19";
+            this.Column19.ReadOnly = true;
             // 
             // Column9
             // 
@@ -360,6 +392,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.lbltimeworkzone);
+            this.groupBox6.Controls.Add(this.label18);
             this.groupBox6.Controls.Add(this.lblroom);
             this.groupBox6.Controls.Add(this.lbldocname);
             this.groupBox6.Controls.Add(this.label15);
@@ -372,15 +406,34 @@
             this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Location = new System.Drawing.Point(47, 359);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(442, 237);
+            this.groupBox6.Size = new System.Drawing.Size(442, 283);
             this.groupBox6.TabIndex = 8;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "ส่งเข้าห้องตรวจ";
             // 
+            // lbltimeworkzone
+            // 
+            this.lbltimeworkzone.AutoSize = true;
+            this.lbltimeworkzone.Location = new System.Drawing.Point(253, 55);
+            this.lbltimeworkzone.Name = "lbltimeworkzone";
+            this.lbltimeworkzone.Size = new System.Drawing.Size(10, 13);
+            this.lbltimeworkzone.TabIndex = 16;
+            this.lbltimeworkzone.Text = "-";
+            this.lbltimeworkzone.TextChanged += new System.EventHandler(this.lbltimeworkzone_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(34, 55);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(47, 13);
+            this.label18.TabIndex = 15;
+            this.label18.Text = "ช่วงเวลา";
+            // 
             // lblroom
             // 
             this.lblroom.AutoSize = true;
-            this.lblroom.Location = new System.Drawing.Point(254, 93);
+            this.lblroom.Location = new System.Drawing.Point(253, 116);
             this.lblroom.Name = "lblroom";
             this.lblroom.Size = new System.Drawing.Size(10, 13);
             this.lblroom.TabIndex = 14;
@@ -389,7 +442,7 @@
             // lbldocname
             // 
             this.lbldocname.AutoSize = true;
-            this.lbldocname.Location = new System.Drawing.Point(254, 61);
+            this.lbldocname.Location = new System.Drawing.Point(253, 84);
             this.lbldocname.Name = "lbldocname";
             this.lbldocname.Size = new System.Drawing.Size(10, 13);
             this.lbldocname.TabIndex = 13;
@@ -398,7 +451,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(34, 93);
+            this.label15.Location = new System.Drawing.Point(33, 116);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(50, 13);
             this.label15.TabIndex = 12;
@@ -407,7 +460,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(35, 61);
+            this.label14.Location = new System.Drawing.Point(34, 84);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(50, 13);
             this.label14.TabIndex = 11;
@@ -415,7 +468,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(178, 174);
+            this.button5.Location = new System.Drawing.Point(188, 225);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 38);
             this.button5.TabIndex = 10;
@@ -426,7 +479,7 @@
             // lblopdid
             // 
             this.lblopdid.AutoSize = true;
-            this.lblopdid.Location = new System.Drawing.Point(254, 125);
+            this.lblopdid.Location = new System.Drawing.Point(253, 148);
             this.lblopdid.Name = "lblopdid";
             this.lblopdid.Size = new System.Drawing.Size(10, 13);
             this.lblopdid.TabIndex = 9;
@@ -436,7 +489,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 125);
+            this.label3.Location = new System.Drawing.Point(33, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 8;
@@ -445,7 +498,7 @@
             // lblswd
             // 
             this.lblswd.AutoSize = true;
-            this.lblswd.Location = new System.Drawing.Point(254, 33);
+            this.lblswd.Location = new System.Drawing.Point(257, 26);
             this.lblswd.Name = "lblswd";
             this.lblswd.Size = new System.Drawing.Size(10, 13);
             this.lblswd.TabIndex = 2;
@@ -454,7 +507,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 33);
+            this.label1.Location = new System.Drawing.Point(34, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(153, 13);
             this.label1.TabIndex = 1;
@@ -489,6 +542,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lblstatusw);
+            this.groupBox4.Controls.Add(this.lblstatus);
             this.groupBox4.Controls.Add(this.textBox1);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label9);
@@ -507,12 +562,28 @@
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Location = new System.Drawing.Point(133, 88);
+            this.groupBox4.Location = new System.Drawing.Point(22, 88);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(312, 242);
+            this.groupBox4.Size = new System.Drawing.Size(489, 242);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "สุขภาพ";
+            // 
+            // lblstatusw
+            // 
+            this.lblstatusw.AutoSize = true;
+            this.lblstatusw.Location = new System.Drawing.Point(292, 77);
+            this.lblstatusw.Name = "lblstatusw";
+            this.lblstatusw.Size = new System.Drawing.Size(0, 13);
+            this.lblstatusw.TabIndex = 15;
+            // 
+            // lblstatus
+            // 
+            this.lblstatus.AutoSize = true;
+            this.lblstatus.Location = new System.Drawing.Point(299, 20);
+            this.lblstatus.Name = "lblstatus";
+            this.lblstatus.Size = new System.Drawing.Size(0, 13);
+            this.lblstatus.TabIndex = 14;
             // 
             // textBox1
             // 
@@ -538,9 +609,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(261, 77);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(25, 13);
+            this.label9.Size = new System.Drawing.Size(19, 13);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Cm:";
+            this.label9.Text = "M:";
             // 
             // label8
             // 
@@ -582,6 +653,7 @@
             this.txth.Name = "txth";
             this.txth.Size = new System.Drawing.Size(100, 20);
             this.txth.TabIndex = 2;
+            this.txth.TextChanged += new System.EventHandler(this.txth_TextChanged);
             // 
             // txtw
             // 
@@ -596,6 +668,7 @@
             this.txts2.Name = "txts2";
             this.txts2.Size = new System.Drawing.Size(56, 20);
             this.txts2.TabIndex = 2;
+            this.txts2.TextChanged += new System.EventHandler(this.txts2_TextChanged);
             // 
             // txts1
             // 
@@ -789,6 +862,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label19);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.timelbl);
@@ -798,6 +872,15 @@
             this.panel2.Size = new System.Drawing.Size(1348, 26);
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(1110, 9);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.TabIndex = 12;
+            this.label19.Text = "yyyy-MM-dd";
             // 
             // label12
             // 
@@ -856,24 +939,6 @@
             // queue_visit_recordTableAdapter
             // 
             this.queue_visit_recordTableAdapter.ClearBeforeFill = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(466, 16);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(10, 13);
-            this.label16.TabIndex = 13;
-            this.label16.Text = "-";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(264, 16);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(107, 13);
-            this.label17.TabIndex = 12;
-            this.label17.Text = "คิวเอกสารซักประวัติที่";
             // 
             // clinc_nurse_service
             // 
@@ -974,16 +1039,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lblroom;
         private System.Windows.Forms.Label lbldocname;
@@ -999,5 +1054,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblstatus;
+        private System.Windows.Forms.Label lblstatusw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.Label lbltimeworkzone;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
     }
 }

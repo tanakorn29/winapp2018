@@ -39,7 +39,7 @@ namespace Clinic2018
             }
         }
         Timer t = new Timer();
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -289,12 +289,12 @@ namespace Clinic2018
 
                                     if(today_day >= date_day)
                                     {
-                                        query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', SYSDATETIME(),5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                        query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '"+label4.Text+"',5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
                                         cmd = new SqlCommand(query, conn);
                                         sda = new SqlDataAdapter(cmd);
                                         dt = new DataTable();
                                         sda.Fill(dt);//**
-                                        query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5");
+                                        query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
                                         cmd = new SqlCommand(query, conn);
                                         sda = new SqlDataAdapter(cmd);
                                         dt = new DataTable();
@@ -362,11 +362,53 @@ namespace Clinic2018
                             }
                             else if (dialogResult == DialogResult.No)
                             {
-                                clinic_search m3 = new clinic_search();
-                                m3.Show();
-                                clinic_search clnlog = new clinic_search();
-                                clnlog.Close();
-                                Visible = false;
+                                DialogResult dialogResult1= MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
+                                if (dialogResult1 == DialogResult.Yes)
+                                {
+                                    query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "','"+label4.Text+"',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+                                    query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+                                    //  sdr = cmd.ExecuteReader();
+                                    int queue = (int)cmd.ExecuteScalar();
+                                    collection.Enqueue(queue);
+
+                                    foreach (int value in collection)
+                                    {
+                                        query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
+                                        //  
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        clinic_search m3 = new clinic_search();
+                                        m3.Show();
+                                        clinic_search clnlog = new clinic_search();
+                                        clnlog.Close();
+                                        Visible = false;
+                                        MessageBox.Show("คิวที่    " + value);
+                                    }
+
+
+
+
+
+
+                                }
+                                else if (dialogResult1 == DialogResult.No)
+                                {
+                                    clinic_search m3 = new clinic_search();
+                                    m3.Show();
+                                    clinic_search clnlog = new clinic_search();
+                                    clnlog.Close();
+                                    Visible = false;
+                                }
                             }
                         }
                         else
@@ -375,12 +417,12 @@ namespace Clinic2018
                             DialogResult dialogResult = MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
-                                query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', SYSDATETIME(),1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '"+label4.Text+"',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
                                 sda.Fill(dt);
-                                query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1");
+                                query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
@@ -640,7 +682,17 @@ namespace Clinic2018
             t.Interval = 1000;
             t.Tick += new EventHandler(this.timer1_Tick);
             t.Start();
+
+
+
+            label4.Text = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+
             //heddgtesrg4rggasdfaaaaruohiuih8niho;hi;hg;ohguo;h;il.ijhgywe4tg4rfsdfewrwsefwesafte
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

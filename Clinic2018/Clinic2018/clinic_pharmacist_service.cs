@@ -13,7 +13,7 @@ namespace Clinic2018
 {
     public partial class clinic_pharmacist_service : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -40,7 +40,7 @@ namespace Clinic2018
 
             }
 
-            query = ("select medi_id,medi_name,medi_qty,medi_unit,medi_qty_type from medical");
+            query = ("select medi_id,medi_name,medi_qty,medi_unit,medi_qty_type from medical where medi_status_stock = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -91,7 +91,26 @@ namespace Clinic2018
             if(app_count == 1)
             {
                 MessageBox.Show("มีการนัดหมาย");
-            }else
+
+                int q = Convert.ToInt32(lblqueue.Text);
+                int p = q + 1;
+                lblqueue.Text = ""+p;
+
+                query = ("select treatment_record.treatr_id from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 AND treatment_record.treatr_medi_queue = '"+p+"'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    txttrea.Text = (sdr["treatr_id"].ToString());
+                }
+
+
+
+            }
+            else
             {
                 query = ("select count(*) from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + txttrea.Text + "'");
                 cmd = new SqlCommand(query, conn);
@@ -329,7 +348,7 @@ namespace Clinic2018
 
         private void txttrea_TextChanged(object sender, EventArgs e)
         {
-            conn.Open();
+           // conn.Open();
 
 
             dataGridView2.Rows.Clear();
@@ -361,7 +380,7 @@ namespace Clinic2018
 
 
 
-            conn.Close();
+          //  conn.Close();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -440,6 +459,24 @@ namespace Clinic2018
         
         private void clinic_pharmacist_service_Load(object sender, EventArgs e)
         {
+
+
+            conn.Open();
+
+            string query = ("select treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                lblqueue.Text = (sdr["treatr_medi_queue"].ToString());
+            }
+
+
+
+            conn.Close();
             /*  conn.Open();
 
               string query = ("SELECT SUM(medi_qty) AS medical_count FROM medical");
@@ -612,6 +649,22 @@ namespace Clinic2018
         {
             clinic_pharmacist_report cliapp = new clinic_pharmacist_report();
             cliapp.Show();
+        }
+
+        private void lblqueue_TextChanged(object sender, EventArgs e)
+        {
+     
+            string query = ("select treatment_record.treatr_id from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                txttrea.Text = (sdr["treatr_id"].ToString());
+            }
+
         }
     }
 }

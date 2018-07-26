@@ -15,7 +15,7 @@ namespace Clinic2018
 
     public partial class clinc_nurse_service : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -26,7 +26,8 @@ namespace Clinic2018
             InitializeComponent();
 
             conn.Open();
-            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 1");
+            string day = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '"+day+"'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -50,7 +51,7 @@ namespace Clinic2018
 
 
             }
-            query = ("select visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id,opd.opd_name from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
+            query = ("select visit_record.vr_queue_sent,visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id,opd.opd_name from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -61,17 +62,17 @@ namespace Clinic2018
                 int n = dataGridView3.Rows.Add();
 
 
-
-                dataGridView3.Rows[n].Cells[0].Value = item["vr_id"].ToString();
-                dataGridView3.Rows[n].Cells[1].Value = item["vr_weight"].ToString();
-                dataGridView3.Rows[n].Cells[2].Value = item["vr_height"].ToString();
-                dataGridView3.Rows[n].Cells[3].Value = item["vr_systolic"].ToString();
-                dataGridView3.Rows[n].Cells[4].Value = item["vr_diastolic"].ToString();
-                dataGridView3.Rows[n].Cells[5].Value = item["vr_hearth_rate"].ToString();
-                dataGridView3.Rows[n].Cells[6].Value = item["vr_date"].ToString();
-                dataGridView3.Rows[n].Cells[7].Value = item["opd_id"].ToString();
-                dataGridView3.Rows[n].Cells[8].Value = item["opd_name"].ToString();
-                dataGridView3.Rows[n].Cells[9].Value = item["vr_remark"].ToString();
+                dataGridView3.Rows[n].Cells[0].Value = item["vr_queue_sent"].ToString();
+                dataGridView3.Rows[n].Cells[1].Value = item["vr_id"].ToString();
+                dataGridView3.Rows[n].Cells[2].Value = item["vr_weight"].ToString();
+                dataGridView3.Rows[n].Cells[3].Value = item["vr_height"].ToString();
+                dataGridView3.Rows[n].Cells[4].Value = item["vr_systolic"].ToString();
+                dataGridView3.Rows[n].Cells[5].Value = item["vr_diastolic"].ToString();
+                dataGridView3.Rows[n].Cells[6].Value = item["vr_hearth_rate"].ToString();
+                dataGridView3.Rows[n].Cells[7].Value = item["vr_date"].ToString();
+                dataGridView3.Rows[n].Cells[8].Value = item["opd_id"].ToString();
+                dataGridView3.Rows[n].Cells[9].Value = item["opd_name"].ToString();
+                dataGridView3.Rows[n].Cells[10].Value = item["vr_remark"].ToString();
 
 
 
@@ -134,6 +135,12 @@ namespace Clinic2018
             t.Start();
             lblday.Text = DateTime.Now.ToString("dddd", new CultureInfo("th-TH"));
             conn.Open();
+            txts1.Text = "0";
+            txts2.Text = "0";
+            txtw.Text = "0";
+            txth.Text = "0";
+
+            label19.Text = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             /*
             string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน'");
             cmd = new SqlCommand(query, conn);
@@ -172,6 +179,21 @@ namespace Clinic2018
                 label12.Text = "" + queue;
             }
 
+
+            query = ("select vr_queue_sent from visit_record where vr_status_sent = 1");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                int queue = Convert.ToInt32(sdr["vr_queue_sent"].ToString());
+
+                label16.Text = "" + queue;
+            }
+
+
             AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
 
             query = ("select symtoms_dis from symtoms where symtoms_dis LIKE '%" + textBox1.Text + "%'");
@@ -209,44 +231,85 @@ namespace Clinic2018
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
-
+            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             int sym_data_count = (int)cmd.ExecuteScalar();
              if(sym_data_count < 1)
             {
-                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "',SYSDATETIME(),0,'" + textBox1.Text + "'," + lblopd.Text + ");");
+                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
-
-                query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
-
+                Queue<int> collection = new Queue<int>();
+                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '"+today+"'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
+                int queue = (int)cmd.ExecuteScalar();
+                collection.Enqueue(queue);
+                foreach (int value in collection)
+                {
+                    query = ("update visit_record set vr_queue_sent = '" + value + "' where  opd_id = '" + lblopd.Text + "'");
 
-                query = ("insert into symtoms (symtoms_dis) values ('"+ textBox1.Text+"');");
-                cmd = new SqlCommand(query, conn);
-                sda = new SqlDataAdapter(cmd);
-                dt = new DataTable();
-                sda.Fill(dt);
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    MessageBox.Show("คิวเอกสารซักประวัติที่ " + value);
+
+                    query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
+
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+
+                    query = ("insert into symtoms (symtoms_dis) values ('" + textBox1.Text + "');");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+
+
+                }
+                 
                 
             }
             else
             {
-                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "',SYSDATETIME(),0,'" + textBox1.Text + "'," + lblopd.Text + ");");
+                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "',SYSDATETIME(),0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
+                Queue<int> collection = new Queue<int>();
 
-                query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
-
+                query = ("select count(*) from visit_record where vr_status_sent = 1");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
+                int queue = (int)cmd.ExecuteScalar();
+                collection.Enqueue(queue);
+                foreach (int value in collection)
+                {
+                   
+                 query = ("update visit_record set vr_queue_sent = '"+value+"' where  opd_id = '"+lblopd.Text+"'");
+
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    MessageBox.Show("คิวเอกสารซักประวัติที่ " +value);
+                    query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
+
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                }
+                  
 
 
 
@@ -311,7 +374,7 @@ namespace Clinic2018
                     if (sym_data_count < 1)
                     {
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values (SYSDATETIME(), SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -319,7 +382,7 @@ namespace Clinic2018
 
                         Queue<int> collection = new Queue<int>();
 
-                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "'");
+                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "' AND queue_diag_room.qdr_date = '"+today+"'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -339,12 +402,13 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1 where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = '0' where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
                                 sda.Fill(dt);
+
 
 
                                 clinc_nurse_service s2 = new clinc_nurse_service();
@@ -372,7 +436,7 @@ namespace Clinic2018
                     {
 
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values (SYSDATETIME(), SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -380,7 +444,7 @@ namespace Clinic2018
 
                         Queue<int> collection = new Queue<int>();
 
-                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "'");
+                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "' AND queue_diag_room.qdr_date = '" + today + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -400,12 +464,15 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1 where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 0 where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
                                 sda.Fill(dt);
+
+                             
+
                                 query = ("select vr_remark from visit_record where opd_id = '" + lblopdid.Text + "' ORDER BY vr_date ASC");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
@@ -478,7 +545,7 @@ namespace Clinic2018
                     if (sym_data_count < 1)
                     {
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values (SYSDATETIME(), SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -486,7 +553,7 @@ namespace Clinic2018
 
                         Queue<int> collection = new Queue<int>();
 
-                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "'");
+                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "' AND queue_diag_room.qdr_date = '" + today + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -506,7 +573,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1 where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 0 where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
@@ -539,7 +606,7 @@ namespace Clinic2018
                     {
 
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values (SYSDATETIME(), SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -547,7 +614,7 @@ namespace Clinic2018
 
                         Queue<int> collection = new Queue<int>();
 
-                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "'");
+                        query = ("select count(*) from queue_diag_room inner join opd on opd.opd_id = queue_diag_room.opd_id inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where  queue_diag_room.status_queue = 1 AND schedule_work_doctor.swd_id = '" + lblswd.Text + "' AND queue_diag_room.qdr_date = '" + today + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -567,7 +634,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1 where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 0 where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
@@ -627,8 +694,8 @@ namespace Clinic2018
         {
             selectedRow = e.RowIndex;
             DataGridViewRow row = dataGridView3.Rows[selectedRow];
-            lblopdid.Text = row.Cells[7].Value.ToString();
-            string remark = row.Cells[9].Value.ToString();
+        //  lblopdid.Text = row.Cells[8].Value.ToString();
+       //     string remark = row.Cells[9].Value.ToString();
          //   string remark = "อุจจาระเป็นเลือด";
         
 
@@ -712,6 +779,7 @@ namespace Clinic2018
             if (time <= 12.00)
             {
                     lbltimezone.Text = "เช้า";
+                    lbltimeworkzone.Text = "เช้า";
 /*
                 string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า'");
                 cmd = new SqlCommand(query, conn);
@@ -741,6 +809,7 @@ namespace Clinic2018
             else if (time >= 12.01)
             {
                     lbltimezone.Text = "บ่าย";
+                  lbltimeworkzone.Text = "บ่าย";
                     /*
                                     string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย'");
                                     cmd = new SqlCommand(query, conn);
@@ -910,8 +979,10 @@ namespace Clinic2018
         private void lblopdid_TextChanged(object sender, EventArgs e)
         {
 
-            conn.Open();
-            string query = ("select visit_record.vr_remark from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 AND opd.opd_id = '"+lblopdid.Text+"'");
+            //   lblroom.Text = lblopdid.Text;
+ 
+            /*
+            string query = ("select visit_record.vr_remark from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 AND opd.opd_id = '" + lblopdid.Text + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -919,80 +990,95 @@ namespace Clinic2018
             sdr = cmd.ExecuteReader();
             if (sdr.Read())
             {
-
-                string timezone = lbltimezone.Text;
-                string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
-                if (timezone == "เช้า")
-                {
-                    //  dataGridView2.Rows.Clear();
-                    // dataGridView2.Refresh();
-
-                    string remark = sdr["vr_remark"].ToString();
-                    string re1 = "" + remark;
-
-                    // MessageBox.Show(re1);
-                    query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-                    sdr = cmd.ExecuteReader();
-                    if (sdr.Read())
-                    {
-
-                        int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
-                        string docname = sdr["emp_doc_name"].ToString();
-                        int room = Convert.ToInt32(sdr["room_id"].ToString());
-                        lblswd.Text = "" + swd_id;
-                        lbldocname.Text = docname;
-                        lblroom.Text = "" + room;
-                        // MessageBox.Show(remark);
-
-                    }
-                    else
-                    {
-                        //  MessageBox.Show(remark);
-
-                    }
-
-
-                } if(timezone == "บ่าย")
-                {
-                    //  dataGridView2.Rows.Clear();
-                    // dataGridView2.Refresh();
-                    string remark = sdr["vr_remark"].ToString();
-                    string re1 = "" + remark;
-
-                    // MessageBox.Show(re1);
-                    query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-                    sdr = cmd.ExecuteReader();
-                    if (sdr.Read())
-                    {
-
-                        int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
-                        string docname = sdr["emp_doc_name"].ToString();
-                        int room = Convert.ToInt32(sdr["room_id"].ToString());
-                        lblswd.Text = "" + swd_id;
-                        lbldocname.Text = docname;
-                        lblroom.Text = "" + room;
-                        // MessageBox.Show(remark);
-
-                    }
-                    else
-                    {
-                        //  MessageBox.Show(remark);
-
-                    }
-                }
+             
 
             }
+            */
+            /*
 
-            conn.Close();
+                       // conn.Open();
+                        string query = ("select visit_record.vr_remark from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 AND opd.opd_id = '"+lblopdid.Text+"'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
 
+                            string timezone = lbltimezone.Text;
+                            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+                            if (timezone == "เช้า")
+                            {
+                                //  dataGridView2.Rows.Clear();
+                                // dataGridView2.Refresh();
+
+                                string remark = sdr["vr_remark"].ToString();
+                                string re1 = "" + remark;
+
+                             //   MessageBox.Show(re1);
+                                query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+                                sdr = cmd.ExecuteReader();
+                                if (sdr.Read())
+                                {
+
+                                    int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                                    string docname = sdr["emp_doc_name"].ToString();
+                                    int room = Convert.ToInt32(sdr["room_id"].ToString());
+                                    lblswd.Text = "" + swd_id;
+                                    lbldocname.Text = docname;
+                                    lblroom.Text = "" + room;
+                                    // MessageBox.Show(remark);
+
+                                }
+                                else
+                                {
+                                    //  MessageBox.Show(remark);
+
+                                }
+
+
+                            } if(timezone == "บ่าย")
+                            {
+                                //  dataGridView2.Rows.Clear();
+                                // dataGridView2.Refresh();
+                                string remark = sdr["vr_remark"].ToString();
+                                string re1 = "" + remark;
+
+                              // MessageBox.Show(re1);
+                                query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+                                sdr = cmd.ExecuteReader();
+                                if (sdr.Read())
+                                {
+
+                                    int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                                    string docname = sdr["emp_doc_name"].ToString();
+                                    int room = Convert.ToInt32(sdr["room_id"].ToString());
+                                    lblswd.Text = "" + swd_id;
+                                    lbldocname.Text = docname;
+                                    lblroom.Text = "" + room;
+                                    // MessageBox.Show(remark);
+
+                                }
+                                else
+                                {
+                                    //  MessageBox.Show(remark);
+
+                                }
+                            }
+
+                        }
+
+                     //   conn.Close();
+                      */
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -1004,6 +1090,233 @@ namespace Clinic2018
         {
             //   lblsymtoms.Text += textBox1.Text + Environment.NewLine;
             //textBox1.Clear();
+        }
+
+        private void txts2_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int A = Convert.ToInt32(txts1.Text);
+                int B = Convert.ToInt32(txts2.Text);
+                if (A < 120 && B < 80)
+                {
+                    lblstatus.Text = "ปกติ";
+             
+                }
+                else if (A < 129 && B < 84)
+                {
+                    lblstatus.Text = "ค่อนข้างสูง";
+    
+                }
+                else if (A < 139 && B < 89)
+                {
+                    lblstatus.Text = "สูงกว่าปกติ";
+     
+                }
+                else if (A < 159 && B < 99)
+                {
+                    lblstatus.Text = "ความดันโลหิตสูงระดับ 1";
+         
+                }
+                else if (A > 160 && B < 109)
+                {
+                    lblstatus.Text = "ความดันโลหิตสูงระดับ 2";
+          
+                }
+                else
+                {
+                    lblstatus.Text = "ไม่สามารถวัดความดันโลหิตได้";
+          
+                }
+                /*     }else if (sis > 120)
+                     {
+                       lblstatus.Text = "ค่อนข้างสูง";
+                     }
+                     else if (sis > 140)
+                     {
+                      lblstatus.Text = "มีอาการของโรคความดันโลหิตสูง";
+                     }
+                     else if (sis > 160)
+                     {
+                lblstatus.Text = "สูงมากและเป็นอันตราย";
+                     }
+                     else
+                     {
+                    lblstatus.Text = " ";
+                     }
+                     */
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("กรุณาใส่ตัวเลข");
+            }
+            
+            
+        }
+
+        private void txth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                double B = Convert.ToDouble(txth.Text);
+                double A = Convert.ToDouble(txtw.Text);
+                double k = B * B;
+                double h = A / k;
+
+                //    double r = h;
+                if (h < 18.5)
+                {
+
+                    lblstatusw.Text = "ผอมเกินไป";
+                }
+                else if (h < 22.9)
+                {
+
+                    lblstatusw.Text = "น้ำหนักปกติ เหมาะสม";
+                }
+                else if (h < 24.9)
+                {
+
+                    lblstatusw.Text = "น้ำหนักเกิน";
+                }
+                else if (h < 29.9)
+                {
+
+                    lblstatusw.Text = "อ้วน";
+                }
+                else if (h > 30)
+                {
+
+                    lblstatusw.Text = "อ้วนมาก";
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("กรุณากรอกตัวเลข");
+            }
+   
+        }
+
+        private void label16_TextChanged(object sender, EventArgs e)
+        {
+            //   conn.Open();
+        /*    string timezone = lbltimezone.Text;
+            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+            string query = ("select visit_record.opd_id from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+            lblopdid.Text = sdr["opd_id"].ToString();
+              //  MessageBox.Show(timezone);
+         
+
+            }*/
+
+         //   conn.Close();
+
+        }
+
+        private void lbltimeworkzone_TextChanged(object sender, EventArgs e)
+        {
+            string query = ("select visit_record.opd_id from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            sdr = cmd.ExecuteReader();
+            if (sdr.Read())
+            {
+                lblopdid.Text = sdr["opd_id"].ToString();
+                //  MessageBox.Show(timezone);
+                query = ("select visit_record.vr_remark from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 AND opd.opd_id = '" + lblopdid.Text + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+
+                    string timezone = lbltimeworkzone.Text;
+                    string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+                    if (timezone == "เช้า")
+                    {
+                        //  dataGridView2.Rows.Clear();
+                        // dataGridView2.Refresh();
+
+                        string remark = sdr["vr_remark"].ToString();
+                        string re1 = "" + remark;
+
+                        //   MessageBox.Show(re1);
+                        query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
+
+                            int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                            string docname = sdr["emp_doc_name"].ToString();
+                            int room = Convert.ToInt32(sdr["room_id"].ToString());
+                            lblswd.Text = "" + swd_id;
+                            lbldocname.Text = docname;
+                            lblroom.Text = "" + room;
+                            // MessageBox.Show(remark);
+
+                        }
+                        else
+                        {
+                            //  MessageBox.Show(remark);
+
+                        }
+
+
+                    }
+                    if (timezone == "บ่าย")
+                    {
+                        //  dataGridView2.Rows.Clear();
+                        // dataGridView2.Refresh();
+                        string remark = sdr["vr_remark"].ToString();
+                        string re1 = "" + remark;
+
+                        // MessageBox.Show(re1);
+                        query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,schedule_work_doctor.room_id from employee_doctor empdoc inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id inner join symtoms on symtoms.emp_doc_specialistid = specialist.emp_doc_specialistid where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "' AND symtoms_dis LIKE '%" + re1 + "%'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
+
+                            int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                            string docname = sdr["emp_doc_name"].ToString();
+                            int room = Convert.ToInt32(sdr["room_id"].ToString());
+                            lblswd.Text = "" + swd_id;
+                            lbldocname.Text = docname;
+                            lblroom.Text = "" + room;
+                            // MessageBox.Show(remark);
+
+                        }
+                        else
+                        {
+                            //  MessageBox.Show(remark);
+
+                        }
+                    }
+
+                }
+
+            }
         }
         /*
 private void lbltime_TextChanged(object sender, EventArgs e)

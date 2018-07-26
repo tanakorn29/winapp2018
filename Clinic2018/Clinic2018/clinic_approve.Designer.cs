@@ -256,6 +256,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "clinic_approve";
             this.Text = "ตรวจสอบสิทธิ - ระบบบริหารจัดการงานบริการงานแพทย์และอนามัย ";
+            this.Load += new System.EventHandler(this.clinic_approve_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -561,6 +561,7 @@
             this.lblqueue.TabIndex = 29;
             this.lblqueue.Text = "-";
             this.lblqueue.TextChanged += new System.EventHandler(this.lblqueue_TextChanged);
+            this.lblqueue.Click += new System.EventHandler(this.lblqueue_Click);
             // 
             // clinic_app_service
             // 

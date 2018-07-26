@@ -20,7 +20,7 @@ namespace Clinic2018
     public partial class clinic_calendar : Form
     {
 
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -192,9 +192,10 @@ namespace Clinic2018
                      list.Add(""+txtidcard.Text+"");
                      */
 
-                Zen.Barcode.Code128BarcodeDraw barcode = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+              Zen.Barcode.Code128BarcodeDraw barcode = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
                 Picbox.Image = barcode.Draw(txtidcard.Text, 100);
 
+             
 
                 doc.NewPage();
 

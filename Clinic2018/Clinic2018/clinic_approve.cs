@@ -21,7 +21,7 @@ namespace Clinic2018
             InitializeComponent();
         }
 
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -676,6 +676,11 @@ namespace Clinic2018
         private void tb1_MouseClick(object sender, MouseEventArgs e)
         {
             tb1.Clear();
+        }
+
+        private void clinic_approve_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

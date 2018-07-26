@@ -435,6 +435,7 @@
             this.lbltime1.Size = new System.Drawing.Size(66, 25);
             this.lbltime1.TabIndex = 16;
             this.lbltime1.Text = "00.00";
+            this.lbltime1.TextChanged += new System.EventHandler(this.lbltime1_TextChanged);
             // 
             // timer1
             // 

@@ -14,7 +14,7 @@ namespace Clinic2018
 {
     public partial class clinic_app_service : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-BP7LPPN\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
+        SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
@@ -24,7 +24,8 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5");
+            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '" + today + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -366,7 +367,7 @@ namespace Clinic2018
 
         private void btnsent_Click(object sender, EventArgs e)
         {
-        conn.Open();
+        //conn.Open();
  //MessageBox.Show("" + lblswdid.Text + ""+ lbldate.Text+ "" + lbltimezone1.Text);
         string query = ("select count(*) from time_attendance inner join employee_doctor on employee_doctor.emp_doc_id = time_attendance.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = employee_doctor.emp_doc_id where remark = 'เข้างาน' AND swd_timezone = '" + lbltimezone1.Text + "'");
             cmd = new SqlCommand(query, conn);
@@ -453,7 +454,7 @@ namespace Clinic2018
             /*      
 
                   */
-            conn.Close();
+          //  conn.Close();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -540,7 +541,7 @@ namespace Clinic2018
 
 
             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
-            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5");
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '" + today + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -565,7 +566,7 @@ namespace Clinic2018
                     lblidapp.Text = sdr["app_id"].ToString();
                     CultureInfo th = new CultureInfo("th-TH");
                     DateTime date_app = Convert.ToDateTime(sdr["app_date"].ToString());
-                    string app_date = date_app.ToString("yyyy-MM-dd",th);
+                    string app_date = date_app.ToString("yyyy-MM-dd");
                     lbldate.Text = app_date;
                     double time_app = Convert.ToDouble(sdr["app_time"].ToString());
                     double time_now = Convert.ToDouble(lbltime1.Text);
@@ -697,6 +698,11 @@ namespace Clinic2018
         }
 
         private void lblstatusapp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblqueue_Click(object sender, EventArgs e)
         {
 
         }
