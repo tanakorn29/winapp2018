@@ -257,7 +257,7 @@ namespace Clinic2018
                                         {
                                             int emp_ru_id = Convert.ToInt32(sdr["emp_ru_id"].ToString());
                                             int opd_id = Convert.ToInt32(sdr["opd_id"].ToString());
-                        query = ("select Count(opd_id) from queue_visit_record where opd_id = '" + opd_id + "'  AND qvr_status = 1 AND queue_visit_record.qvr_date = '" + label4.Text + "' ");
+                        query = ("select Count(opd_id) from queue_visit_record where opd_id = '" + opd_id + "'  AND  qvr_status <= 5 AND  queue_visit_record.qvr_date = '" + label4.Text + "' ");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();

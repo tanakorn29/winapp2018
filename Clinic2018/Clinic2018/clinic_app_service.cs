@@ -105,10 +105,10 @@ namespace Clinic2018
             t.Interval = 1000;
             t.Tick += new EventHandler(this.timer1_Tick);
             t.Start();
-
+            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             conn.Open();
 
-            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5");
+            string query = ("select queue_visit_record.qvr_record,queue_visit_record.qvr_time,opd.opd_name,opd.opd_idcard,opd.opd_address,opd.opd_telmobile,opd.opd_id,opd.opd_birthday from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '"+today+"'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -121,7 +121,7 @@ namespace Clinic2018
                 lblqueue.Text = "" + queue;
             }
             string timezone = lbltimezone.Text;
-            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+   
             if (timezone == "เช้า")
             {
                 //9898978787878788*******jyfyigjgiuh5995965iijoi*********
@@ -263,7 +263,7 @@ namespace Clinic2018
             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             if (timezone == "เช้า")
             {
-                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "'");
+                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialistid,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -277,7 +277,7 @@ namespace Clinic2018
 
                     dataGridView2.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                     dataGridView2.Rows[n].Cells[1].Value = item["emp_doc_name"].ToString();
-                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialist"].ToString();
+                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialistid"].ToString();
                     dataGridView2.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
                     dataGridView2.Rows[n].Cells[4].Value = item["swd_start_time"].ToString();
                     dataGridView2.Rows[n].Cells[5].Value = item["swd_end_time"].ToString();
@@ -289,7 +289,7 @@ namespace Clinic2018
             else if (timezone == "บ่าย")
             {
 
-                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "'");
+                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialistid,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -303,7 +303,7 @@ namespace Clinic2018
 
                     dataGridView2.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                     dataGridView2.Rows[n].Cells[1].Value = item["emp_doc_name"].ToString();
-                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialist"].ToString();
+                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialistid"].ToString();
                     dataGridView2.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
                     dataGridView2.Rows[n].Cells[4].Value = item["swd_start_time"].ToString();
                     dataGridView2.Rows[n].Cells[5].Value = item["swd_end_time"].ToString();
@@ -367,9 +367,10 @@ namespace Clinic2018
 
         private void btnsent_Click(object sender, EventArgs e)
         {
-        //conn.Open();
- //MessageBox.Show("" + lblswdid.Text + ""+ lbldate.Text+ "" + lbltimezone1.Text);
-        string query = ("select count(*) from time_attendance inner join employee_doctor on employee_doctor.emp_doc_id = time_attendance.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = employee_doctor.emp_doc_id where remark = 'เข้างาน' AND swd_timezone = '" + lbltimezone1.Text + "'");
+  conn.Open();
+            //MessageBox.Show("" + lblswdid.Text + ""+ lbldate.Text+ "" + lbltimezone1.Text);
+            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+            string query = ("select count(*) from time_attendance inner join employee_doctor on employee_doctor.emp_doc_id = time_attendance.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = employee_doctor.emp_doc_id where remark = 'เข้างาน' AND swd_timezone = '" + lbltimezone1.Text + "'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -383,7 +384,7 @@ namespace Clinic2018
             }
             else
             {
-               query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values (SYSDATETIME(), SYSDATETIME(),1,'" + lblswdid.Text + "','" + lblopdid.Text + "');");
+               query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+ today + "', '"+lbltime1.Text+"',1,'" + lblswdid.Text + "','" + lblopdid.Text + "');");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -454,7 +455,7 @@ namespace Clinic2018
             /*      
 
                   */
-          //  conn.Close();
+ conn.Close();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
