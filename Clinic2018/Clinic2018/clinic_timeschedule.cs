@@ -203,9 +203,9 @@ namespace Clinic2018
 
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd-MM-yyyy";
-     
-          
-          
+
+
+
 
         }
 

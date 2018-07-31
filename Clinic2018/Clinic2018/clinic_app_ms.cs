@@ -252,7 +252,7 @@ namespace Clinic2018
                             //    MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
                             if (date_app_day > today_day)
                             {
-                                query = ("Update appointment SET day = '" + day + "',app_date = '" + dtp1.Text + "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
+                                query = ("Update appointment SET day = '" + day + "',app_date = '" + date+ "' , app_time = '" + comboBox1.SelectedItem.ToString() + "',app_remark = '" + txtremark.Text + "',status_approve = 2,status_app = 1 , swd_id = '" + swd_id + "' where app_id = '" + lb11.Text + "' ");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();

@@ -13,7 +13,7 @@ using iTextSharp.text.pdf;
 using System.Windows.Forms;
 
 using System.Data.SqlClient;
-
+using System.Globalization;
 
 namespace Clinic2018
 {
@@ -30,7 +30,7 @@ namespace Clinic2018
         {
             InitializeComponent();
 
-            string query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1");
+            string query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -44,9 +44,14 @@ namespace Clinic2018
 
                 dataGridView1.Rows[n].Cells[0].Value = item["emp_doc_name"].ToString();
                 dataGridView1.Rows[n].Cells[1].Value = item["swd_day_work"].ToString();
-                dataGridView1.Rows[n].Cells[2].Value = item["swd_start_time"].ToString();
-                dataGridView1.Rows[n].Cells[3].Value = item["room_id"].ToString();
-                dataGridView1.Rows[n].Cells[4].Value = item["swd_note"].ToString();
+             
+                DateTime date = Convert.ToDateTime(item["swd_date_work"].ToString());
+                string date_swd = date.ToString("yyyy-MM-dd");
+                dataGridView1.Rows[n].Cells[2].Value = date_swd;
+
+                dataGridView1.Rows[n].Cells[3].Value = item["swd_start_time"].ToString();
+                dataGridView1.Rows[n].Cells[4].Value = item["room_id"].ToString();
+                dataGridView1.Rows[n].Cells[5].Value = item["swd_note"].ToString();
   
 
 
@@ -81,6 +86,9 @@ namespace Clinic2018
          //   this.districtsTableAdapter.Fill(this.dataSet1.districts);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "yyyy-MM-dd";
+
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.CustomFormat = "yyyy-MM-dd";
             conn.Open();
 
             string query = ("select emp_doc_specialistid,emp_doc_specialist from specialist");
@@ -305,6 +313,44 @@ namespace Clinic2018
         {
             clinic_doctor_show sc = new clinic_doctor_show();
             sc.Show();
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            CultureInfo ThaiCulture = new CultureInfo("th-TH");
+            DateTime date = Convert.ToDateTime(dateTimePicker2.Text);
+            string date_th = date.ToString("yyyy-MM-dd",ThaiCulture);
+           // MessageBox.Show(date_th);
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+
+            string query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND schedule_work_doctor.swd_date_work = '"+ date_th + "'");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+
+            foreach (DataRow item in dt.Rows)
+            {
+                int n = dataGridView1.Rows.Add();
+
+
+
+                dataGridView1.Rows[n].Cells[0].Value = item["emp_doc_name"].ToString();
+                dataGridView1.Rows[n].Cells[1].Value = item["swd_day_work"].ToString();
+
+                DateTime date1 = Convert.ToDateTime(item["swd_date_work"].ToString());
+                string date_swd = date1.ToString("yyyy-MM-dd");
+                dataGridView1.Rows[n].Cells[2].Value = date_swd;
+
+                dataGridView1.Rows[n].Cells[3].Value = item["swd_start_time"].ToString();
+                dataGridView1.Rows[n].Cells[4].Value = item["room_id"].ToString();
+                dataGridView1.Rows[n].Cells[5].Value = item["swd_note"].ToString();
+
+
+
+            }
+
         }
     }
 }

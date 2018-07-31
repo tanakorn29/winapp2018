@@ -51,6 +51,7 @@ namespace Clinic2018
 
 
             }
+    
             query = ("select visit_record.vr_queue_sent,visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id,opd.opd_name from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
@@ -77,6 +78,7 @@ namespace Clinic2018
 
 
             }
+
             conn.Close();
         }
 
@@ -264,7 +266,7 @@ namespace Clinic2018
                     sda.Fill(dt);
                     MessageBox.Show("คิวเอกสารซักประวัติที่ " + value);
 
-                    query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
+                    query = ("Update queue_visit_record set qvr_status = 7 where opd_id = '" + lblopd.Text + "'");
 
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
@@ -284,14 +286,14 @@ namespace Clinic2018
             }
             else
             {
-                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "',SYSDATETIME(),0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
+                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
                 Queue<int> collection = new Queue<int>();
 
-                query = ("select count(*) from visit_record where vr_status_sent = 1");
+                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '" + today + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -409,7 +411,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1,vr_status_sent = '0' where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 1 where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
@@ -471,7 +473,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
 
-                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 0 where opd_id = '" + lblopdid.Text + "'");
+                                query = ("Update visit_record set vr_status = 1,vr_status_sent = 1 where opd_id = '" + lblopdid.Text + "'");
                                 //  
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);

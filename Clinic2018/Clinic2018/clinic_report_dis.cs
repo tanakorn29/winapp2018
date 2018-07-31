@@ -32,11 +32,16 @@ namespace Clinic2018
             sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
+                int n = dataGridView1.Rows.Add();
                 int group_id = sdr.GetInt32(0);
                 string group_name = sdr.GetString(1);
                 string dis_name= sdr.GetString(2);
                 int count = sdr.GetInt32(3);
-                listView1.Items.Add(group_id + Environment.NewLine + group_name + Environment.NewLine + dis_name + Environment.NewLine + count);
+                dataGridView1.Rows[n].Cells[0].Value = group_id;
+                dataGridView1.Rows[n].Cells[1].Value = group_name;
+                dataGridView1.Rows[n].Cells[2].Value = dis_name;
+                dataGridView1.Rows[n].Cells[3].Value = count;
+                //      listView1.Items.Add(group_id + Environment.NewLine + group_name + Environment.NewLine + dis_name + Environment.NewLine + count);
 
             }
 

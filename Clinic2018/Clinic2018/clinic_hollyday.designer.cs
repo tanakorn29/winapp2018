@@ -45,6 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.txttimezone = new System.Windows.Forms.TextBox();
             this.txtroom = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.txtstarttime = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.t2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -210,6 +210,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "จัดการเวลางาน";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(178, 305);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 36;
+            this.button3.Text = "บันทึก";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // txttimezone
             // 
             this.txttimezone.Enabled = false;
@@ -315,16 +325,6 @@
             this.t2.TabIndex = 0;
             this.t2.Text = "เวลาเริ่มต้นการปฏิบัติงาน:";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(178, 305);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 36;
-            this.button3.Text = "บันทึก";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // clinic_hollyday
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,7 +336,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox2);
             this.Name = "clinic_hollyday";
-            this.Text = "clinic_hollyday";
+            this.Text = "จัดการข้อมูลวันหยุด";
             this.Load += new System.EventHandler(this.clinic_hollyday_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

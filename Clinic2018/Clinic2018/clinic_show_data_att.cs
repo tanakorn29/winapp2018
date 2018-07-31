@@ -43,7 +43,7 @@ namespace Clinic2018
                 dataGridView1.Rows[n].Cells[1].Value = item["end_time"].ToString();
                 CultureInfo ThaiCulture = new CultureInfo("th-TH");
                 DateTime date = Convert.ToDateTime(item["date_work"].ToString());
-                string date_th = date.ToString("yyyy-MM-dd", ThaiCulture);
+                string date_th = date.ToString("yyyy-MM-dd");
                 dataGridView1.Rows[n].Cells[2].Value = date_th;
                 dataGridView1.Rows[n].Cells[3].Value = item["remark"].ToString();
                 dataGridView1.Rows[n].Cells[4].Value = item["emp_ru_name"].ToString();
@@ -67,7 +67,7 @@ namespace Clinic2018
                 dataGridView2.Rows[n].Cells[1].Value = item["end_time"].ToString();
                 CultureInfo ThaiCulture = new CultureInfo("th-TH");
                 DateTime date = Convert.ToDateTime(item["date_work"].ToString());
-                string date_th = date.ToString("yyyy-MM-dd", ThaiCulture);
+                string date_th = date.ToString("yyyy-MM-dd");
                 dataGridView2.Rows[n].Cells[2].Value = date_th;
                 dataGridView2.Rows[n].Cells[3].Value = item["remark"].ToString();
                 dataGridView2.Rows[n].Cells[4].Value = item["emp_doc_name"].ToString();

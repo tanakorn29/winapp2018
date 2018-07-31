@@ -23,8 +23,29 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-         
 
+            string query = ("select medi_id,medi_name,medi_date_by from medical where  medi_status_stock = 0");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+
+            foreach (DataRow item in dt.Rows)
+            {
+                int n = dataGridView1.Rows.Add();
+
+
+
+                dataGridView1.Rows[n].Cells[0].Value = item["medi_id"].ToString();
+                dataGridView1.Rows[n].Cells[1].Value = item["medi_name"].ToString();
+
+                DateTime app_date = Convert.ToDateTime(item["medi_date_by"].ToString());
+
+                string date_app = String.Format("{0:yyyy-MM-dd}", app_date);
+
+                dataGridView1.Rows[n].Cells[2].Value = date_app;
+
+            }
 
 
 

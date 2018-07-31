@@ -1613,11 +1613,13 @@ namespace Clinic2018
                         dt = new DataTable();
                         sda.Fill(dt);
 
-                        query = ("Update visit_record set vr_status = 0 where opd_id = '" + lblopdid.Text + "'");
+                        query = ("Update visit_record set vr_status = 2 where opd_id = '" + lblopdid.Text + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
                         sda.Fill(dt);
+
+          
                         clinic_doctor_service m3 = new clinic_doctor_service();
                         m3.Show();
                         clinic_doctor_service clnlog = new clinic_doctor_service();
@@ -1695,11 +1697,14 @@ namespace Clinic2018
                 dt = new DataTable();
                 sda.Fill(dt);
 
-                query = ("Update visit_record set vr_status = 0 where opd_id = '" + lblopdid.Text + "'");
+                query = ("Update visit_record set vr_status = 2 where opd_id = '" + lblopdid.Text + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
+
+
+     
 
                 clinic_doctor_service m3 = new clinic_doctor_service();
                 m3.Show();

@@ -82,7 +82,7 @@ namespace Clinic2018
 
                 int qty = Convert.ToInt32(lblcount.Text);
                 int sub = qty + Convert.ToInt32(textBox1.Text);
-                string query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '"+start+"',medi_date_by = '"+end+"'   WHERE medi_name = '" + lblmedi.Text + "'");
+                string query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '"+start+"',medi_date_by = '"+end+ "',medi_status_stock = 1  WHERE medi_name = '" + lblmedi.Text + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -123,7 +123,7 @@ namespace Clinic2018
                 string unit_medi = comboBox1.SelectedItem.ToString();
                 double unit_price = Convert.ToDouble(txtpriceunit.Text);
                 double price = Convert.ToDouble(txtprice.Text);
-                string query = ("insert into medical (medi_name,medi_no,medi_qty_type,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by) values ('" + namemedi+"','"+medi_no+"','"+ type_me + "','"+ medi_num + "','"+ unit_medi+"','"+unit_price+"','"+price+"','"+start+"','"+end+"')");
+                string query = ("insert into medical (medi_name,medi_no,medi_qty_type,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_status_stock) values ('" + namemedi+"','"+medi_no+"','"+ type_me + "','"+ medi_num + "','"+ unit_medi+"','"+unit_price+"','"+price+"','"+start+"','"+end+"',1)");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();

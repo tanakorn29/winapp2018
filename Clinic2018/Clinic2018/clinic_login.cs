@@ -21,18 +21,18 @@ namespace Clinic2018
         Timer t = new Timer();
         private void B_login_Click(object sender, EventArgs e)
         {
-           try
-            {
+          try
+           {
                 string day = DateTime.Now.ToString("dddd", new CultureInfo("th-TH"));
-
+                string today1 = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
                 double time = Convert.ToDouble(label4.Text);
                 if (time >= 08.00 && time <= 12.00)
                 {
                   //  MessageBox.Show("เช้า");sadsdasdsafsaไกดหหหหหหหหdededededหหหดำไหด
                     
                     SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets = true; User ID = sa; Password = 1234");
-                    SqlCommand cmd = new SqlCommand("select employee_ru.emp_ru_name,position.pos_name,time_attendance.remark from employee_ru inner join user_control on user_control.emp_ru_id = employee_ru.emp_ru_id inner join position on position.pos_id = employee_ru.pos_id inner join time_attendance on time_attendance.emp_ru_id = employee_ru.emp_ru_id  where uct_user=@uct_user and uct_password=@uct_password ORDER BY id_time DESC", conn);
-                    SqlCommand cmd1 = new SqlCommand("select employee_doctor.emp_doc_name,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.room_id,time_attendance.remark from employee_doctor inner join user_control on user_control.emp_doc_id = employee_doctor.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id = employee_doctor.emp_doc_id  inner join time_attendance on time_attendance.emp_doc_id = employee_doctor.emp_doc_id where uct_user=@uct_user and uct_password=@uct_password and swd_day_work = '" + day+ "' and swd_timezone = 'เช้า' ORDER BY id_time,room_id DESC", conn);
+                    SqlCommand cmd = new SqlCommand("select employee_ru.emp_ru_name,position.pos_name,time_attendance.remark from employee_ru inner join user_control on user_control.emp_ru_id = employee_ru.emp_ru_id inner join position on position.pos_id = employee_ru.pos_id inner join time_attendance on time_attendance.emp_ru_id = employee_ru.emp_ru_id  where uct_user=@uct_user and uct_password=@uct_password and time_attendance.date_work = '"+today1+"' ORDER BY id_time DESC", conn);
+                    SqlCommand cmd1 = new SqlCommand("select employee_doctor.emp_doc_name,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work,schedule_work_doctor.room_id,time_attendance.remark from employee_doctor inner join user_control on user_control.emp_doc_id = employee_doctor.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id = employee_doctor.emp_doc_id  inner join time_attendance on time_attendance.emp_doc_id = employee_doctor.emp_doc_id where uct_user=@uct_user and uct_password=@uct_password and swd_day_work = '" + day+ "' and time_attendance.date_work = '" + today1 + "' and swd_timezone = 'เช้า'  ORDER BY id_time,room_id DESC", conn);
                     conn.Open();
 
 
@@ -198,8 +198,8 @@ namespace Clinic2018
                     // MessageBox.Show("บ่าย");
 
                     SqlConnection conn = new SqlConnection(@"Data Source = DESKTOP-92251HH\SQLEXPRESS; Initial Catalog = Clinic2018; MultipleActiveResultSets=true; User ID = sa; Password = 1234");
-                    SqlCommand cmd = new SqlCommand("select employee_ru.emp_ru_name,position.pos_name,time_attendance.remark from employee_ru inner join user_control on user_control.emp_ru_id = employee_ru.emp_ru_id inner join position on position.pos_id = employee_ru.pos_id inner join time_attendance on time_attendance.emp_ru_id = employee_ru.emp_ru_id  where uct_user=@uct_user and uct_password=@uct_password ORDER BY id_time DESC", conn);
-                    SqlCommand cmd1 = new SqlCommand("select employee_doctor.emp_doc_name,schedule_work_doctor.swd_day_work ,schedule_work_doctor.room_id,time_attendance.remark from employee_doctor inner join user_control on user_control.emp_doc_id = employee_doctor.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id = employee_doctor.emp_doc_id  inner join time_attendance on time_attendance.emp_doc_id = employee_doctor.emp_doc_id where uct_user=@uct_user and uct_password=@uct_password and swd_day_work = '" + day + "' and swd_timezone = 'บ่าย' ORDER BY id_time DESC", conn);
+                    SqlCommand cmd = new SqlCommand("select employee_ru.emp_ru_name,position.pos_name,time_attendance.remark from employee_ru inner join user_control on user_control.emp_ru_id = employee_ru.emp_ru_id inner join position on position.pos_id = employee_ru.pos_id inner join time_attendance on time_attendance.emp_ru_id = employee_ru.emp_ru_id  where uct_user=@uct_user and uct_password=@uct_password and time_attendance.date_work = '" + today1 + "' ORDER BY id_time DESC", conn);
+                    SqlCommand cmd1 = new SqlCommand("select employee_doctor.emp_doc_name,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_date_work ,schedule_work_doctor.room_id,time_attendance.remark from employee_doctor inner join user_control on user_control.emp_doc_id = employee_doctor.emp_doc_id inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id = employee_doctor.emp_doc_id  inner join time_attendance on time_attendance.emp_doc_id = employee_doctor.emp_doc_id where uct_user=@uct_user and uct_password=@uct_password and swd_day_work = '" + day + "' and swd_timezone = 'บ่าย' and time_attendance.date_work = '" + today1+"' ORDER BY id_time DESC", conn);
                     conn.Open();
 
 
@@ -287,58 +287,68 @@ namespace Clinic2018
                     {
                         if (dr1.Read())
                         {
+                            string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
                             string time_remark = dr1["remark"].ToString();
-                            if (time_remark == "เข้างาน")
+                            string date_work = dr1["swd_date_work"].ToString();
+                            if (today != date_work)
                             {
-
-                                if (dr1["room_id"].ToString() == "1")
+                                if (time_remark == "เข้างาน")
                                 {
-                                    MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
 
-                                    Clinic_doctor doc1 = new Clinic_doctor();
-                                    doc1.Show();
-                                    clinic_login clnlog = new clinic_login();
-                                    clnlog.Close();
-                                    Visible = false;
+                                    if (dr1["room_id"].ToString() == "1")
+                                    {
+                                        MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
 
+                                        Clinic_doctor doc1 = new Clinic_doctor();
+                                        doc1.Show();
+                                        clinic_login clnlog = new clinic_login();
+                                        clnlog.Close();
+                                        Visible = false;
+
+
+                                    }
+
+                                    else if (dr1["room_id"].ToString() == "2")
+                                    {
+                                        MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
+
+                                        Clinic_doctor2 doc1 = new Clinic_doctor2();
+                                        doc1.Show();
+                                        clinic_login clnlog = new clinic_login();
+                                        clnlog.Close();
+                                        Visible = false;
+                                    }
+
+                                    else if (dr1["room_id"].ToString() == "3")
+                                    {
+                                        MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
+                                        clinic_doctor3 doc1 = new clinic_doctor3();
+                                        doc1.Show();
+                                        clinic_login clnlog = new clinic_login();
+                                        clnlog.Close();
+                                        Visible = false;
+                                    }
+
+                                    else
+                                    {
+                                        MessageBox.Show("ยังไม่ได้ลงตารางปฏิบัติงาน");
+                                    }
 
                                 }
-
-                                else if (dr1["room_id"].ToString() == "2")
-                                {
-                                    MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
-
-                                    Clinic_doctor2 doc1 = new Clinic_doctor2();
-                                    doc1.Show();
-                                    clinic_login clnlog = new clinic_login();
-                                    clnlog.Close();
-                                    Visible = false;
-                                }
-
-                                else if (dr1["room_id"].ToString() == "3")
-                                {
-                                    MessageBox.Show("ยินดีต้อนรับ" + dr1["emp_doc_name"].ToString());
-                                    clinic_doctor3 doc1 = new clinic_doctor3();
-                                    doc1.Show();
-                                    clinic_login clnlog = new clinic_login();
-                                    clnlog.Close();
-                                    Visible = false;
-                                }
-
                                 else
                                 {
-                                    MessageBox.Show("ยังไม่ได้ลงตารางปฏิบัติงาน");
+                                    MessageBox.Show("ยังไม่ได้เข้างาน");
                                 }
-
                             }
                             else
                             {
-                                MessageBox.Show("ยังไม่ได้เข้างาน");
+                                MessageBox.Show("ไม่ได้อยู่ในวันปฏิบัติงานนี้");
                             }
+                          
 
 
                         }
-
+                      
 
                     }
                     else

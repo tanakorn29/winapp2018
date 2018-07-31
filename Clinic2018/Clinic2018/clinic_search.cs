@@ -109,7 +109,10 @@ namespace Clinic2018
                         {
                             dataGridView1.Rows[n].Cells[5].Value = "ไม่มีการนัดหมายการรักษา";
                         }
-                      
+                        else if (status_approve == "0")
+                        {
+                            dataGridView1.Rows[n].Cells[5].Value = "ไม่มีการนัดหมายการรักษา";
+                        }
                     }
                     else
                     {
@@ -479,7 +482,7 @@ namespace Clinic2018
                         }else
                         {
 
-                            MessageBox.Show("คนไข้ถูกส่งคิวเข้าห้องตรวจเรียบร้อยแล้ว");
+                            MessageBox.Show("คนไข้ถูกส่งคิวเข้าห้องซักประวัติเรียบร้อยแล้ว");
 
                         }
 

@@ -102,7 +102,7 @@ namespace Clinic2018
 
         private void clinic_app_service_Load(object sender, EventArgs e)
         {
-            t.Interval = 1000;
+             t.Interval = 1000;
             t.Tick += new EventHandler(this.timer1_Tick);
             t.Start();
             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
@@ -188,10 +188,10 @@ namespace Clinic2018
 
                 double time = Convert.ToDouble(lbltime1.Text);
 
-                if (time <= 12.00)
+                if (time >= 08.00 && time <= 12.00)
                 {
                     lbltimezone.Text = "เช้า";
-                    /*
+         /*
                                     string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า'");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
@@ -214,13 +214,12 @@ namespace Clinic2018
                                         dataGridView2.Rows[n].Cells[7].Value = item["room_id"].ToString();
 
                                    }
-
-                                */
+                                    */
                 }
-                else if (time >= 12.01)
+                else if (time >= 12.01 && time <= 15.30)
                 {
                     lbltimezone.Text = "บ่าย";
-                    /*
+             /*
                                     string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย'");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
@@ -243,8 +242,8 @@ namespace Clinic2018
                                         dataGridView2.Rows[n].Cells[7].Value = item["room_id"].ToString();
 
                                     }
-                                    */
-
+                              
+                */
                 }
 
                 conn.Close();
@@ -258,12 +257,12 @@ namespace Clinic2018
 
         private void lbltimezone_TextChanged(object sender, EventArgs e)
         {
-            
+    
             string timezone = lbltimezone.Text;
             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             if (timezone == "เช้า")
             {
-                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialistid,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "'");
+                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,specialist.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id   inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid  where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'เช้า' AND swd_date_work = '" + today + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -277,7 +276,7 @@ namespace Clinic2018
 
                     dataGridView2.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                     dataGridView2.Rows[n].Cells[1].Value = item["emp_doc_name"].ToString();
-                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialistid"].ToString();
+                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialist"].ToString();
                     dataGridView2.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
                     dataGridView2.Rows[n].Cells[4].Value = item["swd_start_time"].ToString();
                     dataGridView2.Rows[n].Cells[5].Value = item["swd_end_time"].ToString();
@@ -289,7 +288,7 @@ namespace Clinic2018
             else if (timezone == "บ่าย")
             {
 
-                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialistid,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "'");
+                string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,specialist.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id    inner join specialist on specialist.emp_doc_specialistid = empdoc.emp_doc_specialistid  where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + today + "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -303,7 +302,7 @@ namespace Clinic2018
 
                     dataGridView2.Rows[n].Cells[0].Value = item["swd_id"].ToString();
                     dataGridView2.Rows[n].Cells[1].Value = item["emp_doc_name"].ToString();
-                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialistid"].ToString();
+                    dataGridView2.Rows[n].Cells[2].Value = item["emp_doc_specialist"].ToString();
                     dataGridView2.Rows[n].Cells[3].Value = item["swd_day_work"].ToString();
                     dataGridView2.Rows[n].Cells[4].Value = item["swd_start_time"].ToString();
                     dataGridView2.Rows[n].Cells[5].Value = item["swd_end_time"].ToString();
@@ -313,7 +312,7 @@ namespace Clinic2018
                 }
 
             }
-            
+       
         }
         int selectedRow;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -468,6 +467,7 @@ namespace Clinic2018
 
         private void lbldocname_TextChanged(object sender, EventArgs e)
         {
+            /*
             string timezone = lbltimezone.Text;
             string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             if (timezone == "เช้า")
@@ -525,6 +525,7 @@ namespace Clinic2018
 
            
             }
+            */
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -611,7 +612,7 @@ namespace Clinic2018
                         //    lblroom.Text = "" + room_id;
                         //  lblswdid.Text = "" + swd_id;
 
-                        query = (" select schedule_work_doctor.swd_id,schedule_work_doctor.room_id from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_date_work = '" + app_date + "' AND employee_doctor.emp_doc_name LIKE '%" + lbldocname.Text+"%' AND schedule_work_doctor.swd_timezone = '"+lbltimezone1.Text+"'");
+                        query = (" select schedule_work_doctor.swd_id,schedule_work_doctor.room_id from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_date_work = '" + app_date + "' AND employee_doctor.emp_doc_name LIKE '%" + lbldocname.Text+"%' AND schedule_work_doctor.swd_timezone = '"+lbltimezone1.Text+ "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -626,6 +627,8 @@ namespace Clinic2018
                              lblroom.Text = "" + room_id1;
                              lblswdid.Text = "" + swd_id1;
                         }
+                         
+
 
 
 
@@ -665,6 +668,7 @@ namespace Clinic2018
                             lblroom.Text = "" + room_id1;
                             lblswdid.Text = "" + swd_id1;
                         }
+                      
 
 
                         if (time_app >= time_now2)
@@ -674,10 +678,9 @@ namespace Clinic2018
                    {
                             lblstatusapp.Text = "มาไม่ทันตามนัดหมาย";
                         }
-                     //   lblstatusapp.Text = "" + lbltime1.Text;
-                       // MessageBox.Show("" + lbltime1.Text);
+                        //   lblstatusapp.Text = "" + lbltime1.Text;
+                        // MessageBox.Show("" + lbltime1.Text);
                     }
-                
                     //************yjfu*******hihihohn***********56416665656565
                 }
 

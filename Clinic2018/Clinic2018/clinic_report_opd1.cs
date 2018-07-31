@@ -23,14 +23,35 @@ namespace Clinic2018
             InitializeComponent();
             conn.Open();
         
-            string query = ("select position.pos_name,COUNT(opd.opd_id) from position inner join opd on opd.pos_id = position.pos_id inner join treatment_record on treatment_record.opd_id = opd.opd_id GROUP BY pos_name");
+            string query = ("select position.pos_name,COUNT(treatment_record.opd_id) from position inner join opd on opd.pos_id = position.pos_id inner join treatment_record on treatment_record.opd_id = opd.opd_id GROUP BY pos_name");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
 
             sdr = cmd.ExecuteReader();
-           while (sdr.Read())
+            
+                while (sdr.Read())
+                {
+                
+                    int n = dataGridView1.Rows.Add();
+                    string pos_name = sdr.GetString(0);
+
+                    int id = sdr.GetInt32(1);
+                    string POS = Convert.ToString(id);
+
+                    dataGridView1.Rows[n].Cells[0].Value = pos_name;
+                    dataGridView1.Rows[n].Cells[1].Value = POS;
+                    //     listView1.Items.Add(pos_name + Environment.NewLine + id);
+
+                
+                }   
+
+
+
+
+            /*
+                while (sdr.Read())
             {
                 string pos_name = sdr.GetString(0);
 
@@ -39,7 +60,7 @@ namespace Clinic2018
 
             }
 
-
+    */
 
             conn.Close();
         }
