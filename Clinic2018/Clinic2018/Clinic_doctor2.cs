@@ -31,5 +31,16 @@ namespace Clinic2018
             clinic_doctor_service2 ser = new clinic_doctor_service2();
             ser.Show();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+
+
+
+
+
+
+        }
     }
 }

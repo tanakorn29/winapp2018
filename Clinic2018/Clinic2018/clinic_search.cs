@@ -257,120 +257,86 @@ namespace Clinic2018
                                         {
                                             int emp_ru_id = Convert.ToInt32(sdr["emp_ru_id"].ToString());
                                             int opd_id = Convert.ToInt32(sdr["opd_id"].ToString());
-             
-                            query = ("select Count(*) from appointment where opd_id = '"+opd_id+ "' AND status_approve = 2");
+                        query = ("select Count(opd_id) from queue_visit_record where opd_id = '" + opd_id + "'  AND qvr_status = 1 AND queue_visit_record.qvr_date = '" + label4.Text + "' ");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
                         sda.Fill(dt);
-
-                        int app_count = (int)cmd.ExecuteScalar();
-                        if(app_count == 1)
+                        int count_visit = (int)cmd.ExecuteScalar();
+                        if (count_visit < 1)
                         {
-                  
-                            DialogResult dialogResult = MessageBox.Show("ส่งคิวการนัดหมาย", "คุณต้องการส่งคิวการนัดหมายหรือไม่", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
+                            query = ("select Count(*) from appointment where opd_id = '" + opd_id + "' AND status_approve = 2");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+                            sda.Fill(dt);
+
+                            int app_count = (int)cmd.ExecuteScalar();
+                            if (app_count == 1)
                             {
-                      
-                               //*****
-                                query = ("select appointment.app_date from appointment where opd_id = '" + opd_id + "' AND status_approve = 2");
-                                cmd = new SqlCommand(query, conn);
 
-                                sda = new SqlDataAdapter(cmd);
-                                dt = new DataTable();
-                                sda.Fill(dt);
-                                sdr = cmd.ExecuteReader();
-                                if (sdr.Read())
+                                DialogResult dialogResult = MessageBox.Show("ส่งคิวการนัดหมาย", "คุณต้องการส่งคิวการนัดหมายหรือไม่", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
                                 {
-                                    string date = sdr["app_date"].ToString();
-                                    DateTime date_app = Convert.ToDateTime(date);
-                                    int date_day = date_app.Day;
-                                    int today_day = today_th.Day;
 
-                                    if(today_day >= date_day)
+                                    //*****
+                                    query = ("select appointment.app_date from appointment where opd_id = '" + opd_id + "' AND status_approve = 2");
+                                    cmd = new SqlCommand(query, conn);
+
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+                                    sdr = cmd.ExecuteReader();
+                                    if (sdr.Read())
                                     {
-                                        query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '"+label4.Text+"',5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);//**
-                                        query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-                                        //  sdr = cmd.ExecuteReader();
-                                        int queue = (int)cmd.ExecuteScalar();
-                                        collection.Enqueue(queue);
+                                        string date = sdr["app_date"].ToString();
+                                        DateTime date_app = Convert.ToDateTime(date);
+                                        int date_day = date_app.Day;
+                                        int today_day = today_th.Day;
 
-                                        foreach (int value in collection)
+                                        if (today_day >= date_day)
                                         {
-                                            query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
-                                            //  
+                                            query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '" + label4.Text + "',5,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);//**
+                                            query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5 AND queue_visit_record.qvr_date = '" + label4.Text + "'");
                                             cmd = new SqlCommand(query, conn);
                                             sda = new SqlDataAdapter(cmd);
                                             dt = new DataTable();
                                             sda.Fill(dt);
-                                            clinic_search m3 = new clinic_search();
-                                            m3.Show();
-                                            clinic_search clnlog = new clinic_search();
-                                            clnlog.Close();
-                                            Visible = false;
-                                            MessageBox.Show("ส่วนของการนัดหมาย คิวที่    " + value + " ");
+                                            //  sdr = cmd.ExecuteReader();
+                                            int queue = (int)cmd.ExecuteScalar();
+                                            collection.Enqueue(queue);
+
+                                            foreach (int value in collection)
+                                            {
+                                                query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
+                                                //  
+                                                cmd = new SqlCommand(query, conn);
+                                                sda = new SqlDataAdapter(cmd);
+                                                dt = new DataTable();
+                                                sda.Fill(dt);
+                                                clinic_search m3 = new clinic_search();
+                                                m3.Show();
+                                                clinic_search clnlog = new clinic_search();
+                                                clnlog.Close();
+                                                Visible = false;
+                                                MessageBox.Show("ส่วนของการนัดหมาย คิวที่    " + value + " ");
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("ยังไม่ถึงเวลานัดหมาย");
                                         }
 
+
+
                                     }
-                                    else
-                                    {
-                                        MessageBox.Show("ยังไม่ถึงเวลานัดหมาย");
-                                    }
-                                 
-
-
-                                }
-                                /*
-                                query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5");
-                                cmd = new SqlCommand(query, conn);
-                                sda = new SqlDataAdapter(cmd);
-                                dt = new DataTable();
-                                sda.Fill(dt);
-                                //  sdr = cmd.ExecuteReader();
-                                int queue = (int)cmd.ExecuteScalar();
-                                collection.Enqueue(queue);
-
-                                foreach (int value in collection)
-                                {
-                                    query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
-                                    //  
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-                                    clinic_search m3 = new clinic_search();
-                                    m3.Show();
-                                    clinic_search clnlog = new clinic_search();
-                                    clnlog.Close();
-                                    Visible = false;
-                                    MessageBox.Show("ส่วนของการนัดหมาย คิวที่    " + value + " ");
-                                }
-
-
-                            */
-
-
-
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                DialogResult dialogResult1= MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
-                                if (dialogResult1 == DialogResult.Yes)
-                                {
-                                    query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "','"+label4.Text+"',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-                                    query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
+                                    /*
+                                    query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 5");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
@@ -392,6 +358,101 @@ namespace Clinic2018
                                         clinic_search clnlog = new clinic_search();
                                         clnlog.Close();
                                         Visible = false;
+                                        MessageBox.Show("ส่วนของการนัดหมาย คิวที่    " + value + " ");
+                                    }
+
+
+                                */
+
+
+
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    DialogResult dialogResult1 = MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
+                                    if (dialogResult1 == DialogResult.Yes)
+                                    {
+                                        query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "','" + label4.Text + "',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '" + label4.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        //  sdr = cmd.ExecuteReader();
+                                        int queue = (int)cmd.ExecuteScalar();
+                                        collection.Enqueue(queue);
+
+                                        foreach (int value in collection)
+                                        {
+                                            query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
+                                            //  
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            clinic_search m3 = new clinic_search();
+                                            m3.Show();
+                                            clinic_search clnlog = new clinic_search();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("คิวที่    " + value);
+                                        }
+
+
+
+
+
+
+                                    }
+                                    else if (dialogResult1 == DialogResult.No)
+                                    {
+                                        clinic_search m3 = new clinic_search();
+                                        m3.Show();
+                                        clinic_search clnlog = new clinic_search();
+                                        clnlog.Close();
+                                        Visible = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+
+                                DialogResult dialogResult = MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '" + label4.Text + "',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+
+
+                                    query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '" + label4.Text + "'");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+                                    //  sdr = cmd.ExecuteReader();
+                                    int queue = (int)cmd.ExecuteScalar();
+                                    collection.Enqueue(queue);
+
+                                    foreach (int value in collection)
+                                    {
+                                        query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "' AND queue_visit_record.qvr_date = '" + label4.Text + "'");
+                                        //  
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        clinic_search m3 = new clinic_search();
+                                        m3.Show();
+                                        clinic_search clnlog = new clinic_search();
+                                        clnlog.Close();
+                                        Visible = false;
                                         MessageBox.Show("คิวที่    " + value);
                                     }
 
@@ -400,8 +461,10 @@ namespace Clinic2018
 
 
 
+
+
                                 }
-                                else if (dialogResult1 == DialogResult.No)
+                                else if (dialogResult == DialogResult.No)
                                 {
                                     clinic_search m3 = new clinic_search();
                                     m3.Show();
@@ -410,58 +473,17 @@ namespace Clinic2018
                                     Visible = false;
                                 }
                             }
-                        }
-                        else
+
+
+              
+                        }else
                         {
-                
-                            DialogResult dialogResult = MessageBox.Show("ส่งคิวการซักประวัติ", "คุณต้องการส่งคิวการซักประวัติหรือไม่", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', '" + lbltime.Text + "', '"+label4.Text+"',1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");
-                                cmd = new SqlCommand(query, conn);
-                                sda = new SqlDataAdapter(cmd);
-                                dt = new DataTable();
-                                sda.Fill(dt);
-                                query = ("select Count(*) from queue_visit_record inner join opd on opd.opd_id = queue_visit_record.opd_id inner join employee_ru on employee_ru.emp_ru_id = queue_visit_record.emp_ru_id where queue_visit_record.qvr_status = 1 AND queue_visit_record.qvr_date = '"+label4.Text+"'");
-                                cmd = new SqlCommand(query, conn);
-                                sda = new SqlDataAdapter(cmd);
-                                dt = new DataTable();
-                                sda.Fill(dt);
-                                //  sdr = cmd.ExecuteReader();
-                                int queue = (int)cmd.ExecuteScalar();
-                                collection.Enqueue(queue);
 
-                                foreach (int value in collection)
-                                {
-                                    query = ("Update queue_visit_record set qvr_record = '" + value + "' where emp_ru_id = '" + emp_ru_id + "'");
-                                    //  
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-                                    clinic_search m3 = new clinic_search();
-                                    m3.Show();
-                                    clinic_search clnlog = new clinic_search();
-                                    clnlog.Close();
-                                    Visible = false;
-                                    MessageBox.Show("คิวที่    " + value);
-                                }
+                            MessageBox.Show("คนไข้ถูกส่งคิวเข้าห้องตรวจเรียบร้อยแล้ว");
 
-
-
-
-
-
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                clinic_search m3 = new clinic_search();
-                                m3.Show();
-                                clinic_search clnlog = new clinic_search();
-                                clnlog.Close();
-                                Visible = false;
-                            }
                         }
+
+               
 
                         /*
                                                 query = ("insert into queue_visit_record(qvr_record,qvr_time,qvr_date,qvr_status,emp_ru_id,vr_id,opd_id) values(' ', SYSDATETIME(), SYSDATETIME(),1,'" + emp_ru_id + " ',' ','" + opd_id + " ')");

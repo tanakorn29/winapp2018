@@ -139,7 +139,7 @@ namespace Clinic2018
             txts2.Text = "0";
             txtw.Text = "0";
             txth.Text = "0";
-
+            txthearth.Text = "0";
             label19.Text = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
             /*
             string query = ("select schedule_work_doctor.swd_id,empdoc.emp_doc_name,empdoc.emp_doc_specialist,schedule_work_doctor.swd_day_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.swd_end_time,schedule_work_doctor.swd_note,schedule_work_doctor.room_id from employee_doctor empdoc inner join schedule_work_doctor on schedule_work_doctor.emp_doc_id  = empdoc.emp_doc_id inner join room on room.room_id = schedule_work_doctor.room_id inner join time_attendance on time_attendance.emp_doc_id = empdoc.emp_doc_id where swd_status_room = 1 AND room.room_status = 1 AND swd_day_work = '" + lblday.Text + "' AND remark = 'เข้างาน'");
@@ -226,6 +226,12 @@ namespace Clinic2018
         private void button1_Click(object sender, EventArgs e)
         {
             conn.Open();
+            if(txts1.Text == "0" || txts2.Text == "0" || txtw.Text == "0" || txth.Text == "0" || txthearth.Text == "0" || textBox1.Text == "")
+            {
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบ");
+            }else
+            {
+
             string query = ("select count(*) from symtoms where symtoms_dis LIKE'%"+ textBox1.Text+"%'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
@@ -317,15 +323,16 @@ namespace Clinic2018
 
    
             }
-
+                clinc_nurse_service m4 = new clinc_nurse_service();
+                m4.Show();
+                clinc_nurse_service clnlog = new clinc_nurse_service();
+                clnlog.Close();
+                Visible = false;
+                MessageBox.Show("บันทึกข้อมูลซักประวัติเรียบร้อย");
+            }
             conn.Close();
 
-            clinc_nurse_service m4 = new clinc_nurse_service();
-            m4.Show();
-            clinc_nurse_service clnlog = new clinc_nurse_service();
-            clnlog.Close();
-            Visible = false;
-            MessageBox.Show("บันทึกข้อมูลซักประวัติเรียบร้อย");
+    
 
 
 
@@ -776,7 +783,7 @@ namespace Clinic2018
 
             double time = Convert.ToDouble(timelbl.Text);
               
-            if (time <= 12.00)
+            if (time >= 08.00 && time <= 12.00)
             {
                     lbltimezone.Text = "เช้า";
                     lbltimeworkzone.Text = "เช้า";
@@ -806,7 +813,7 @@ namespace Clinic2018
               
             */
             }
-            else if (time >= 12.01)
+            else if (time >= 12.01 && time <= 15.30)
             {
                     lbltimezone.Text = "บ่าย";
                   lbltimeworkzone.Text = "บ่าย";
@@ -1317,6 +1324,11 @@ namespace Clinic2018
                 }
 
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
         /*
 private void lbltime_TextChanged(object sender, EventArgs e)

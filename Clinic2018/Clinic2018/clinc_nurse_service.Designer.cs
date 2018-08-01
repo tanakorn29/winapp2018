@@ -926,6 +926,10 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "qvr_time";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // dataSet2
             // 
             this.dataSet2.DataSetName = "DataSet2";

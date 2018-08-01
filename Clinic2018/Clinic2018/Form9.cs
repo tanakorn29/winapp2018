@@ -85,5 +85,13 @@ namespace Clinic2018
                 MessageBox.Show("อ้วนมาก");
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(textBox7.Text == "")
+            {
+                MessageBox.Show("ข้อมูลว่าง");
+            }
+        }
     }
 }

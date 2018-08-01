@@ -22,7 +22,7 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-            string  query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+            string  query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 ORDER BY treatr_medi_queue ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -463,7 +463,7 @@ namespace Clinic2018
 
             conn.Open();
 
-            string query = ("select treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+            string query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 ORDER BY treatr_medi_queue ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -654,7 +654,7 @@ namespace Clinic2018
         private void lblqueue_TextChanged(object sender, EventArgs e)
         {
      
-            string query = ("select treatment_record.treatr_id from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+            string query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 ORDER BY treatr_medi_queue ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblqueue = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -113,6 +114,9 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lbltimezone = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -125,6 +129,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.lblqueue);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.lblposition);
@@ -217,6 +222,7 @@
             this.txtdocid.Name = "txtdocid";
             this.txtdocid.Size = new System.Drawing.Size(198, 20);
             this.txtdocid.TabIndex = 27;
+            this.txtdocid.TextChanged += new System.EventHandler(this.txtdocid_TextChanged);
             // 
             // label6
             // 
@@ -484,6 +490,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.lbltimezone);
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.label17);
@@ -838,54 +845,86 @@
             this.Column19});
             this.dataGridView1.Location = new System.Drawing.Point(26, 9);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(950, 106);
+            this.dataGridView1.Size = new System.Drawing.Size(1221, 106);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Column1
             // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "ลำดับคิว";
             this.Column1.Name = "Column1";
             // 
             // Column2
             // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "วันที่มารักษา";
             this.Column2.Name = "Column2";
             // 
             // Column3
             // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column3.HeaderText = "เวลา";
             this.Column3.Name = "Column3";
             // 
             // Column4
             // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column4.HeaderText = "ห้องตรวจ";
             this.Column4.Name = "Column4";
             // 
             // Column5
             // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column5.HeaderText = "ชื่อแพทย์ผู้ทำการรักษา";
             this.Column5.Name = "Column5";
             // 
             // Column8
             // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column8.HeaderText = "รหัสแพทย์";
             this.Column8.Name = "Column8";
             // 
             // Column6
             // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column6.HeaderText = "รหัสเวชระเบียน";
             this.Column6.Name = "Column6";
             // 
             // Column7
             // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column7.HeaderText = "ชื่อคนไข้";
             this.Column7.Name = "Column7";
             // 
             // Column19
             // 
+            this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column19.HeaderText = "ตำแหน่งงาน";
             this.Column19.Name = "Column19";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(958, 15);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(34, 13);
+            this.label20.TabIndex = 14;
+            this.label20.Text = "00.00";
+            this.label20.TextChanged += new System.EventHandler(this.label20_TextChanged);
+            // 
+            // lbltimezone
+            // 
+            this.lbltimezone.AutoSize = true;
+            this.lbltimezone.Location = new System.Drawing.Point(561, 22);
+            this.lbltimezone.Name = "lbltimezone";
+            this.lbltimezone.Size = new System.Drawing.Size(0, 13);
+            this.lbltimezone.TabIndex = 49;
+            this.lbltimezone.TextChanged += new System.EventHandler(this.lbltimezone_TextChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // clinic_doctor_service2
             // 
@@ -967,15 +1006,6 @@
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
@@ -1000,5 +1030,17 @@
         private System.Windows.Forms.Label lblqueue;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lbltimezone;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -26,7 +26,7 @@ namespace Clinic2018
                 string day = DateTime.Now.ToString("dddd", new CultureInfo("th-TH"));
 
                 double time = Convert.ToDouble(label4.Text);
-                if (time <= 12.00)
+                if (time >= 08.00 && time <= 12.00)
                 {
                   //  MessageBox.Show("เช้า");sadsdasdsafsaไกดหหหหหหหหdededededหหหดำไหด
                     
@@ -193,7 +193,7 @@ namespace Clinic2018
 
                     
 
-                }else if(time >= 12.01)
+                }else if(time >= 12.01 && time <= 15.30)
                 {
                     // MessageBox.Show("บ่าย");
 

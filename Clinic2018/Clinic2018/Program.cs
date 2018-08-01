@@ -24,9 +24,9 @@ namespace Clinic2018
       //  Application.Run(new clinic_time_attendance());
             //Application.Run(new clinic_test_1()); 
            //Application.Run(new clinc_nurse_service());
-   Application.Run(new clinic_time_attendance());
+ // Application.Run(new clinic_time_attendance());
          //  Application.Run(new clinic_search());
-        // Application.Run(new clinic_login());
+         Application.Run(new clinic_pharmacist_service());
 
             //    Application.Run(new clinic_barcode());
   //  Application.Run(new clinic_time_attendance()); //run
