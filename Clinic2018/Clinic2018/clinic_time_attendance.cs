@@ -317,88 +317,182 @@ namespace Clinic2018
                                         {
                                             int emp_doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
                                             string emp_doc_name = sdr["emp_doc_name"].ToString();
-
-                        query = ("select count(emp_doc_id) from schedule_work_doctor where swd_status_room = 1 AND swd_date_work = '"+label2.Text+"' AND emp_doc_id = '"+emp_doc_id+"'");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-                        sda.Fill(dt);
-                        int swd_count = (int)cmd.ExecuteScalar();
-                        if (swd_count < 1)
+                        if (time >= 08.00 && time <= 12.00)
                         {
-                            MessageBox.Show("ไม่สามารถเข้างานได้ ยังไม่ถึงเวลางาน");
-                        }else
-                        {
-                            query = ("select count(*) from queue_diag_room inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where employee_doctor.emp_doc_id = '" + emp_doc_id + "' AND queue_diag_room.status_queue = 1");
+                            query = ("select count(emp_doc_id) from schedule_work_doctor where swd_status_room = 1 AND swd_date_work = '" + label2.Text + "' AND emp_doc_id = '" + emp_doc_id + "' AND swd_timezone = 'เช้า'");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
                             dt = new DataTable();
                             sda.Fill(dt);
-                            int queue_diag_count = (int)cmd.ExecuteScalar();
-                            if (queue_diag_count >= 1)
+                            int swd_count = (int)cmd.ExecuteScalar();
+                            if (swd_count < 1)
                             {
-                                MessageBox.Show("ยังมีคนไข้รอคิวอยู่");
+                                MessageBox.Show("ไม่สามารถเข้างานได้ ยังไม่ถึงเวลางาน");
                             }
                             else
                             {
-
-                                query = ("select count(*) from time_attendance where remark = 'เข้างาน' AND emp_doc_id = '" + emp_doc_id + "'");
+                                query = ("select count(*) from queue_diag_room inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where employee_doctor.emp_doc_id = '" + emp_doc_id + "' AND queue_diag_room.status_queue = 1");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
                                 sda.Fill(dt);
-
-                                int status_work_doc = (int)cmd.ExecuteScalar();
-                                if (status_work_doc < 1)
+                                int queue_diag_count = (int)cmd.ExecuteScalar();
+                                if (queue_diag_count >= 1)
                                 {
-                                    query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values('" + label1.Text + "','','" + label2.Text + "','เข้างาน','','" + emp_doc_id + "')");
-                                    cmd = new SqlCommand(query, conn);
-
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-                                    query = ("UPDATE room SET room.room_status = 1 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-
-                                    sda.Fill(dt);
-
-                                    query = ("Update schedule_work_doctor set swd_status_checkwork = 1 where emp_doc_id = '"+ emp_doc_id + "' AND swd_date_work = '"+label2.Text+"'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-
-                                    sda.Fill(dt);
-
-                                    lblemp.Text = emp_doc_name + "   เข้างานเรียบร้อย";
-
+                                    MessageBox.Show("ยังมีคนไข้รอคิวอยู่");
                                 }
                                 else
                                 {
-                                    int emp_doc_id1 = Convert.ToInt32(sdr["emp_doc_id"].ToString());
-                                    query = ("UPDATE time_attendance SET end_time = '" + label1.Text + "',remark = 'ออกจากงาน' where emp_doc_id = '" + emp_doc_id1 + "'");
+
+                                    query = ("select count(*) from time_attendance where remark = 'เข้างาน' AND emp_doc_id = '" + emp_doc_id + "'");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
-
-                                    sda.Fill(dt);
-                                    query = ("UPDATE room SET room.room_status = 0 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-
                                     sda.Fill(dt);
 
+                                    int status_work_doc = (int)cmd.ExecuteScalar();
+                                    if (status_work_doc < 1)
+                                    {
+                                        query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values('" + label1.Text + "','','" + label2.Text + "','เข้างาน','','" + emp_doc_id + "')");
+                                        cmd = new SqlCommand(query, conn);
 
-                                    lblemp.Text = emp_doc_name + "   ออกจากงานเรียบร้อย";
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        query = ("UPDATE room SET room.room_status = 1 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+                                        query = ("Update schedule_work_doctor set swd_status_checkwork = 1 where emp_doc_id = '" + emp_doc_id + "' AND swd_date_work <= '" + label2.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+                                        lblemp.Text = emp_doc_name + "   เข้างานเรียบร้อย";
+
+                                    }
+                                    else
+                                    {
+                                        int emp_doc_id1 = Convert.ToInt32(sdr["emp_doc_id"].ToString());
+                                        query = ("UPDATE time_attendance SET end_time = '" + label1.Text + "',remark = 'ออกจากงาน' where emp_doc_id = '" + emp_doc_id1 + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+                                        query = ("UPDATE room SET room.room_status = 0 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+
+                                        lblemp.Text = emp_doc_name + "   ออกจากงานเรียบร้อย";
+
+                                    }
+
+
 
                                 }
-
-
-
                             }
+
+
+
+
                         }
+                        else if (time >= 12.01 && time <= 16.30)
+                        {
+                            query = ("select count(emp_doc_id) from schedule_work_doctor where swd_status_room = 1 AND swd_date_work = '" + label2.Text + "' AND emp_doc_id = '" + emp_doc_id + "' AND swd_timezone = 'บ่าย'");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+                            sda.Fill(dt);
+                            int swd_count = (int)cmd.ExecuteScalar();
+                            if (swd_count < 1)
+                            {
+                                MessageBox.Show("ไม่สามารถเข้างานได้ ยังไม่ถึงเวลางาน");
+                            }
+                            else
+                            {
+                                query = ("select count(*) from queue_diag_room inner join schedule_work_doctor on schedule_work_doctor.swd_id = queue_diag_room.swd_id inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where employee_doctor.emp_doc_id = '" + emp_doc_id + "' AND queue_diag_room.status_queue = 1");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+                                int queue_diag_count = (int)cmd.ExecuteScalar();
+                                if (queue_diag_count >= 1)
+                                {
+                                    MessageBox.Show("ยังมีคนไข้รอคิวอยู่");
+                                }
+                                else
+                                {
+
+                                    query = ("select count(*) from time_attendance where remark = 'เข้างาน' AND emp_doc_id = '" + emp_doc_id + "'");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+
+                                    int status_work_doc = (int)cmd.ExecuteScalar();
+                                    if (status_work_doc < 1)
+                                    {
+                                        query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values('" + label1.Text + "','','" + label2.Text + "','เข้างาน','','" + emp_doc_id + "')");
+                                        cmd = new SqlCommand(query, conn);
+
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+                                        sda.Fill(dt);
+                                        query = ("UPDATE room SET room.room_status = 1 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+                                        query = ("Update schedule_work_doctor set swd_status_checkwork = 1 where emp_doc_id = '" + emp_doc_id + "' AND swd_date_work <= '" + label2.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+                                        lblemp.Text = emp_doc_name + "   เข้างานเรียบร้อย";
+
+                                    }
+                                    else
+                                    {
+                                        int emp_doc_id1 = Convert.ToInt32(sdr["emp_doc_id"].ToString());
+                                        query = ("UPDATE time_attendance SET end_time = '" + label1.Text + "',remark = 'ออกจากงาน' where emp_doc_id = '" + emp_doc_id1 + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+                                        query = ("UPDATE room SET room.room_status = 0 FROM room  INNER JOIN schedule_work_doctor ON room.room_id = schedule_work_doctor.room_id INNER JOIN employee_doctor ON employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where emp_doc_idcard = '" + textBox1.Text + "'");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);
+
+
+                                        lblemp.Text = emp_doc_name + "   ออกจากงานเรียบร้อย";
+
+                                    }
+
+
+
+                                }
+                            }
+
+                        }
+                    
 
                         
                       

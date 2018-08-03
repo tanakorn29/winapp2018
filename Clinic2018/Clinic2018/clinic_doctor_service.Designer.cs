@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.lblqueue = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lblposition = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lbltimezone = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -115,9 +117,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label20 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lbltimezone = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -158,8 +158,18 @@
             this.groupBox3.Size = new System.Drawing.Size(1319, 613);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "ข้อมูลคนไข้";
+            this.groupBox3.Text = "1. ข้อมูลคนไข้";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(1067, 15);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(34, 13);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "00.00";
+            this.label20.TextChanged += new System.EventHandler(this.label20_TextChanged);
             // 
             // lblqueue
             // 
@@ -218,7 +228,7 @@
             this.groupBox2.Size = new System.Drawing.Size(440, 286);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "ข้อมูลการรักษาแพทย์";
+            this.groupBox2.Text = "3. ข้อมูลการรักษาแพทย์";
             // 
             // textBox1
             // 
@@ -325,11 +335,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 70);
+            this.label1.Location = new System.Drawing.Point(48, 67);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "อาการป่วย :";
+            this.label1.Text = "ข้อมูลการรักษา :";
             // 
             // groupBox4
             // 
@@ -351,7 +361,7 @@
             this.groupBox4.Size = new System.Drawing.Size(462, 180);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "ข้อมูลซักประวัติ";
+            this.groupBox4.Text = "2. ข้อมูลซักประวัติ";
             // 
             // label3
             // 
@@ -536,8 +546,17 @@
             this.groupBox5.Size = new System.Drawing.Size(800, 563);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "จ่ายยา";
+            this.groupBox5.Text = "4.จ่ายยา";
             this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
+            // 
+            // lbltimezone
+            // 
+            this.lbltimezone.AutoSize = true;
+            this.lbltimezone.Location = new System.Drawing.Point(546, 18);
+            this.lbltimezone.Name = "lbltimezone";
+            this.lbltimezone.Size = new System.Drawing.Size(0, 13);
+            this.lbltimezone.TabIndex = 41;
+            this.lbltimezone.TextChanged += new System.EventHandler(this.lbltimezone_TextChanged);
             // 
             // label19
             // 
@@ -922,28 +941,9 @@
             this.Column19.HeaderText = "ตำแหน่งงาน";
             this.Column19.Name = "Column19";
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(1067, 15);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(34, 13);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "00.00";
-            this.label20.TextChanged += new System.EventHandler(this.label20_TextChanged);
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // lbltimezone
-            // 
-            this.lbltimezone.AutoSize = true;
-            this.lbltimezone.Location = new System.Drawing.Point(546, 18);
-            this.lbltimezone.Name = "lbltimezone";
-            this.lbltimezone.Size = new System.Drawing.Size(0, 13);
-            this.lbltimezone.TabIndex = 41;
-            this.lbltimezone.TextChanged += new System.EventHandler(this.lbltimezone_TextChanged);
             // 
             // clinic_doctor_service
             // 

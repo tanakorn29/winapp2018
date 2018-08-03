@@ -193,7 +193,7 @@ namespace Clinic2018
 
                     
 
-                }else if(time >= 12.01 && time <= 15.30)
+                }else if(time >= 12.01 && time <= 16.30)
                 {
                     // MessageBox.Show("บ่าย");
 

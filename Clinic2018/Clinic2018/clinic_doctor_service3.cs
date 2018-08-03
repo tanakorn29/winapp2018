@@ -38,7 +38,11 @@ namespace Clinic2018
 
 
                 dataGridView1.Rows[n].Cells[0].Value = item["qdr_record"].ToString();
-                dataGridView1.Rows[n].Cells[1].Value = item["qdr_date"].ToString();
+
+                DateTime date_qdr = Convert.ToDateTime(item["qdr_date"].ToString());
+                string qdr_date = date_qdr.ToString("yyyy-MM-dd");
+
+                dataGridView1.Rows[n].Cells[1].Value = qdr_date;
                 dataGridView1.Rows[n].Cells[2].Value = item["qdr_time_sent"].ToString();
                 dataGridView1.Rows[n].Cells[3].Value = item["room_id"].ToString();
                 dataGridView1.Rows[n].Cells[4].Value = item["emp_doc_name"].ToString();
@@ -288,207 +292,226 @@ namespace Clinic2018
 
             string position = lblposition.Text;
             conn.Open();
-            if (position == "เจ้าหน้าที่")
+
+
+            string query = ("select count(*) from treatment_record where emp_doc_id ='" + txtdocid.Text + "' AND opd_id = '" + lblopdid.Text + "'");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+
+            int count_tre = (int)cmd.ExecuteScalar();
+            if (count_tre < 1)
             {
-                DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
 
-                    string query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-
-                    int opd_count_app = (int)cmd.ExecuteScalar();
-
-                    if (opd_count_app < 1)
-                    {
-                        query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-
-                        sda.Fill(dt);
-
-
-                        MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
-
-                    }
-
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
-
-                //     button1.Visible = true;
-            }
-            else if (position == "เวชระเบียน")
-            {
-                DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    string query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-
-                    int opd_count_app = (int)cmd.ExecuteScalar();
-
-                    if (opd_count_app < 1)
-                    {
-                        query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-
-                        sda.Fill(dt);
-
-
-                        MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
-
-                    }
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
-                //      button1.Visible = true;
-            }
-            else if (position == "พยาบาล")
-            {
-                DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    string query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-
-                    int opd_count_app = (int)cmd.ExecuteScalar();
-
-                    if (opd_count_app < 1)
-                    {
-                        query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-
-                        sda.Fill(dt);
-
-
-                        MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
-
-                    }
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
-            }
-            else if (position == "เภสัชกรณ์")
-            {
-                DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    string query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-
-                    int opd_count_app = (int)cmd.ExecuteScalar();
-
-                    if (opd_count_app < 1)
-                    {
-                        query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-
-                        sda.Fill(dt);
-
-
-                        MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
-
-                    }
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
-            }
-            else if (position == "หัวหน้า")
-            {
-                DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    string query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
-
-                    int opd_count_app = (int)cmd.ExecuteScalar();
-
-                    if (opd_count_app < 1)
-                    {
-                        query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
-
-                        sda.Fill(dt);
-
-
-                        MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
-
-                    }
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-
-                    MessageBox.Show("ไม่มีการนัดหมาย");
-
-                }
+                MessageBox.Show("ยังไม่ได้บันทึกข้อมูลการรักษา");
             }
             else
             {
-                //   conn.Close();
-                //        button1.Visible = false;
+                if (position == "เจ้าหน้าที่")
+                {
+                    DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+
+                        query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        int opd_count_app = (int)cmd.ExecuteScalar();
+
+                        if (opd_count_app < 1)
+                        {
+                            query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+
+                            sda.Fill(dt);
+
+
+                            MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
+
+                        }
+
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+
+                    //     button1.Visible = true;
+                }
+                else if (position == "เวชระเบียน")
+                {
+                    DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        int opd_count_app = (int)cmd.ExecuteScalar();
+
+                        if (opd_count_app < 1)
+                        {
+                            query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+
+                            sda.Fill(dt);
+
+
+                            MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
+
+                        }
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                    //      button1.Visible = true;
+                }
+                else if (position == "พยาบาล")
+                {
+                    DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        int opd_count_app = (int)cmd.ExecuteScalar();
+
+                        if (opd_count_app < 1)
+                        {
+                            query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+
+                            sda.Fill(dt);
+
+
+                            MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
+
+                        }
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                else if (position == "เภสัชกรณ์")
+                {
+                    DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        int opd_count_app = (int)cmd.ExecuteScalar();
+
+                        if (opd_count_app < 1)
+                        {
+                            query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+
+                            sda.Fill(dt);
+
+
+                            MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
+
+                        }
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                else if (position == "หัวหน้า")
+                {
+                    DialogResult dialogResult = MessageBox.Show("ส่งข้อมูลการนัดหมายหรือไม่", "นัดหมายหรือไม่ ? ", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        query = ("select count(*) from appointment where opd_id = '" + lblopdid.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        int opd_count_app = (int)cmd.ExecuteScalar();
+
+                        if (opd_count_app < 1)
+                        {
+                            query = ("Insert into appointment (status_approve,emp_doc_id,opd_id) values (1,'" + txtdocid.Text + "','" + lblopdid.Text + "');");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+
+                            sda.Fill(dt);
+
+
+                            MessageBox.Show("ส่งข้อมูลการนัดหมายเรียบร้อย");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("มีข้อมูลการนัดหมายแล้ว");
+
+                        }
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+
+                        MessageBox.Show("ไม่มีการนัดหมาย");
+
+                    }
+                }
+                else
+                {
+                    //   conn.Close();
+                    //        button1.Visible = false;
+                }
+
+
             }
 
             conn.Close();

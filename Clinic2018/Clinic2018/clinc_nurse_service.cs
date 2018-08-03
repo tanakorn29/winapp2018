@@ -70,7 +70,10 @@ namespace Clinic2018
                 dataGridView3.Rows[n].Cells[4].Value = item["vr_systolic"].ToString();
                 dataGridView3.Rows[n].Cells[5].Value = item["vr_diastolic"].ToString();
                 dataGridView3.Rows[n].Cells[6].Value = item["vr_hearth_rate"].ToString();
-                dataGridView3.Rows[n].Cells[7].Value = item["vr_date"].ToString();
+
+                DateTime date_vr = Convert.ToDateTime(item["vr_date"].ToString());
+                string vr_date = date_vr.ToString("yyyy-MM-dd");
+                dataGridView3.Rows[n].Cells[7].Value = vr_date;
                 dataGridView3.Rows[n].Cells[8].Value = item["opd_id"].ToString();
                 dataGridView3.Rows[n].Cells[9].Value = item["opd_name"].ToString();
                 dataGridView3.Rows[n].Cells[10].Value = item["vr_remark"].ToString();
@@ -266,7 +269,7 @@ namespace Clinic2018
                     sda.Fill(dt);
                     MessageBox.Show("คิวเอกสารซักประวัติที่ " + value);
 
-                    query = ("Update queue_visit_record set qvr_status = 7 where opd_id = '" + lblopd.Text + "'");
+                    query = ("Update queue_visit_record set qvr_status = 0 where opd_id = '" + lblopd.Text + "'");
 
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
@@ -383,7 +386,7 @@ namespace Clinic2018
                     if (sym_data_count < 1)
                     {
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', '"+timelbl.Text+"',1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -445,7 +448,7 @@ namespace Clinic2018
                     {
 
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', '"+timelbl.Text+"',1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -554,7 +557,7 @@ namespace Clinic2018
                     if (sym_data_count < 1)
                     {
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', '"+timelbl.Text+"',1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -615,7 +618,7 @@ namespace Clinic2018
                     {
 
 
-                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', SYSDATETIME(),1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
+                        query = ("insert into queue_diag_room(qdr_date,qdr_time_sent,status_queue,swd_id,opd_id)values ('"+today+"', '"+timelbl.Text+"',1,'" + lblswd.Text + "','" + lblopdid.Text + "');");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
