@@ -185,7 +185,7 @@ namespace Clinic2018
             }
 
 
-            query = ("select vr_queue_sent from visit_record where vr_status_sent = 1");
+            query = ("select vr_queue_sent from visit_record where vr_status_sent = 1 AND vr_status = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();

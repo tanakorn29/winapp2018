@@ -75,6 +75,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r1|x86'">
     <OutputPath>bin\x86\r1\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r2|AnyCPU'">
+    <OutputPath>bin\r2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r2|x64'">
+    <OutputPath>bin\x64\r2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r2|x86'">
+    <OutputPath>bin\x86\r2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r3|AnyCPU'">
+    <OutputPath>bin\r3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r3|x64'">
+    <OutputPath>bin\x64\r3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r3|x86'">
+    <OutputPath>bin\x86\r3\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>C:\Users\somklin\Desktop\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>

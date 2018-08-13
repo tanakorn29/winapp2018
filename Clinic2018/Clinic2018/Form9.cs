@@ -24,9 +24,13 @@ namespace Clinic2018
 
             int div = A - B;
 
-            if(div < 1)
+            if(A < B)
             {
-                MessageBox.Show("5");
+                MessageBox.Show("ยาเกินกำหนด");
+            }
+            else
+            {
+                MessageBox.Show("Stock");
             }
         //    MessageBox.Show(""+div);
         }

@@ -118,8 +118,8 @@ namespace Clinic2018
             t.Tick += new EventHandler(this.timer1_Tick);
             t.Start();
 
-            dtp1.Format = DateTimePickerFormat.Custom;
-            dtp1.CustomFormat = "yyyy-MM-dd";
+          //  dtp1.Format = DateTimePickerFormat.Custom;
+          //  dtp1.CustomFormat = "yyyy-MM-dd";
             //lblday.Text = DateTime.Now.ToString("dddd", new CultureInfo("th-TH"));
         }
 
@@ -128,10 +128,10 @@ namespace Clinic2018
             //   MessageBox.Show(lbltime.Text);
             conn.Open();
             CultureInfo ThaiCulture = new CultureInfo("th-TH");
-            DateTime date_app = Convert.ToDateTime(dtp1.Text);
+            DateTime date_app = Convert.ToDateTime(txtdate.Text);
 
-            string date = date_app.ToString("yyyy-MM-dd", ThaiCulture);
-            string day = date_app.ToString("dddd", ThaiCulture);
+            string date = date_app.ToString("yyyy-MM-dd");
+         string day = date_app.ToString(txtday.Text);
             int date_app_day = date_app.Day;
             int date_app_month = date_app.Month;
             DateTime today_th = DateTime.Today;
@@ -141,9 +141,11 @@ namespace Clinic2018
             int today_month = today_th.Month;
             double time = Convert.ToDouble(comboBox1.SelectedItem.ToString());
 
+      //   MessageBox.Show("day"   + day);
+   
             if (time <= 12.00)
             {
-                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" +lbliddoc.Text +"' AND swd_timezone = 'เช้า' AND swd_day_work = '"+day+ "' AND swd_date_work = '"+date+"' ");
+                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" +lbliddoc.Text +"' AND swd_timezone = 'เช้า'  AND swd_date_work = '"+date+"' ");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -153,7 +155,7 @@ namespace Clinic2018
                 {
 
                    // MessageBox.Show("เช้า" + day);
-                    query = ("select schedule_work_doctor.swd_id,schedule_work_doctor.swd_timezone from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'เช้า' AND swd_day_work = '" + day + "'");
+                    query = ("select schedule_work_doctor.swd_id,schedule_work_doctor.swd_timezone from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'เช้า' AND swd_date_work = '" + date + "'");
                     cmd = new SqlCommand(query, conn);
                     //    conn.Open();
                     sda = new SqlDataAdapter(cmd);
@@ -220,7 +222,7 @@ namespace Clinic2018
             }
             else if (time >= 12.01)
             {
-                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'บ่าย' AND swd_day_work = '" + day + "' AND swd_date_work = '" + date + "' ");
+                string query = ("select count(*) from schedule_work_doctor where emp_doc_id = '" + lbliddoc.Text + "' AND swd_timezone = 'บ่าย' AND swd_date_work = '" + date + "' ");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -293,8 +295,8 @@ namespace Clinic2018
 
             }
 
-
-
+       
+     
 
 
 
@@ -523,7 +525,10 @@ namespace Clinic2018
 
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            selectedRow = e.RowIndex;
+            DataGridViewRow row = dataGridView3.Rows[selectedRow];
+            txtdate.Text = row.Cells[2].Value.ToString();
+            txtday.Text = row.Cells[1].Value.ToString();
         }
 
         private void lbltime1_TextChanged(object sender, EventArgs e)

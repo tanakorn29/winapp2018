@@ -67,7 +67,7 @@ namespace Clinic2018
 
             }
 
-            query = ("select medi_id,medi_name,medi_qty,medi_unit,medi_qty_type from medical where medi_status_stock = 1");
+            query = ("select medi_id,medi_name,medi_qty,medi_unit from medical");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -83,7 +83,7 @@ namespace Clinic2018
                 dataGridView2.Rows[n].Cells[1].Value = item["medi_name"].ToString();
                 dataGridView2.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
                 dataGridView2.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
-                dataGridView2.Rows[n].Cells[4].Value = item["medi_qty_type"].ToString();
+
             }
 
 
@@ -367,27 +367,328 @@ namespace Clinic2018
             try
             {
                 conn.Open();
-                string query = ("select medi_qty,medi_unit from medical where medi_id = '" + lblmed.Text + "'");
+                string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
+                string query = ("select count(*) from medicine_use where medi_id = '" + lblmed.Text + "' AND medi_use_status = 1");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
-                sdr = cmd.ExecuteReader();
-                if (sdr.Read())
-                {
-                    int nummed = Convert.ToInt32(sdr["medi_qty"].ToString());
-                    string unit_medi = sdr["medi_unit"].ToString();
-                    int num_pp = Convert.ToInt32(txtnum.Text);
-                    int cut_stock = nummed - num_pp;
-                    if (unit_medi == "เม็ด")
-                    {
-                        if (cut_stock == 0 && nummed >= 5)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 5;
 
-                            
-                                query = ("Update medical set medi_qty = 5,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                int count_med_use = (int)cmd.ExecuteScalar();
+
+                if (count_med_use < 1)
+                {
+                    query = ("select medi_qty,medi_unit,medi_min from medical where medi_id = '" + lblmed.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
+                    {
+                        int nummed = Convert.ToInt32(sdr["medi_qty"].ToString());
+                        string unit_medi = sdr["medi_unit"].ToString();
+
+                        int min = Convert.ToInt32(sdr["medi_min"].ToString());
+                        int num_pp = Convert.ToInt32(txtnum.Text);
+                        int cut_stock = nummed - num_pp;
+                        if (unit_medi == "เม็ด")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*         int A = Convert.ToInt32(txtnum.Text);
+                                         int R = A - 5;
+
+                                         query = ("Update medical set medi_qty = 5,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                         cmd = new SqlCommand(query, conn);
+                                         sda = new SqlDataAdapter(cmd);
+                                         dt = new DataTable();
+                                         sda.Fill(dt);
+                                         query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                         cmd = new SqlCommand(query, conn);
+                                         sda = new SqlDataAdapter(cmd);
+                                         dt = new DataTable();
+                                         //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                         sda.Fill(dt);
+                                         clinic_doctor_service m3 = new clinic_doctor_service();
+                                         m3.Show();
+                                         clinic_doctor_service clnlog = new clinic_doctor_service();
+                                         clnlog.Close();
+                                         Visible = false;
+                                         */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+
+                            }
+                            else
+                            {
+                                if (nummed <= min)
+                                {
+
+                                    //  MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+
+
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+
+
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= min)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','"+today+"',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                        /*
+
+                                        */
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ไม่สามารถสั่งยาได้");
+                                }
+
+                            }
+
+
+
+
+
+
+                        }
+                        else if (unit_medi == "ขวด")
+                        {
+
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*
+                                int A = Convert.ToInt32(txtnum.Text);
+                                int R = A - 2;
+
+                                query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+                                query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                sda.Fill(dt);
+                                clinic_doctor_service m3 = new clinic_doctor_service();
+                                m3.Show();
+                                clinic_doctor_service clnlog = new clinic_doctor_service();
+                                clnlog.Close();
+                                Visible = false;
+                                */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+
+                            }
+                            else
+                            {
+                                if (nummed <= min)
+                                {
+
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+
+                                        if (cut_stock <= min)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
+                                }
+
+
+
+                            }
+
+
+                        }
+                        else if (unit_medi == "ถุงเล็ก")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*
+                                int A = Convert.ToInt32(txtnum.Text);
+                                int R = A - 2;
+
+                                query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
                                 cmd = new SqlCommand(query, conn);
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
@@ -398,840 +699,730 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
                                 sda.Fill(dt);
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                            
-                          
-
-                        }
-                        else
-                        {
-                            if (nummed <= 5)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-
-
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 5)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-                            else
-                            {
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ไม่สามารถสั่งยาได้");
-                            }
-
-                        }
-
-
-
-
-
-
-                    }
-                    else if (unit_medi == "ขวด")
-                    {
-
-                        if (cut_stock == 0 && nummed >= 2)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 2;
-                            query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                            m3.Show();
-                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-
-                        }
-                        else
-                        {
-                            if (nummed <= 2)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 2)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-
-
-
-                        }
-
-
-                    }
-                    else if (unit_medi == "ถุงเล็ก")
-                    {
-                        if (cut_stock == 0 && nummed >= 2)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 2;
-                            query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                            m3.Show();
-                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                        }
-                        else
-                        {
-                            if (nummed <= 2)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-
-
-                                        query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                        sda.Fill(dt);
-                                        */
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 2)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-                        }
-                    }
-                    else if (unit_medi == "ชิ้น")
-                    {
-                        if (cut_stock == 0 && nummed >= 2)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 2;
-                            query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                            m3.Show();
-                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                        }
-                        else
-                        {
-                            if (nummed <= 2)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-
-
-                                        query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                        sda.Fill(dt);
-                                        */
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 2)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-
-                        }
-
-                    }
-                    else if (unit_medi == "กล่อง")
-                    {
-                        if (cut_stock == 0 && nummed >= 5)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 5;
-                            query = ("Update medical set medi_qty = 5,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                            m3.Show();
-                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                        }
-                        else
-                        {
-
-                            if (nummed <= 5)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-
-
-                                        query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                        sda.Fill(dt);
-                                        */
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 5)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-                        }
-                    }
-                    else if (unit_medi == "ซอง")
-                    {
-                        if (cut_stock == 0 && nummed >= 4)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 4;
-                            query = ("Update medical set medi_qty = 4,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                            m3.Show();
-                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                        }
-                        else
-                        {
-
-                            if (nummed <= 4)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-
-
-                                        query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                        sda.Fill(dt);
-                                        */
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
-                                clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                m3.Show();
-                                clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                clnlog.Close();
-                                Visible = false;
-
-                                MessageBox.Show("ยาหมดคลังแล้ว");
-                            }
-                            else if (nummed > 4)
-                            {
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                    cmd = new SqlCommand(query, conn);
-                                    sda = new SqlDataAdapter(cmd);
-                                    dt = new DataTable();
-                                    //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                    sda.Fill(dt);
-
-
-
-                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
-                                    m3.Show();
-                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
-                                }
-
-                            }
-
-
-                        }
-
-
-
-
-
-
-
-
-
-
-                    }
-
-
-                    else if (unit_medi == "แผง")
-                    {
-                        if (cut_stock == 0 && nummed >= 2)
-                        {
-                            int A = Convert.ToInt32(txtnum.Text);
-                            int R = A - 2;
-                            query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                            sda.Fill(dt);
-                            clinic_doctor_service m3 = new clinic_doctor_service();
-                            m3.Show();
-                            clinic_doctor_service clnlog = new clinic_doctor_service();
-                            clnlog.Close();
-                            Visible = false;
-
-                            MessageBox.Show("บันทึกการจ่ายยาเรียบร้อย");
-                        }
-                        else
-                        {
-                            if (nummed <= 2)
-                            {
-
-                                MessageBox.Show("ยาใกล้หมดคลังแล้ว");
-                                if (nummed < num_pp)
-                                {
-                                    MessageBox.Show("ยาเกินกำหนด");
-                                }
-                                else
-                                {
-                                    /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        sda.Fill(dt);
-
-
-                                        query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
-                                        cmd = new SqlCommand(query, conn);
-                                        sda = new SqlDataAdapter(cmd);
-                                        dt = new DataTable();
-                                        //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
-                                        sda.Fill(dt);
-                                        */
-
-
-
-                                    clinic_doctor_service m3 = new clinic_doctor_service();
-                                    m3.Show();
-                                    clinic_doctor_service clnlog = new clinic_doctor_service();
-                                    clnlog.Close();
-                                    Visible = false;
-
-                                    MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
-                                }
-
-
-                            }
-                            else if (nummed < 0)
-                            {
-                                /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
-                                   cmd = new SqlCommand(query, conn);
-                                   sda = new SqlDataAdapter(cmd);
-                                   dt = new DataTable();
-                                   sda.Fill(dt);*/
-
                                 clinic_doctor_service m3 = new clinic_doctor_service();
                                 m3.Show();
                                 clinic_doctor_service clnlog = new clinic_doctor_service();
                                 clnlog.Close();
                                 Visible = false;
+                                */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
 
-                                MessageBox.Show("ยาหมดคลังแล้ว");
                             }
-                            else if (nummed > 2)
+                            else
                             {
-                                if (nummed < num_pp)
+                                if (nummed <= min)
                                 {
-                                    MessageBox.Show("ยาเกินกำหนด");
+
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            */
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
                                 }
-                                else
+                                else if (nummed < 0)
                                 {
-                                    query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= 2)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        else if (unit_medi == "ชิ้น")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*    int A = Convert.ToInt32(txtnum.Text);
+                                    int R = A - 2;
+
+                                    query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
                                     sda.Fill(dt);
-
-
-                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                    query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
                                     //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
                                     sda.Fill(dt);
-
-
-
                                     clinic_doctor_service m3 = new clinic_doctor_service();
                                     m3.Show();
                                     clinic_doctor_service clnlog = new clinic_doctor_service();
                                     clnlog.Close();
                                     Visible = false;
+                                    */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+                            }
+                            else
+                            {
+                                if (nummed <= min)
+                                {
 
-                                    MessageBox.Show("จ่ายยาเรียบร้อย");
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            */
+
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= min)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
                                 }
 
                             }
 
+                        }
+                        else if (unit_medi == "กล่อง")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*   int A = Convert.ToInt32(txtnum.Text);
+                                   int R = A - 5;
+                                   query = ("Update medical set medi_qty = 5,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                   cmd = new SqlCommand(query, conn);
+                                   sda = new SqlDataAdapter(cmd);
+                                   dt = new DataTable();
+                                   sda.Fill(dt);
+                                   query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                   cmd = new SqlCommand(query, conn);
+                                   sda = new SqlDataAdapter(cmd);
+                                   dt = new DataTable();
+                                   //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                   sda.Fill(dt);
+                                   clinic_doctor_service m3 = new clinic_doctor_service();
+                                   m3.Show();
+                                   clinic_doctor_service clnlog = new clinic_doctor_service();
+                                   clnlog.Close();
+                                   Visible = false;
+                                   */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+                            }
+                            else
+                            {
+
+                                if (nummed <= min)
+                                {
+
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            */
+
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= min)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        else if (unit_medi == "ซอง")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*  int A = Convert.ToInt32(txtnum.Text);
+                                  int R = A - 4;
+                                  query = ("Update medical set medi_qty = 4,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                  cmd = new SqlCommand(query, conn);
+                                  sda = new SqlDataAdapter(cmd);
+                                  dt = new DataTable();
+                                  sda.Fill(dt);
+                                  query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                  cmd = new SqlCommand(query, conn);
+                                  sda = new SqlDataAdapter(cmd);
+                                  dt = new DataTable();
+                                  //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                  sda.Fill(dt);
+                                  clinic_doctor_service m3 = new clinic_doctor_service();
+                                  m3.Show();
+                                  clinic_doctor_service clnlog = new clinic_doctor_service();
+                                  clnlog.Close();
+                                  Visible = false;
+                                  */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+                            }
+                            else
+                            {
+
+                                if (nummed <= min)
+                                {
+
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            */
+
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= 4)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+
+
+
+
+
+
+
+
+
 
                         }
+
+
+                        else if (unit_medi == "แผง")
+                        {
+                            if (cut_stock == 0 && nummed >= min)
+                            {
+                                /*      int A = Convert.ToInt32(txtnum.Text);
+                                      int R = A - 2;
+                                      query = ("Update medical set medi_qty = 2,medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                      cmd = new SqlCommand(query, conn);
+                                      sda = new SqlDataAdapter(cmd);
+                                      dt = new DataTable();
+                                      sda.Fill(dt);
+                                      query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + R + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                      cmd = new SqlCommand(query, conn);
+                                      sda = new SqlDataAdapter(cmd);
+                                      dt = new DataTable();
+                                      //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                      sda.Fill(dt);
+                                      clinic_doctor_service m3 = new clinic_doctor_service();
+                                      m3.Show();
+                                      clinic_doctor_service clnlog = new clinic_doctor_service();
+                                      clnlog.Close();
+                                      Visible = false;
+                                      */
+                                MessageBox.Show("การจ่ายยาเกินกำหนด");
+                            }
+                            else
+                            {
+                                if (nummed <= min)
+                                {
+
+                                    MessageBox.Show("ยาใกล้หมดคลังแล้ว");
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        /*  query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            */
+
+
+                                        clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                        m3.Show();
+                                        clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                        clnlog.Close();
+                                        Visible = false;
+
+                                        MessageBox.Show("ยาใกล้หมดคลังแล้วไม่สามารถสั่งยาได้");
+                                    }
+
+
+                                }
+                                else if (nummed < 0)
+                                {
+                                    /*   query = ("Update medical set medi_qty = 0 where medi_id = '" + lblmed.Text + "'");
+                                       cmd = new SqlCommand(query, conn);
+                                       sda = new SqlDataAdapter(cmd);
+                                       dt = new DataTable();
+                                       sda.Fill(dt);*/
+                                    clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                    m3.Show();
+                                    clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                    clnlog.Close();
+                                    Visible = false;
+
+                                    MessageBox.Show("ยาหมดคลังแล้ว");
+                                }
+                                else if (nummed > min)
+                                {
+                                    if (nummed < num_pp)
+                                    {
+                                        MessageBox.Show("ยาเกินกำหนด");
+                                    }
+                                    else
+                                    {
+                                        if (cut_stock <= min)
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "',medi_status_stock = 0 where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "','" + today + "',1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อยแล้ว");
+                                        }
+                                        else
+                                        {
+                                            query = ("Update medical set medi_qty = '" + cut_stock + "' where medi_id = '" + lblmed.Text + "'");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            sda.Fill(dt);
+
+
+                                            query = ("insert into  medicine_use (medi_use_remark,medi_use_date,medi_use_status,medi_num,treatr_id,medi_id)values ('" + txtre2.Text + "',SYSDATETIME(),1,'" + txtnum.Text + "','" + lblidt.Text + "','" + lblmed.Text + "')");
+                                            cmd = new SqlCommand(query, conn);
+                                            sda = new SqlDataAdapter(cmd);
+                                            dt = new DataTable();
+                                            //  MessageBox.Show("บันทึกการรักษาเรียบร้อย");
+                                            sda.Fill(dt);
+
+
+
+                                            clinic_doctor_service2 m3 = new clinic_doctor_service2();
+                                            m3.Show();
+                                            clinic_doctor_service2 clnlog = new clinic_doctor_service2();
+                                            clnlog.Close();
+                                            Visible = false;
+                                            MessageBox.Show("จ่ายยาเรียบร้อย");
+
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+
+                        }
+
+
 
                     }
 
 
 
+
+                }
+                else
+                {
+
+
+                    MessageBox.Show("มีข้อมูลการจ่ายยาแล้ว");
                 }
 
+          
+
                 conn.Close();
-
-                /*
-                query = ("Update treatment_record SET treatr_status = 0 where treatr_id = '"+lblidt.Text+"'");
-                cmd = new SqlCommand(query, conn);
-                sda = new SqlDataAdapter(cmd);
-                dt = new DataTable();
-                sda.Fill(dt);
-                */
-
 
 
             }
@@ -1239,6 +1430,8 @@ namespace Clinic2018
             {
                 MessageBox.Show("มีข้อผิดพลาด กรุณากรอกตัวเลข");
             }
+
+
 
         }
         private void button24_Click(object sender, EventArgs e)

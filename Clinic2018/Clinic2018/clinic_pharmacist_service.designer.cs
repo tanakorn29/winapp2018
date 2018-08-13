@@ -47,7 +47,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -62,12 +61,14 @@
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblqueue = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mspToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblqueue = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtopdid = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -96,6 +97,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtopdid);
+            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txttrea);
             this.groupBox2.Controls.Add(this.lblmedi);
             this.groupBox2.Controls.Add(this.dataGridView2);
@@ -109,9 +112,9 @@
             // txttrea
             // 
             this.txttrea.Enabled = false;
-            this.txttrea.Location = new System.Drawing.Point(169, 30);
+            this.txttrea.Location = new System.Drawing.Point(100, 30);
             this.txttrea.Name = "txttrea";
-            this.txttrea.Size = new System.Drawing.Size(143, 20);
+            this.txttrea.Size = new System.Drawing.Size(80, 20);
             this.txttrea.TabIndex = 3;
             this.txttrea.TextChanged += new System.EventHandler(this.txttrea_TextChanged);
             // 
@@ -119,7 +122,7 @@
             // 
             this.lblmedi.AutoSize = true;
             this.lblmedi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblmedi.Location = new System.Drawing.Point(74, 30);
+            this.lblmedi.Location = new System.Drawing.Point(6, 30);
             this.lblmedi.Name = "lblmedi";
             this.lblmedi.Size = new System.Drawing.Size(88, 20);
             this.lblmedi.TabIndex = 2;
@@ -216,8 +219,7 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
-            this.Column2,
-            this.Column3});
+            this.Column2});
             this.dataGridView1.Location = new System.Drawing.Point(19, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(371, 127);
@@ -243,11 +245,6 @@
             // 
             this.Column2.HeaderText = "หน่วยยา";
             this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "ประเภทยา";
-            this.Column3.Name = "Column3";
             // 
             // groupBox3
             // 
@@ -380,6 +377,27 @@
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
+            // lblqueue
+            // 
+            this.lblqueue.AutoSize = true;
+            this.lblqueue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblqueue.Location = new System.Drawing.Point(904, 24);
+            this.lblqueue.Name = "lblqueue";
+            this.lblqueue.Size = new System.Drawing.Size(16, 24);
+            this.lblqueue.TabIndex = 7;
+            this.lblqueue.Text = "-";
+            this.lblqueue.TextChanged += new System.EventHandler(this.lblqueue_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Location = new System.Drawing.Point(680, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(139, 24);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "ลำดับคิวการจ่ายยา";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -416,26 +434,23 @@
             this.reportToolStripMenuItem.Text = "รายงานยาและเวชภัณฑ์ที่ต้องสั่งซื้อ";
             this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
             // 
-            // label2
+            // label6
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(680, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 24);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "ลำดับคิวการจ่ายยา";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(235, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "รหัสคนไข้";
             // 
-            // lblqueue
+            // txtopdid
             // 
-            this.lblqueue.AutoSize = true;
-            this.lblqueue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblqueue.Location = new System.Drawing.Point(904, 24);
-            this.lblqueue.Name = "lblqueue";
-            this.lblqueue.Size = new System.Drawing.Size(16, 24);
-            this.lblqueue.TabIndex = 7;
-            this.lblqueue.Text = "-";
-            this.lblqueue.TextChanged += new System.EventHandler(this.lblqueue_TextChanged);
+            this.txtopdid.Enabled = false;
+            this.txtopdid.Location = new System.Drawing.Point(326, 30);
+            this.txtopdid.Name = "txtopdid";
+            this.txtopdid.Size = new System.Drawing.Size(89, 20);
+            this.txtopdid.TabIndex = 5;
             // 
             // clinic_pharmacist_service
             // 
@@ -491,11 +506,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.TextBox txttrea;
         private System.Windows.Forms.Label lblmedi;
         private System.Windows.Forms.Label lblnum;
@@ -508,5 +518,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.Label lblqueue;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtopdid;
     }
 }

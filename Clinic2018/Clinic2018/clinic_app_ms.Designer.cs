@@ -50,7 +50,6 @@
             this.lbliddoc = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.bt3 = new System.Windows.Forms.Button();
-            this.dtp1 = new System.Windows.Forms.DateTimePicker();
             this.lb9 = new System.Windows.Forms.Label();
             this.lb8 = new System.Windows.Forms.Label();
             this.lbldoc = new System.Windows.Forms.Label();
@@ -77,6 +76,9 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.สถานะสิทธิ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtdate = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtday = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -209,20 +211,22 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtday);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.txtdate);
             this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Controls.Add(this.txtremark);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.lbliddoc);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.bt3);
-            this.groupBox3.Controls.Add(this.dtp1);
             this.groupBox3.Controls.Add(this.lb9);
             this.groupBox3.Controls.Add(this.lb8);
             this.groupBox3.Controls.Add(this.lbldoc);
             this.groupBox3.Controls.Add(this.lb6);
             this.groupBox3.Location = new System.Drawing.Point(590, 188);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(449, 223);
+            this.groupBox3.Size = new System.Drawing.Size(449, 273);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "นัดหมาย";
@@ -238,14 +242,14 @@
             "13.30",
             "14.30",
             "15.10"});
-            this.comboBox1.Location = new System.Drawing.Point(157, 86);
+            this.comboBox1.Location = new System.Drawing.Point(157, 117);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 18;
             // 
             // txtremark
             // 
-            this.txtremark.Location = new System.Drawing.Point(154, 116);
+            this.txtremark.Location = new System.Drawing.Point(154, 147);
             this.txtremark.Multiline = true;
             this.txtremark.Name = "txtremark";
             this.txtremark.Size = new System.Drawing.Size(168, 50);
@@ -254,7 +258,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(90, 119);
+            this.label12.Location = new System.Drawing.Point(90, 150);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 13);
             this.label12.TabIndex = 16;
@@ -280,7 +284,7 @@
             // 
             // bt3
             // 
-            this.bt3.Location = new System.Drawing.Point(178, 182);
+            this.bt3.Location = new System.Drawing.Point(178, 213);
             this.bt3.Name = "bt3";
             this.bt3.Size = new System.Drawing.Size(100, 23);
             this.bt3.TabIndex = 4;
@@ -288,18 +292,10 @@
             this.bt3.UseVisualStyleBackColor = true;
             this.bt3.Click += new System.EventHandler(this.bt3_Click);
             // 
-            // dtp1
-            // 
-            this.dtp1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp1.Location = new System.Drawing.Point(157, 61);
-            this.dtp1.Name = "dtp1";
-            this.dtp1.Size = new System.Drawing.Size(195, 20);
-            this.dtp1.TabIndex = 2;
-            // 
             // lb9
             // 
             this.lb9.AutoSize = true;
-            this.lb9.Location = new System.Drawing.Point(113, 89);
+            this.lb9.Location = new System.Drawing.Point(113, 120);
             this.lb9.Name = "lb9";
             this.lb9.Size = new System.Drawing.Size(35, 13);
             this.lb9.TabIndex = 0;
@@ -308,7 +304,7 @@
             // lb8
             // 
             this.lb8.AutoSize = true;
-            this.lb8.Location = new System.Drawing.Point(114, 65);
+            this.lb8.Location = new System.Drawing.Point(114, 94);
             this.lb8.Name = "lb8";
             this.lb8.Size = new System.Drawing.Size(34, 13);
             this.lb8.TabIndex = 0;
@@ -509,6 +505,31 @@
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
+            // txtdate
+            // 
+            this.txtdate.Enabled = false;
+            this.txtdate.Location = new System.Drawing.Point(157, 91);
+            this.txtdate.Name = "txtdate";
+            this.txtdate.Size = new System.Drawing.Size(121, 20);
+            this.txtdate.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(118, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "วัน :";
+            // 
+            // txtday
+            // 
+            this.txtday.Enabled = false;
+            this.txtday.Location = new System.Drawing.Point(157, 62);
+            this.txtday.Name = "txtday";
+            this.txtday.Size = new System.Drawing.Size(121, 20);
+            this.txtday.TabIndex = 21;
+            // 
             // clinic_app_ms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -553,7 +574,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button bt3;
-        private System.Windows.Forms.DateTimePicker dtp1;
         private System.Windows.Forms.Label lb9;
         private System.Windows.Forms.Label lb8;
         private System.Windows.Forms.Label lbldoc;
@@ -590,5 +610,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn สถานะสิทธิ;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.TextBox txtdate;
+        private System.Windows.Forms.TextBox txtday;
+        private System.Windows.Forms.Label label2;
     }
 }

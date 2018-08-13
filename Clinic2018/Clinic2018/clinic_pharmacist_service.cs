@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace Clinic2018
 
             }
 
-            query = ("select medi_id,medi_name,medi_qty,medi_unit,medi_qty_type from medical where medi_status_stock = 1");
+            query = ("select medi_id,medi_name,medi_qty,medi_unit from medical where medi_status_stock = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -56,7 +57,7 @@ namespace Clinic2018
                 dataGridView1.Rows[n].Cells[1].Value = item["medi_name"].ToString();
                 dataGridView1.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
                 dataGridView1.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
-                dataGridView1.Rows[n].Cells[4].Value = item["medi_qty_type"].ToString();
+   
 
             }
 
@@ -72,7 +73,7 @@ namespace Clinic2018
         //    textBox1.Text = row.Cells[0].Value.ToString();
           //  textBox2.Text = row.Cells[1].Value.ToString();
             // textBox3.Text = row.Cells[2].Value.ToString();
-            txttrea.Text = row.Cells[0].Value.ToString();
+          //  txttrea.Text = row.Cells[0].Value.ToString();
           //  textBox4.Text = row.Cells[0].Value.ToString();
 
         }
@@ -130,7 +131,7 @@ namespace Clinic2018
                     int count_select = (int)cmd.ExecuteScalar();
                     if (count_select == 1)
                     {
-                        query = ("select medi_qty from medical where medi_name = '" + textBox2.Text + "'");
+                        query = ("select medi_qty,medi_min from medical where medi_name = '" + textBox2.Text + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -140,8 +141,9 @@ namespace Clinic2018
                         if (sdr.Read())
                         {
                             int nummed = Convert.ToInt32(sdr["medi_qty"].ToString());
+                            int min = Convert.ToInt32(sdr["medi_min"].ToString());
                             // int cut_stock = nummed - Convert.ToInt32(textBox3.Text);
-                            if (nummed < 5)
+                            if (nummed < min)
                             {
                                 MessageBox.Show("ยาใกล้หมดคลังแล้ว");
                                 query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
@@ -158,6 +160,8 @@ namespace Clinic2018
                                 sda = new SqlDataAdapter(cmd);
                                 dt = new DataTable();
                                 sda.Fill(dt);
+
+
 
                                 clinic_pharmacist_service m3 = new clinic_pharmacist_service();
                                 m3.Show();
@@ -184,7 +188,7 @@ namespace Clinic2018
                                 MessageBox.Show("ยาหมดคลังแล้ว");
 
                             }
-                            else if (nummed > 5)
+                            else if (nummed > min)
                             {
                                 query = ("Update medical set medi_qty = '" + nummed + "' where medi_name = '" + textBox2.Text + "'");
                                 cmd = new SqlCommand(query, conn);
@@ -238,7 +242,15 @@ namespace Clinic2018
                 }
                 else
                 {
+                    string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
                     query = ("Update treatment_record set treatr_status = 0 where treatr_id = '"+ txttrea.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+
+                    query = ("Update queue_visit_record set qvr_status = 6 where opd_id = '" + txtopdid.Text + "' AND qvr_date = '"+today+"'");
+
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
@@ -654,7 +666,7 @@ namespace Clinic2018
         private void lblqueue_TextChanged(object sender, EventArgs e)
         {
      
-            string query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 ORDER BY treatr_medi_queue ASC");
+            string query = ("select treatment_record.treatr_id,opd.opd_name,treatment_record.treatr_medi_queue,opd.opd_id from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2 ORDER BY treatr_medi_queue ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -663,6 +675,7 @@ namespace Clinic2018
             if (sdr.Read())
             {
                 txttrea.Text = (sdr["treatr_id"].ToString());
+                txtopdid.Text = (sdr["opd_id"].ToString());
             }
 
         }
