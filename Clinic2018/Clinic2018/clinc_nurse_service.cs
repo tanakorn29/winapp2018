@@ -1137,8 +1137,10 @@ namespace Clinic2018
                 }
                 else
                 {
-                    lblstatus.Text = "ไม่สามารถวัดความดันโลหิตได้";
-          
+                    //    lblstatus.Text = "ไม่สามารถวัดความดันโลหิตได้";
+                    MessageBox.Show("ไม่สามารถวัดความดันโลหิตได้");
+                    txts1.Text = "0";
+                    txts2.Text = "0";
                 }
                 /*     }else if (sis > 120)
                      {
@@ -1334,6 +1336,28 @@ namespace Clinic2018
         private void timer1_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void txthearth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int heart = Convert.ToInt32(txthearth.Text);
+                if (heart >= 60 && heart <= 100)
+                {
+                    lblheart.Text = "ชีพจรปกติ";
+                }else
+                {
+                    lblheart.Text = "";
+                    txthearth.Text = "0";
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("กรุณากรอกตัวเลข");
+            }
+        
         }
         /*
 private void lbltime_TextChanged(object sender, EventArgs e)

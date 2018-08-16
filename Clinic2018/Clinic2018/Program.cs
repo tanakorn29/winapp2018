@@ -27,13 +27,12 @@ namespace Clinic2018
  // Application.Run(new clinic_time_attendance());
      // Application.Run(new clinic_search());
     
-
-         Application.Run(new clinic_app_ms());
- // Application.Run(new clinic_time_attendance()); //run
+// Application.Run(new Clinic_boss());
+ Application.Run(new clinic_time_attendance()); //run
           //  Application.Run(new clinic_pharmacist_service());
             //    Application.Run(new clinic_user_control());
             //    Application.Run(new clinic_app_service());
-            // Application.Run(new clinic_login()); //run
+         Application.Run(new clinic_login()); //run
             //Application.Run(new clinic_pharmacist_ms()); //run
             //   Application.Run(new Form8());
             //      Application.Run(new clinic_login());

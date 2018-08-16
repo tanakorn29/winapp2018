@@ -84,11 +84,6 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtnum = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.lbldoctor = new System.Windows.Forms.Label();
@@ -107,7 +102,6 @@
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.button24 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,6 +111,11 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -656,38 +655,12 @@
             this.Column9,
             this.Column10,
             this.Column15,
-            this.Column20,
-            this.Column21});
+            this.Column20});
             this.dataGridView2.Location = new System.Drawing.Point(453, 390);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(324, 114);
             this.dataGridView2.TabIndex = 42;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "ลำดับ";
-            this.Column9.Name = "Column9";
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "ชื่อยา";
-            this.Column10.Name = "Column10";
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "จำนวนยา";
-            this.Column15.Name = "Column15";
-            // 
-            // Column20
-            // 
-            this.Column20.HeaderText = "หน่วยยา";
-            this.Column20.Name = "Column20";
-            // 
-            // Column21
-            // 
-            this.Column21.HeaderText = "ประเภทของยา";
-            this.Column21.Name = "Column21";
             // 
             // txtnum
             // 
@@ -867,10 +840,6 @@
             this.dataGridView1.TabIndex = 9;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -924,6 +893,30 @@
             this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column19.HeaderText = "ตำแหน่งงาน";
             this.Column19.Name = "Column19";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "ลำดับ";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "ชื่อยา";
+            this.Column10.Name = "Column10";
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "จำนวนยา";
+            this.Column15.Name = "Column15";
+            // 
+            // Column20
+            // 
+            this.Column20.HeaderText = "หน่วยยา";
+            this.Column20.Name = "Column20";
             // 
             // clinic_doctor_service3
             // 
@@ -1021,11 +1014,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
         private System.Windows.Forms.Label lblqueue;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox1;
@@ -1041,5 +1029,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
     }
 }

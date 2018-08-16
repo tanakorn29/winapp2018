@@ -217,6 +217,75 @@ namespace Clinic2018
                             }
 
 
+                        }else if(pos_id == 4)
+                        {
+                            query = ("select count(*) from opd inner join treatment_record on treatment_record.opd_id = opd.opd_id where treatr_status = 2");
+                            cmd = new SqlCommand(query, conn);
+                            sda = new SqlDataAdapter(cmd);
+                            dt = new DataTable();
+                            sda.Fill(dt);
+
+                            int count = (int)cmd.ExecuteScalar();
+
+                            if (count < 1)
+                            {
+                                query = ("select count(*) from time_attendance where remark = 'เข้างาน' AND emp_ru_id = '" + emp_id + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+                                int status_work1 = (int)cmd.ExecuteScalar();
+                                if (status_work1 < 1)
+                                {
+
+                                    //  MessageBox.Show("เข้างาน");
+
+
+                                    query = ("insert time_attendance (start_time,end_time,date_work,remark,emp_ru_id,emp_doc_id) values('" + label1.Text + "','','" + label2.Text + "','เข้างาน','" + emp_id + "','')");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+                                    sda.Fill(dt);
+
+
+
+
+
+
+
+                                    lblemp.Text = emp_ru_name + "   เข้างานเรียบร้อย";
+
+
+
+
+
+
+
+                                }
+                                else
+                                {
+
+
+                                    int emp_id1 = Convert.ToInt32(sdr["emp_ru_id"].ToString());
+                                    string emp_ru_name1 = sdr["emp_ru_name"].ToString();
+                                    query = ("UPDATE time_attendance SET end_time = '" + label1.Text + "',remark = 'ออกจากงาน' where emp_ru_id = '" + emp_id1 + "'");
+                                    cmd = new SqlCommand(query, conn);
+                                    sda = new SqlDataAdapter(cmd);
+                                    dt = new DataTable();
+
+                                    sda.Fill(dt);
+
+
+                                    lblemp.Text = emp_ru_name1 + "   ออกจากงานเรียบร้อย";
+
+                                }
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("การจ่ายยายังไม่เสร็จสิ้น");
+                            }
                         }
                         else
                         {
