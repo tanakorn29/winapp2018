@@ -40,7 +40,7 @@ namespace Clinic2018
                 DateTime app_date = Convert.ToDateTime(item["medi_use_date"].ToString());
 
                 string date_app = String.Format("{0:yyyy-MM-dd}", app_date);
-                string date_th = app_date.ToString("yyyy-MM-dd", _cultureEnInfo);
+                string date_th = app_date.ToString("yyyy-MM-dd");
                 dataGridView1.Rows[n].Cells[0].Value = date_th;
 
                 dataGridView1.Rows[n].Cells[1].Value = item["medi_name"].ToString();

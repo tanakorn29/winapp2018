@@ -96,7 +96,7 @@ namespace Clinic2018
 
 
             }
-
+/*
             query = (" select employee_doctor.emp_doc_name from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where schedule_work_doctor.swd_status_room = 4 Group by employee_doctor.emp_doc_name");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
@@ -110,11 +110,11 @@ namespace Clinic2018
 
             }else
             {
-                comboBox2.Items.Add("ไม่มีข้อมูลแพทย์ทำงานแทน");
+                comboBox2.Items.Add("");
             }
 
             // int n = dataGridView1.Rows.Add();
-
+            */
             conn.Close();
 
 
@@ -144,7 +144,7 @@ namespace Clinic2018
                     int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
 
 
-                    query = ("Update schedule_work_doctor set swd_note = 'รอการอนุมัติทำงานแทน',swd_status_room = 4, swd_emp_work_place = '" + comboBox1.SelectedItem.ToString() + "',emp_doc_id ='" + doc_id + "' where swd_id = '" + txtswd.Text + "'");
+                    query = ("Update schedule_work_doctor set swd_note = 'รอการอนุมัติทำงานแทน',swd_status_room = 4, swd_emp_work_place = '" + txtdoctorname.Text + "',emp_doc_id ='" + doc_id + "' where swd_id = '" + txtswd.Text + "'");
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
@@ -186,6 +186,7 @@ namespace Clinic2018
             txttime.Text = row.Cells[5].Value.ToString();
 
             txtspecialist.Text = row.Cells[3].Value.ToString();
+            txtdoctorname.Text = row.Cells[2].Value.ToString();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -204,28 +205,47 @@ namespace Clinic2018
         private void button1_Click(object sender, EventArgs e)
         {
             conn.Open();
-            if (label12.Text == "" || comboBox2.SelectedItem.ToString() == "" || txtswdwork1.Text == null || txtname1.Text == null || txtday1.Text == null || txtdateswd.Text == null || txttime1.Text == null)
+            /*   if (label12.Text == "" && comboBox2.SelectedItem.ToString() == "" && txtswdwork1.Text == null || txtname1.Text == null || txtday1.Text == null || txtdateswd.Text == null || txttime1.Text == null)
+               {
+
+
+                   MessageBox.Show("ไม่มีข้อมูลการแลกเวรปฏิบัติงาน");
+
+               }
+               else
+               {*/
+            try
             {
-
-
-                MessageBox.Show("ไม่มีข้อมูลการแลกเวรปฏิบัติงาน");
-
-            }
-            else
-            {
-                if(label12.Text == "อนุมัตเรียบร้อยแล้ว")
+                string query = ("select count(schedule_work_doctor.swd_emp_work_place) from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where schedule_work_doctor.swd_status_room = 4 AND schedule_work_doctor.swd_emp_work_place = '" + txtname1.Text + "'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                int count = (int)cmd.ExecuteScalar();
+                if (count < 1)
                 {
-                    string query = ("select count(*) from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where schedule_work_doctor.swd_status_room = 4 AND emp_doc_name = '" + label12.Text + "'");
+
+
+                    query = ("select * from employee_doctor where emp_doc_name = '" + txtname1.Text + "'");
                     cmd = new SqlCommand(query, conn);
+
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
                     sda.Fill(dt);
-                    int count = (int)cmd.ExecuteScalar();
-                    if (count < 1)
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
                     {
+                        CultureInfo ThaiCulture = new CultureInfo("th-TH");
+                        int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
+                        // MessageBox.Show("" + doc_id);
 
 
-                        query = ("select * from employee_doctor where emp_doc_name = '" + txtname1.Text + "'");
+                        query = ("Update schedule_work_doctor set swd_note = 'เลื่อนปฏิบัติงาน',swd_status_room = 1,swd_emp_work_place = '" + txtname1.Text + "',emp_doc_id = '" + doc_id + "' where swd_id = '" + txtswdwork1.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        query = ("select swd_id from schedule_work_doctor where swd_status_room = 1  AND swd_id = '" + txtswdwork1.Text + "'");
                         cmd = new SqlCommand(query, conn);
 
                         sda = new SqlDataAdapter(cmd);
@@ -234,47 +254,20 @@ namespace Clinic2018
                         sdr = cmd.ExecuteReader();
                         if (sdr.Read())
                         {
-                            CultureInfo ThaiCulture = new CultureInfo("th-TH");
-                            int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
-                            // MessageBox.Show("" + doc_id);
-
-
-                            query = ("Update schedule_work_doctor set swd_note = '',swd_status_room = 1,swd_emp_work_place = '" + txtname1.Text + "',emp_doc_id = '" + doc_id + "' where swd_id = '" + txtswdwork1.Text + "'");
+                            int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                            //  query = ("update appointment SET status_approve = 3 ,swd_id = '" + swd_id + "' inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '"+ txtname1.Text + "'");
+                            query = ("update appointment SET appointment.status_approve = 3,appointment.swd_id = '" + swd_id + "' from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '" + txtname1.Text + "'");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
                             dt = new DataTable();
                             sda.Fill(dt);
-                            query = ("select swd_id from schedule_work_doctor where swd_status_room = 1  AND swd_id = '" + txtswdwork1.Text + "'");
-                            cmd = new SqlCommand(query, conn);
 
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-                            sda.Fill(dt);
-                            sdr = cmd.ExecuteReader();
-                            if (sdr.Read())
-                            {
-                                int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
-                                //  query = ("update appointment SET status_approve = 3 ,swd_id = '" + swd_id + "' inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '"+ txtname1.Text + "'");
-                                query = ("update appointment SET appointment.status_approve = 3,appointment.swd_id = '" + swd_id + "' from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '" + txtname1.Text + "'");
-                                cmd = new SqlCommand(query, conn);
-                                sda = new SqlDataAdapter(cmd);
-                                dt = new DataTable();
-                                sda.Fill(dt);
-
-                                MessageBox.Show("อนุมัติการเลื่อนปฏิบัติงานเรียบร้อย");
-                                clinic_schedule m3 = new clinic_schedule();
-                                m3.Show();
-                                clinic_schedule clnlog = new clinic_schedule();
-                                clnlog.Close();
-                                Visible = false;
-
-
-                            }
-
-
-
-
-
+                            MessageBox.Show("อนุมัติการเลื่อนปฏิบัติงานเรียบร้อย");
+                            clinic_schedule m3 = new clinic_schedule();
+                            m3.Show();
+                            clinic_schedule clnlog = new clinic_schedule();
+                            clnlog.Close();
+                            Visible = false;
 
 
                         }
@@ -285,21 +278,31 @@ namespace Clinic2018
 
 
 
+                    }
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("ยังไม่มีการอนุมัติการแลกตารางปฏิบัติงาน");
-                    }
+
+
+
+
+
+
+
                 }
                 else
                 {
                     MessageBox.Show("ยังไม่มีการอนุมัติการแลกตารางปฏิบัติงาน");
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("ยังไม่มีข้อมูลการอนุมัติการปฏิบัติงาน");
+            }
+                 
+        
                 /*
            
                 */
-            }
+     
             conn.Close();
 
             /*
@@ -480,7 +483,7 @@ namespace Clinic2018
 
             conn.Close();
         }
-
+        /*
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             conn.Open();
@@ -507,12 +510,12 @@ namespace Clinic2018
 
             }else
             {
-                label12.Text ="อนุมัตเรียบร้อยแล้ว";
+         //       label12.Text ="อนุมัตเรียบร้อยแล้ว";
             }
 
             conn.Close();
         }
-
+        */
         private void label12_Click(object sender, EventArgs e)
         {
 

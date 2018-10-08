@@ -73,8 +73,6 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbltimezone1 = new System.Windows.Forms.Label();
-            this.lblstatusapp = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblroom = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -453,8 +451,6 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.lbltimezone1);
-            this.groupBox4.Controls.Add(this.lblstatusapp);
-            this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.lblroom);
             this.groupBox4.Controls.Add(this.label10);
@@ -478,24 +474,6 @@
             this.lbltimezone1.Size = new System.Drawing.Size(13, 13);
             this.lbltimezone1.TabIndex = 31;
             this.lbltimezone1.Text = "0";
-            // 
-            // lblstatusapp
-            // 
-            this.lblstatusapp.AutoSize = true;
-            this.lblstatusapp.Location = new System.Drawing.Point(162, 150);
-            this.lblstatusapp.Name = "lblstatusapp";
-            this.lblstatusapp.Size = new System.Drawing.Size(0, 13);
-            this.lblstatusapp.TabIndex = 30;
-            this.lblstatusapp.Click += new System.EventHandler(this.lblstatusapp_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(77, 150);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 13);
-            this.label12.TabIndex = 29;
-            this.label12.Text = "สถานะการมา :";
             // 
             // label11
             // 
@@ -648,8 +626,6 @@
         private System.Windows.Forms.Label lblroom;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbltimezone1;
-        private System.Windows.Forms.Label lblstatusapp;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
     }
 }

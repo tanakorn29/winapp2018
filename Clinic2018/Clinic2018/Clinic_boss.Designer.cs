@@ -138,6 +138,7 @@
             this.Controls.Add(this.linkLabel1);
             this.Name = "Clinic_boss";
             this.Text = "ระบบการจัดการข้อมูลภายในหน่วยงาน";
+            this.Load += new System.EventHandler(this.Clinic_boss_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

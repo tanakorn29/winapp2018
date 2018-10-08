@@ -93,6 +93,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r3|x86'">
     <OutputPath>bin\x86\r3\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r4|AnyCPU'">
+    <OutputPath>bin\r4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r4|x64'">
+    <OutputPath>bin\x64\r4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r4|x86'">
+    <OutputPath>bin\x86\r4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r5|AnyCPU'">
+    <OutputPath>bin\r5\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r5|x64'">
+    <OutputPath>bin\x64\r5\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r5|x86'">
+    <OutputPath>bin\x86\r5\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>C:\Users\somklin\Desktop\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>
@@ -300,6 +318,12 @@
     <Compile Include="clinic_medicine_main.designer.cs">
       <DependentUpon>clinic_medicine_main.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_ms_time_month.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_ms_time_month.Designer.cs">
+      <DependentUpon>clinic_ms_time_month.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_nurse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,17 +384,35 @@
     <Compile Include="clinic_report_opd1.designer.cs">
       <DependentUpon>clinic_report_opd1.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_room1_now.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room1_now.Designer.cs">
+      <DependentUpon>clinic_room1_now.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_room1_swd.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="clinic_room1_swd.designer.cs">
       <DependentUpon>clinic_room1_swd.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_room2_now.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room2_now.Designer.cs">
+      <DependentUpon>clinic_room2_now.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_room2_swd.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="clinic_room2_swd.designer.cs">
       <DependentUpon>clinic_room2_swd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clinic_room3_now.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_room3_now.Designer.cs">
+      <DependentUpon>clinic_room3_now.cs</DependentUpon>
     </Compile>
     <Compile Include="clinic_room3_swd.cs">
       <SubType>Form</SubType>
@@ -444,6 +486,12 @@
     <Compile Include="clinic_time_schms.designer.cs">
       <DependentUpon>clinic_time_schms.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_time_schms_ms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_time_schms_ms.Designer.cs">
+      <DependentUpon>clinic_time_schms_ms.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_user_control.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -477,6 +525,30 @@
     </Compile>
     <Compile Include="Form10.Designer.cs">
       <DependentUpon>Form10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form11.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form11.Designer.cs">
+      <DependentUpon>Form11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form12.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form12.Designer.cs">
+      <DependentUpon>Form12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form13.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form13.Designer.cs">
+      <DependentUpon>Form13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form14.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form14.Designer.cs">
+      <DependentUpon>Form14.cs</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
@@ -645,6 +717,9 @@
     <EmbeddedResource Include="clinic_medicine_main.resx">
       <DependentUpon>clinic_medicine_main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_ms_time_month.resx">
+      <DependentUpon>clinic_ms_time_month.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_nurse.resx">
       <DependentUpon>clinic_nurse.cs</DependentUpon>
     </EmbeddedResource>
@@ -675,11 +750,20 @@
     <EmbeddedResource Include="clinic_report_opd1.resx">
       <DependentUpon>clinic_report_opd1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room1_now.resx">
+      <DependentUpon>clinic_room1_now.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_room1_swd.resx">
       <DependentUpon>clinic_room1_swd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room2_now.resx">
+      <DependentUpon>clinic_room2_now.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_room2_swd.resx">
       <DependentUpon>clinic_room2_swd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clinic_room3_now.resx">
+      <DependentUpon>clinic_room3_now.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clinic_room3_swd.resx">
       <DependentUpon>clinic_room3_swd.cs</DependentUpon>
@@ -717,6 +801,9 @@
     <EmbeddedResource Include="clinic_time_schms.resx">
       <DependentUpon>clinic_time_schms.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_time_schms_ms.resx">
+      <DependentUpon>clinic_time_schms_ms.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_user_control.resx">
       <DependentUpon>clinic_user_control.cs</DependentUpon>
     </EmbeddedResource>
@@ -725,6 +812,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form10.resx">
       <DependentUpon>Form10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form11.resx">
+      <DependentUpon>Form11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form12.resx">
+      <DependentUpon>Form12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form13.resx">
+      <DependentUpon>Form13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form14.resx">
+      <DependentUpon>Form14.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>

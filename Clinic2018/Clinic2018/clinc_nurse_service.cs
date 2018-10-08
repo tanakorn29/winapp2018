@@ -52,7 +52,7 @@ namespace Clinic2018
 
             }
     
-            query = ("select visit_record.vr_queue_sent,visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id,opd.opd_name from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
+            query = ("select visit_record.vr_queue_sent,visit_record.vr_id,visit_record.vr_weight,visit_record.vr_height,visit_record.vr_systolic,visit_record.vr_diastolic,visit_record.vr_hearth_rate,visit_record.vr_date,visit_record.vr_remark,visit_record.opd_id,opd.opd_name from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 AND vr_date = '"+day+"'ORDER BY vr_queue_sent asc");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -185,7 +185,7 @@ namespace Clinic2018
             }
 
 
-            query = ("select vr_queue_sent from visit_record where vr_status_sent = 1 AND vr_status = 0");
+            query = ("select vr_queue_sent from visit_record where vr_status_sent = 1 AND vr_status = 0 ORDER BY vr_queue_sent asc");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -246,13 +246,13 @@ namespace Clinic2018
             int sym_data_count = (int)cmd.ExecuteScalar();
              if(sym_data_count < 1)
             {
-                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
+                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id,vr_time_sent) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ",'"+timelbl.Text+"');");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
                 Queue<int> collection = new Queue<int>();
-                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '"+today+"'");
+                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '"+today+ "'");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -289,14 +289,14 @@ namespace Clinic2018
             }
             else
             {
-                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ");");
+                query = ("insert into visit_record (vr_weight,vr_height,vr_systolic,vr_diastolic,vr_hearth_rate,vr_date,vr_status,vr_status_sent,vr_remark,opd_id,vr_time_sent) values ('" + txtw.Text + "','" + txth.Text + "','" + txts1.Text + "','" + txts2.Text + "','" + txthearth.Text + "','"+today+"',0,1,'" + textBox1.Text + "'," + lblopd.Text + ",'" + timelbl.Text + "');");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 sda.Fill(dt);
                 Queue<int> collection = new Queue<int>();
 
-                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '" + today + "'");
+                query = ("select count(*) from visit_record where vr_status_sent = 1 AND visit_record.vr_date = '" + today + "' AND vr_status = 0");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -1110,7 +1110,17 @@ namespace Clinic2018
             {
                 int A = Convert.ToInt32(txts1.Text);
                 int B = Convert.ToInt32(txts2.Text);
-                if (A < 120 && B < 80)
+                if(A == 0 && B == 0)
+                {
+                    lblstatus.Text = "";
+                }
+                else if(A < 119 && B < 79)
+                {
+                    MessageBox.Show("มีความผิดปกติ ตรวจสอบตัวเลขใหม่อีกครั้ง");
+                    txts1.Text = "0";
+                    txts2.Text = "0";
+                }
+                else if (A < 120 && B < 80)
                 {
                     lblstatus.Text = "ปกติ";
              
@@ -1130,7 +1140,7 @@ namespace Clinic2018
                     lblstatus.Text = "ความดันโลหิตสูงระดับ 1";
          
                 }
-                else if (A > 160 && B < 109)
+                else if (A < 179 && B < 109)
                 {
                     lblstatus.Text = "ความดันโลหิตสูงระดับ 2";
           
@@ -1138,7 +1148,7 @@ namespace Clinic2018
                 else
                 {
                     //    lblstatus.Text = "ไม่สามารถวัดความดันโลหิตได้";
-                    MessageBox.Show("ไม่สามารถวัดความดันโลหิตได้");
+                    MessageBox.Show("มีความผิดปกติ ตรวจสอบตัวเลขใหม่อีกครั้ง");
                     txts1.Text = "0";
                     txts2.Text = "0";
                 }
@@ -1239,7 +1249,7 @@ namespace Clinic2018
 
         private void lbltimeworkzone_TextChanged(object sender, EventArgs e)
         {
-            string query = ("select visit_record.opd_id from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0");
+            string query = ("select visit_record.opd_id from visit_record inner join opd on visit_record.opd_id = opd.opd_id where vr_status = 0 ORDER BY vr_queue_sent asc");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -1343,13 +1353,22 @@ namespace Clinic2018
             try
             {
                 int heart = Convert.ToInt32(txthearth.Text);
-                if (heart >= 60 && heart <= 100)
+                if(heart <= 59 && heart == 1)
+                {
+                    lblheart.Text = "ชีพจรเต้นช้าผิดปกติ";
+              
+                }
+                else if (heart >= 60 && heart <= 80)
                 {
                     lblheart.Text = "ชีพจรปกติ";
-                }else
+                }else if (heart == 0)
                 {
                     lblheart.Text = "";
-                    txthearth.Text = "0";
+
+                }
+                else
+                {
+                    lblheart.Text = "ชีพจรเต้นเร็วผิดปกติ";
                 }
 
             }

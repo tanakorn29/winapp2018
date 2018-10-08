@@ -404,7 +404,7 @@ namespace Clinic2018
                 {
                     if (value <= 9)
                     {
-                        query = ("Update queue_diag_room Set qdr_record = '" + value + "' where opd_id = '" + lblopdid.Text + "'");
+                       query = ("Update queue_diag_room Set qdr_record = '" + value + "' where opd_id = '" + lblopdid.Text + "'");
                         //  
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
@@ -432,7 +432,7 @@ namespace Clinic2018
                         dt = new DataTable();
 
                         sda.Fill(dt);
-
+                  
                         clinic_app_service s2 = new clinic_app_service();
                         s2.Show();
                         clinic_app_service clnlog = new clinic_app_service();
@@ -636,7 +636,7 @@ namespace Clinic2018
 
 
 
-
+/*
 
                         if (time_app >= time_now2)
                         {
@@ -645,7 +645,7 @@ namespace Clinic2018
                         else
                         {
                             lblstatusapp.Text = "มาไม่ทันตามนัดหมาย";
-                        }
+                        }*/
                     }
                     else if (time_app >= 12.01)
                     {
@@ -670,14 +670,14 @@ namespace Clinic2018
                         }
                       
 
-
+/*
                         if (time_app >= time_now2)
                    {
                             lblstatusapp.Text = "มาตามนัดหมาย";
                   }else
                    {
                             lblstatusapp.Text = "มาไม่ทันตามนัดหมาย";
-                        }
+                        }*/
                         //   lblstatusapp.Text = "" + lbltime1.Text;
                         // MessageBox.Show("" + lbltime1.Text);
                     }

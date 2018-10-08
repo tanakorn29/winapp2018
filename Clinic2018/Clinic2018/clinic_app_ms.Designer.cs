@@ -31,11 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lb33 = new System.Windows.Forms.Label();
             this.lb3 = new System.Windows.Forms.Label();
@@ -44,7 +39,10 @@
             this.lb11 = new System.Windows.Forms.Label();
             this.lb1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txttime = new System.Windows.Forms.TextBox();
+            this.txtday = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtdate = new System.Windows.Forms.TextBox();
             this.txtremark = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.lbliddoc = new System.Windows.Forms.Label();
@@ -52,7 +50,6 @@
             this.bt3 = new System.Windows.Forms.Button();
             this.lb9 = new System.Windows.Forms.Label();
             this.lb8 = new System.Windows.Forms.Label();
-            this.lbldoc = new System.Windows.Forms.Label();
             this.lb6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -76,9 +73,15 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.สถานะสิทธิ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtdate = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtday = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lbldoc = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -103,6 +106,7 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column10,
             this.Column1,
             this.Column2,
             this.Column3,
@@ -113,31 +117,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(383, 170);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "รหัสนัดหมาย";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "หมายเลขบัตรประชาชน";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "ชื่อ-นามสกุล";
-            this.Column3.Name = "Column3";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "รหัสแพทย์";
-            this.Column7.Name = "Column7";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "แพทย์ผู้ทำการรักษา";
-            this.Column4.Name = "Column4";
             // 
             // groupBox2
             // 
@@ -211,10 +190,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lbldoc);
+            this.groupBox3.Controls.Add(this.txttime);
             this.groupBox3.Controls.Add(this.txtday);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.txtdate);
-            this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Controls.Add(this.txtremark);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.lbliddoc);
@@ -222,7 +202,6 @@
             this.groupBox3.Controls.Add(this.bt3);
             this.groupBox3.Controls.Add(this.lb9);
             this.groupBox3.Controls.Add(this.lb8);
-            this.groupBox3.Controls.Add(this.lbldoc);
             this.groupBox3.Controls.Add(this.lb6);
             this.groupBox3.Location = new System.Drawing.Point(590, 188);
             this.groupBox3.Name = "groupBox3";
@@ -231,21 +210,38 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "นัดหมาย";
             // 
-            // comboBox1
+            // txttime
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "08.30",
-            "09.30",
-            "10.30",
-            "11.10",
-            "13.30",
-            "14.30",
-            "15.10"});
-            this.comboBox1.Location = new System.Drawing.Point(157, 117);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 18;
+            this.txttime.Enabled = false;
+            this.txttime.Location = new System.Drawing.Point(157, 117);
+            this.txttime.Name = "txttime";
+            this.txttime.Size = new System.Drawing.Size(121, 20);
+            this.txttime.TabIndex = 22;
+            // 
+            // txtday
+            // 
+            this.txtday.Enabled = false;
+            this.txtday.Location = new System.Drawing.Point(157, 62);
+            this.txtday.Name = "txtday";
+            this.txtday.Size = new System.Drawing.Size(121, 20);
+            this.txtday.TabIndex = 21;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(118, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "วัน :";
+            // 
+            // txtdate
+            // 
+            this.txtdate.Enabled = false;
+            this.txtdate.Location = new System.Drawing.Point(157, 91);
+            this.txtdate.Name = "txtdate";
+            this.txtdate.Size = new System.Drawing.Size(121, 20);
+            this.txtdate.TabIndex = 19;
             // 
             // txtremark
             // 
@@ -309,16 +305,6 @@
             this.lb8.Size = new System.Drawing.Size(34, 13);
             this.lb8.TabIndex = 0;
             this.lb8.Text = "วันที่ :";
-            // 
-            // lbldoc
-            // 
-            this.lbldoc.AutoSize = true;
-            this.lbldoc.Location = new System.Drawing.Point(154, 41);
-            this.lbldoc.Name = "lbldoc";
-            this.lbldoc.Size = new System.Drawing.Size(10, 13);
-            this.lbldoc.TabIndex = 0;
-            this.lbldoc.Text = "-";
-            this.lbldoc.TextChanged += new System.EventHandler(this.lbldoc_TextChanged);
             // 
             // lb6
             // 
@@ -416,7 +402,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(12, 21);
+            this.label5.Location = new System.Drawing.Point(28, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(267, 31);
             this.label5.TabIndex = 15;
@@ -505,36 +491,74 @@
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
-            // txtdate
+            // label3
             // 
-            this.txtdate.Enabled = false;
-            this.txtdate.Location = new System.Drawing.Point(157, 91);
-            this.txtdate.Name = "txtdate";
-            this.txtdate.Size = new System.Drawing.Size(121, 20);
-            this.txtdate.TabIndex = 19;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(670, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(186, 31);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "คิวการนัดหมายที่";
             // 
-            // label2
+            // label4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "วัน :";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(880, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 31);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "-";
+            this.label4.TextChanged += new System.EventHandler(this.label4_TextChanged);
             // 
-            // txtday
+            // Column10
             // 
-            this.txtday.Enabled = false;
-            this.txtday.Location = new System.Drawing.Point(157, 62);
-            this.txtday.Name = "txtday";
-            this.txtday.Size = new System.Drawing.Size(121, 20);
-            this.txtday.TabIndex = 21;
+            this.Column10.HeaderText = "คิวการนัดหมาย";
+            this.Column10.Name = "Column10";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "รหัสนัดหมาย";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "หมายเลขบัตรประชาชน";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "ชื่อ-นามสกุล";
+            this.Column3.Name = "Column3";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "รหัสแพทย์";
+            this.Column7.Name = "Column7";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "แพทย์ผู้ทำการรักษา";
+            this.Column4.Name = "Column4";
+            // 
+            // lbldoc
+            // 
+            this.lbldoc.AutoSize = true;
+            this.lbldoc.Location = new System.Drawing.Point(155, 43);
+            this.lbldoc.Name = "lbldoc";
+            this.lbldoc.Size = new System.Drawing.Size(40, 13);
+            this.lbldoc.TabIndex = 23;
+            this.lbldoc.Text = "-----------";
+            this.lbldoc.TextChanged += new System.EventHandler(this.lbldoc_TextChanged);
             // 
             // clinic_app_ms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1107, 749);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.lbltime1);
             this.Controls.Add(this.label5);
@@ -576,15 +600,9 @@
         private System.Windows.Forms.Button bt3;
         private System.Windows.Forms.Label lb9;
         private System.Windows.Forms.Label lb8;
-        private System.Windows.Forms.Label lbldoc;
         private System.Windows.Forms.Label lb6;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.Label lbliddoc;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
@@ -601,7 +619,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
@@ -613,5 +630,15 @@
         private System.Windows.Forms.TextBox txtdate;
         private System.Windows.Forms.TextBox txtday;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txttime;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.Label lbldoc;
     }
 }

@@ -36,6 +36,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtdocid = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtdis = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -84,6 +84,10 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtnum = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.lbldoctor = new System.Windows.Forms.Label();
@@ -112,10 +116,6 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -195,6 +195,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.txtdocid);
             this.groupBox2.Controls.Add(this.label6);
@@ -202,7 +203,6 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtdis);
             this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label2);
@@ -213,6 +213,15 @@
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "3.ข้อมูลการรักษาแพทย์";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(136, 198);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(198, 20);
+            this.textBox2.TabIndex = 33;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox1
             // 
@@ -261,11 +270,13 @@
             // 
             // txtdis
             // 
-            this.txtdis.Enabled = false;
-            this.txtdis.Location = new System.Drawing.Point(136, 198);
+            this.txtdis.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtdis.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtdis.Location = new System.Drawing.Point(136, 124);
             this.txtdis.Name = "txtdis";
             this.txtdis.Size = new System.Drawing.Size(198, 20);
             this.txtdis.TabIndex = 23;
+            this.txtdis.TextChanged += new System.EventHandler(this.txtdis_TextChanged);
             // 
             // button3
             // 
@@ -276,15 +287,6 @@
             this.button3.Text = "บันทึกการรักษา";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(136, 124);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(198, 21);
-            this.comboBox1.TabIndex = 21;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -310,11 +312,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 201);
+            this.label2.Location = new System.Drawing.Point(71, 201);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 18;
-            this.label2.Text = "ผลการวินิจฉัยโรค :";
+            this.label2.Text = "กลุ่มโรค :";
             // 
             // label1
             // 
@@ -662,6 +664,26 @@
             this.dataGridView2.TabIndex = 42;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "ลำดับ";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "ชื่อยา";
+            this.Column10.Name = "Column10";
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "จำนวนยา";
+            this.Column15.Name = "Column15";
+            // 
+            // Column20
+            // 
+            this.Column20.HeaderText = "หน่วยยา";
+            this.Column20.Name = "Column20";
+            // 
             // txtnum
             // 
             this.txtnum.Location = new System.Drawing.Point(187, 157);
@@ -817,7 +839,7 @@
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(99, 31);
             this.button24.TabIndex = 0;
-            this.button24.Text = "จ่ายยา";
+            this.button24.Text = "สั่งยา";
             this.button24.UseVisualStyleBackColor = true;
             this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
@@ -898,26 +920,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "ลำดับ";
-            this.Column9.Name = "Column9";
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "ชื่อยา";
-            this.Column10.Name = "Column10";
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "จำนวนยา";
-            this.Column15.Name = "Column15";
-            // 
-            // Column20
-            // 
-            this.Column20.HeaderText = "หน่วยยา";
-            this.Column20.Name = "Column20";
-            // 
             // clinic_doctor_service3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -956,7 +958,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtdis;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
@@ -1033,5 +1034,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

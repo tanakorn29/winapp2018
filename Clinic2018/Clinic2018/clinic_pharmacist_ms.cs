@@ -23,7 +23,7 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-            string query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0");
+            string query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -52,7 +52,7 @@ namespace Clinic2018
 
             }
 
-            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 1 AND medi_status_xby = 1");
+     /*       query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 1 AND medi_status_xby = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -80,8 +80,39 @@ namespace Clinic2018
                 dataGridView2.Rows[n].Cells[7].Value = end;
 
             }
-/*
-            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 2 AND medi_status_xby = 2");
+            */
+
+            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 0");
+            cmd = new SqlCommand(query, conn);
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+
+            foreach (DataRow item in dt.Rows)
+            {
+                int n = dataGridView4.Rows.Add();
+
+
+
+                dataGridView4.Rows[n].Cells[0].Value = item["medi_name"].ToString();
+
+                dataGridView4.Rows[n].Cells[1].Value = item["medi_no"].ToString();
+                dataGridView4.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
+                dataGridView4.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
+                dataGridView4.Rows[n].Cells[4].Value = item["medi_price_unit"].ToString();
+                dataGridView4.Rows[n].Cells[5].Value = item["medi_price"].ToString();
+                DateTime date_start = Convert.ToDateTime(item["medi_date_x"].ToString());
+                DateTime date_end = Convert.ToDateTime(item["medi_date_by"].ToString());
+
+                string start = date_start.ToString("yyyy-MM-dd");
+                string end = date_end.ToString("yyyy-MM-dd");
+                dataGridView4.Rows[n].Cells[6].Value = start;
+                dataGridView4.Rows[n].Cells[7].Value = end;
+
+            }
+
+
+            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_xby = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -109,7 +140,37 @@ namespace Clinic2018
                 dataGridView3.Rows[n].Cells[7].Value = end;
 
             }
-            */
+            /*
+                        query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 2 AND medi_status_xby = 2");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dataGridView3.Rows.Add();
+
+
+
+                            dataGridView3.Rows[n].Cells[0].Value = item["medi_name"].ToString();
+
+                            dataGridView3.Rows[n].Cells[1].Value = item["medi_no"].ToString();
+                            dataGridView3.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
+                            dataGridView3.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
+                            dataGridView3.Rows[n].Cells[4].Value = item["medi_price_unit"].ToString();
+                            dataGridView3.Rows[n].Cells[5].Value = item["medi_price"].ToString();
+                            DateTime date_start = Convert.ToDateTime(item["medi_date_x"].ToString());
+                            DateTime date_end = Convert.ToDateTime(item["medi_date_by"].ToString());
+
+                            string start = date_start.ToString("yyyy-MM-dd");
+                            string end = date_end.ToString("yyyy-MM-dd");
+                            dataGridView3.Rows[n].Cells[6].Value = start;
+                            dataGridView3.Rows[n].Cells[7].Value = end;
+
+                        }
+                        */
+
             txtmedinum.Text = "0";
             txtprice.Text = "0";
             txtpriceunit.Text = "0";
@@ -120,6 +181,7 @@ namespace Clinic2018
         int selectedRow;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            /*
             selectedRow = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[selectedRow];
             textBox1.Visible = true;
@@ -130,6 +192,7 @@ namespace Clinic2018
             lblmedi.Text = row.Cells[0].Value.ToString();
             lblcount.Text = row.Cells[2].Value.ToString();
             lblmediunit.Text = row.Cells[3].Value.ToString();
+            */
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,7 +210,7 @@ namespace Clinic2018
 
                 int qty = Convert.ToInt32(lblcount.Text);
                 int sub = qty + Convert.ToInt32(textBox1.Text);
-           
+           int xby1 = Convert.ToInt32(textBox1.Text);
                 string medi_name = lblmedi.Text;
                 /*
                 string query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_min  from medical where medi_name = '" + medi_name + "'");
@@ -190,64 +253,131 @@ namespace Clinic2018
                 }
                 else
                 {
-              
-                   query = ("select * from medical where medi_status_new_stock = 0 AND medi_status_xby <= 1 AND medi_name = '" + lblmedi.Text + "'");
+                    query = ("select count(*) from medical where medi_status_stock = 0 AND medi_name = '" + lblmedi.Text + "'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    int new_stock = (int)cmd.ExecuteScalar();
+                    if (new_stock < 1)
+                    {
+                        MessageBox.Show("ไม่สามารถปรับปรุงยาได้");
+                    }
+                    else
+                    {
+                        query = ("select * from medical where medi_status_new_stock = 0  AND medi_name = '" + lblmedi.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+                        sdr = cmd.ExecuteReader();
+                        if (sdr.Read())
+                        {
+                            int min = Convert.ToInt32(sdr["medi_min"].ToString());
+                            int qty1 = Convert.ToInt32(sdr["medi_qty"].ToString());
+                            int new_stock1 = Convert.ToInt32(sdr["medi_status_stock"].ToString());
+                            int xby = Convert.ToInt32(sdr["medi_status_xby"].ToString());
+
+                          if (xby == 0 && new_stock1 == 0)
+                            {
+                               query = ("UPDATE medical SET medi_qty = '" + xby1 + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1 , medi_status_xby = 1 WHERE medi_name = '" + lblmedi.Text + "'");
+                                                    cmd = new SqlCommand(query, conn);
+                                                    sda = new SqlDataAdapter(cmd);
+                                                    dt = new DataTable();
+
+                                                    sda.Fill(dt);
+
+                                                    clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
+                                                    doc1.Show();
+                                                    clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
+                                                    clnlog.Close();
+                                                    Visible = false;
+                                     MessageBox.Show("เติมข้อมูลยาเรียบร้อย");
+                                }else
+                                {
+                                
+                   query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1  WHERE medi_name = '" + lblmedi.Text + "'");
                    cmd = new SqlCommand(query, conn);
                    sda = new SqlDataAdapter(cmd);
                    dt = new DataTable();
+
                    sda.Fill(dt);
-                   sdr = cmd.ExecuteReader();
-                   if (sdr.Read())
-                   {
-                       int min = Convert.ToInt32(sdr["medi_min"].ToString());
-                       int qty1 = Convert.ToInt32(sdr["medi_qty"].ToString());
 
+                   clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
+                   doc1.Show();
+                   clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
+                   clnlog.Close();
+                   Visible = false; 
+                   MessageBox.Show("อัพเดตข้อมูลเรียบร้อย");
+                   
+                            }
 
-                       if (qty1 < min)
-                       {
-                        //   MessageBox.Show("ปรับปรุงข้อมูล");
-                              query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1  WHERE medi_name = '" + lblmedi.Text + "'");
-                                     cmd = new SqlCommand(query, conn);
-                                     sda = new SqlDataAdapter(cmd);
-                                     dt = new DataTable();
+                            //    MessageBox.Show("dddddddddddddddddd" + xby  + "    " + new_stock1);
 
-                                     sda.Fill(dt);
-
-                                     clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
-                                     doc1.Show();
-                                     clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
-                                     clnlog.Close();
-                                     Visible = false;
-                                     MessageBox.Show("อัพเดตข้อมูลเรียบร้อย");
-                       }
-                       else
-                       {
-                            query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1 , medi_status_xby = 1 WHERE medi_name = '" + lblmedi.Text + "'");
-                            cmd = new SqlCommand(query, conn);
-                            sda = new SqlDataAdapter(cmd);
-                            dt = new DataTable();
-
-                            sda.Fill(dt);
-
-                            clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
-                            doc1.Show();
-                            clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
-                            clnlog.Close();
-                            Visible = false;
-                            MessageBox.Show("เติมข้อมูลยาเรียบร้อย");
+                        }
                         }
 
 
+
+
+
+                            /*         query = ("select * from medical where medi_status_new_stock = 0 AND medi_status_xby <= 1 AND medi_name = '" + lblmedi.Text + "'");
+                                     cmd = new SqlCommand(query, conn);
+                                     sda = new SqlDataAdapter(cmd);
+                                     dt = new DataTable();
+                                     sda.Fill(dt);
+                                     sdr = cmd.ExecuteReader();
+                                     if (sdr.Read())
+                                     {
+                                         int min = Convert.ToInt32(sdr["medi_min"].ToString());
+                                         int qty1 = Convert.ToInt32(sdr["medi_qty"].ToString());
+
+
+                                         if (qty1 < min)
+                                         {
+                                          //   MessageBox.Show("ปรับปรุงข้อมูล");
+                                           /*     query = ("UPDATE medical SET medi_qty = '" + sub + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1  WHERE medi_name = '" + lblmedi.Text + "'");
+                                                       cmd = new SqlCommand(query, conn);
+                                                       sda = new SqlDataAdapter(cmd);
+                                                       dt = new DataTable();
+
+                                                       sda.Fill(dt);
+
+                                                       clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
+                                                       doc1.Show();
+                                                       clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
+                                                       clnlog.Close();
+                                                       Visible = false;*/
+                            /*                            MessageBox.Show("อัพเดตข้อมูลเรียบร้อย");
+                                          }
+                                          else
+                                          {
+                                           /*    query = ("UPDATE medical SET medi_qty = '" + qty + "',medi_date_x = '" + start + "',medi_date_by = '" + end + "',medi_status_stock = 1 , medi_status_xby = 1 WHERE medi_name = '" + lblmedi.Text + "'");
+                                               cmd = new SqlCommand(query, conn);
+                                               sda = new SqlDataAdapter(cmd);
+                                               dt = new DataTable();
+
+                                               sda.Fill(dt);
+
+                                               clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
+                                               doc1.Show();
+                                               clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
+                                               clnlog.Close();
+                                               Visible = false;*/
+                            /*              MessageBox.Show("เติมข้อมูลยาเรียบร้อย");
+                                      }
+
+
+                                  }*/
+
+
+
+
+                        }
+
+
+
                     }
-                 
-
-                   
-
-                }
-
-
-
-            }
             catch (Exception)
             {
                 MessageBox.Show("ไม่มีข้อมูลการปรับปรุงยา");
@@ -279,19 +409,33 @@ namespace Clinic2018
                 }
                 else
                 {
-                    string query = ("insert into medical (medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_status_stock,medi_status_new_stock,medi_status_xby,medi_min) values ('" + namemedi + "','" + medi_no + "','" + medi_num + "','" + unit_medi + "','" + unit_price + "','" + price + "','" + start + "','" + end + "',1,1,1,'"+min+"')");
+                    string query = ("select count(*) from medical where medi_status_stock = 0 AND medi_name = '" + lblmedi.Text + "'");
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
-
                     sda.Fill(dt);
+                    int new_stock1 = (int)cmd.ExecuteScalar();
+                    if(new_stock1 < 1)
+                    {
+                        MessageBox.Show("ชื่อยาซ้ำกัน");
+                    }
+                    else
+                    {
+                        query = ("insert into medical (medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_status_stock,medi_status_new_stock,medi_status_xby,medi_min) values ('" + namemedi + "','" + medi_no + "','" + medi_num + "','" + unit_medi + "','" + unit_price + "','" + price + "','" + start + "','" + end + "',1,0,1,'" + min + "')");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
 
-                    clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
-                    doc1.Show();
-                    clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
-                    clnlog.Close();
-                    Visible = false;
-                    MessageBox.Show("อัพเดตข้อมูลเรียบร้อย");
+                        sda.Fill(dt);
+
+                        clinic_pharmacist_ms doc1 = new clinic_pharmacist_ms();
+                        doc1.Show();
+                        clinic_pharmacist_ms clnlog = new clinic_pharmacist_ms();
+                        clnlog.Close();
+                        Visible = false;
+                        MessageBox.Show("อัพเดตข้อมูลเรียบร้อย");
+                    }
+              
 
                 }
 
@@ -332,7 +476,7 @@ namespace Clinic2018
             conn.Open();
             try
             {
-                string query = ("select medi_date_by from medical where medi_status_new_stock = 0 AND medi_date_by >= '"+ day_today + "'");
+                string query = ("select medi_date_by from medical where medi_status_new_stock = 0 AND medi_date_by <= '"+ day_today + "'  ORDER BY medi_date_by ASC");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -350,12 +494,14 @@ namespace Clinic2018
 
                     if (day >= date_by_day || month == date_by_month)
                     {
-                        query = ("UPDATE medical SET medi_status_xby = 0 ,medi_status_stock = 0,medi_status_new_stock = 0 WHERE medi_date_by <= '" + date_byby + "'");
+                    
+                        query = ("UPDATE medical SET medi_status_xby = 0 ,medi_status_stock = 0,medi_status_new_stock = 0 WHERE medi_date_by <= '" + day_today + "'");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
 
                         sda.Fill(dt);
+                    
                     }
 
 
@@ -453,23 +599,55 @@ namespace Clinic2018
                 conn.Close();
         }
 
-    /* 
-
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+       selectedRow = e.RowIndex;
+       DataGridViewRow row = dataGridView3.Rows[selectedRow];
+       textBox1.Visible = true;
+       lblmediunit.Visible = true;
+       label3.Visible = true;
+       dateTimePicker2.Enabled = true;
+
+       lblmedi.Text = row.Cells[0].Value.ToString();
+       lblcount.Text = row.Cells[2].Value.ToString();
+       lblmediunit.Text = row.Cells[3].Value.ToString();
+            lblunit.Text = row.Cells[3].Value.ToString();
+
+        }
+
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
             selectedRow = e.RowIndex;
-            DataGridViewRow row = dataGridView3.Rows[selectedRow];
+            DataGridViewRow row = dataGridView4.Rows[selectedRow];
+            textBox1.Visible = true;
+            lblmediunit.Visible = true;
+            label3.Visible = true;
+            dateTimePicker2.Enabled = true;
+
             lblmedi.Text = row.Cells[0].Value.ToString();
             lblcount.Text = row.Cells[2].Value.ToString();
             lblmediunit.Text = row.Cells[3].Value.ToString();
-            textBox1.Visible = false;
-            lblmediunit.Visible = false;
-            label3.Visible = false;
-            dateTimePicker2.Enabled = false;
-            dateTimePicker2.Text = row.Cells[7].Value.ToString();
             lblunit.Text = row.Cells[3].Value.ToString();
-            //  textBox1.Text = row.Cells[4].Value.ToString();
         }
-        */
+
+        /* 
+
+            private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            {
+                selectedRow = e.RowIndex;
+                DataGridViewRow row = dataGridView3.Rows[selectedRow];
+                lblmedi.Text = row.Cells[0].Value.ToString();
+                lblcount.Text = row.Cells[2].Value.ToString();
+                lblmediunit.Text = row.Cells[3].Value.ToString();
+                textBox1.Visible = false;
+                lblmediunit.Visible = false;
+                label3.Visible = false;
+                dateTimePicker2.Enabled = false;
+                dateTimePicker2.Text = row.Cells[7].Value.ToString();
+                lblunit.Text = row.Cells[3].Value.ToString();
+                //  textBox1.Text = row.Cells[4].Value.ToString();
+            }
+            */
     }
 }
