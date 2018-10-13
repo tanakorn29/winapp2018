@@ -21,11 +21,11 @@ namespace Clinic2018
             //     Application.Run(new clinic_login());
             //      Application.Run(new clinc_nurse_service());
             //  Application.Run(new clinic_search());
-            //Application.Run(new clinic_time_attendance());
-            //Application.Run(new clinic_test_1()); 
-            //    Application.Run(new clinc_nurse_service());
-            //Application.Run(new clinic_time_schms());
-            Application.Run(new Clinic_boss());
+      //  Application.Run(new clinic_time_attendance());
+        //   Application.Run(new clinic_doctor_service3()); 
+   Application.Run(new clinic_time_attendance());
+     Application.Run(new clinic_login());
+         //   Application.Run(new Clinic_boss());
 //Application.Run(new clinic_app_ms());
             // Application.Run(new Clinic_boss());
             //Application.Run(new clinic_doctor_service()); //run

@@ -90,6 +90,8 @@
             this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtmeddetailcode = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -170,6 +172,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtmeddetailcode);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.lblmedi);
             this.groupBox1.Controls.Add(this.lblunit);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
@@ -183,7 +187,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(781, 29);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(549, 228);
+            this.groupBox1.Size = new System.Drawing.Size(549, 241);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ปรับปรุงข้อมูลยา";
@@ -242,7 +246,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(230, 169);
+            this.button1.Location = new System.Drawing.Point(230, 194);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 23);
             this.button1.TabIndex = 5;
@@ -253,7 +257,7 @@
             // lblmediunit
             // 
             this.lblmediunit.AutoSize = true;
-            this.lblmediunit.Location = new System.Drawing.Point(330, 128);
+            this.lblmediunit.Location = new System.Drawing.Point(329, 157);
             this.lblmediunit.Name = "lblmediunit";
             this.lblmediunit.Size = new System.Drawing.Size(10, 13);
             this.lblmediunit.TabIndex = 4;
@@ -261,7 +265,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(252, 125);
+            this.textBox1.Location = new System.Drawing.Point(251, 154);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(51, 20);
             this.textBox1.TabIndex = 3;
@@ -269,7 +273,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(108, 128);
+            this.label3.Location = new System.Drawing.Point(107, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 1;
@@ -614,6 +618,22 @@
             this.dataGridViewTextBoxColumn24.HeaderText = "วันหมดอายุ";
             this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(115, 122);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(62, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "หมายเลขยา";
+            // 
+            // txtmeddetailcode
+            // 
+            this.txtmeddetailcode.Location = new System.Drawing.Point(218, 119);
+            this.txtmeddetailcode.Name = "txtmeddetailcode";
+            this.txtmeddetailcode.Size = new System.Drawing.Size(133, 20);
+            this.txtmeddetailcode.TabIndex = 25;
+            // 
             // clinic_pharmacist_ms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,5 +729,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.TextBox txtmeddetailcode;
+        private System.Windows.Forms.Label label12;
     }
 }
