@@ -63,7 +63,7 @@ namespace Clinic2018
                 conn.Open();
 
 
-                string query = ("select swd_date_work from schedule_work_doctor  Order by swd_id DESC");
+                string query = ("select swd_month_work,swd_date_work from schedule_work_doctor  Order by swd_id DESC");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -76,7 +76,7 @@ namespace Clinic2018
                 if (sdr.Read())
                 {
                     string month_work = sdr["swd_date_work"].ToString();
-
+                    string month_th_last = sdr["swd_month_work"].ToString();
                     DateTime month_date_last = Convert.ToDateTime(month_work);
                     string month_thai = month_date_last.ToString("yyyy-MM-dd");
                     query = ("select count(*) from schedule_work_doctor where swd_status = 'การจัดตารางงานเสร็จสิ้น' AND swd_date_work = '"+ month_thai + "'");
@@ -88,44 +88,113 @@ namespace Clinic2018
 
                     int swd_count1 = (int)cmd.ExecuteScalar();
 
-                   
-                    if (swd_count1 != 0)
+
+                    query = ("select count(*) from schedule_work_doctor where swd_status = 'เปิด' and swd_month_work = '"+month_th_last+"'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+
+                    sda.Fill(dt);
+                    int swd_count2 = (int)cmd.ExecuteScalar();
+                    if (swd_count2 > 1)
                     {
-                        if (day >= 21)
+                        if (day == 20)
                         {
 
-
-
-                            MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                            clinic_time_schms log = new clinic_time_schms();
-                            log.Show();
-                            clinic_time_schms main = new clinic_time_schms();
-                            main.Close();
+                            MessageBox.Show("กรุณาส่งข้อมูลการทำงาน");
+                            clinic_time_schms log1 = new clinic_time_schms();
+                            log1.Show();
+                            clinic_time_schms main1 = new clinic_time_schms();
+                            main1.Close();
                             Visible = false;
 
 
+                            if (swd_count1 != 0)
+                            {
+                                if (day >= 21)
+                                {
 
+
+
+                                    MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                    clinic_time_schms log = new clinic_time_schms();
+                                    log.Show();
+                                    clinic_time_schms main = new clinic_time_schms();
+                                    main.Close();
+                                    Visible = false;
+
+
+
+
+
+
+                                }
+                                else if (day >= 1 && day <= 19)
+                                {
+
+
+                                    MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                    clinic_time_schms log = new clinic_time_schms();
+                                    log.Show();
+                                    clinic_time_schms main = new clinic_time_schms();
+                                    main.Close();
+                                    Visible = false;
+
+
+
+
+                                }
+                            }
 
 
 
                         }
-                        else if (day >= 1 && day <= 19)
-                        {
 
 
-                            MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                            clinic_time_schms log = new clinic_time_schms();
-                            log.Show();
-                            clinic_time_schms main = new clinic_time_schms();
-                            main.Close();
-                            Visible = false;
-
-
-
-
-                        }
                     }
-      
+                    else
+                    {
+
+                        if (swd_count1 != 0)
+                        {
+                            if (day >= 21)
+                            {
+
+
+
+                                MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                clinic_time_schms log = new clinic_time_schms();
+                                log.Show();
+                                clinic_time_schms main = new clinic_time_schms();
+                                main.Close();
+                                Visible = false;
+
+
+
+
+
+
+                            }
+                            else if (day >= 1 && day <= 19)
+                            {
+
+
+                                MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                clinic_time_schms log = new clinic_time_schms();
+                                log.Show();
+                                clinic_time_schms main = new clinic_time_schms();
+                                main.Close();
+                                Visible = false;
+
+
+
+
+                            }
+                        }
+//*****************************************
+                    }
+
+
                 }
 
           /*      query = ("select swd_month_work from schedule_work_doctor where swd_status = 'การจัดตารางงานเสร็จสิ้น' Order by swd_id DESC ");

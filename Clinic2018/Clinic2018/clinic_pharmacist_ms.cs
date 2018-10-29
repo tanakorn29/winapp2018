@@ -23,7 +23,7 @@ namespace Clinic2018
         {
             InitializeComponent();
             conn.Open();
-            string query = ("select medi_name,medi_no,medi_qty_total,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 1");
+            string query = ("select medi_name,medi_qty_total,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 1");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -37,18 +37,18 @@ namespace Clinic2018
 
                 dataGridView1.Rows[n].Cells[0].Value = item["medi_name"].ToString();
         
-                dataGridView1.Rows[n].Cells[1].Value = item["medi_no"].ToString();
-                dataGridView1.Rows[n].Cells[2].Value = item["medi_qty_total"].ToString();
-                dataGridView1.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
-                dataGridView1.Rows[n].Cells[4].Value = item["medi_price_unit"].ToString();
-                 dataGridView1.Rows[n].Cells[5].Value = item["medi_price"].ToString();
+
+                dataGridView1.Rows[n].Cells[1].Value = item["medi_qty_total"].ToString();
+                dataGridView1.Rows[n].Cells[2].Value = item["medi_unit"].ToString();
+                dataGridView1.Rows[n].Cells[3].Value = item["medi_price_unit"].ToString();
+                 dataGridView1.Rows[n].Cells[4].Value = item["medi_price"].ToString();
                 DateTime date_start = Convert.ToDateTime(item["medi_date_x"].ToString());
                 DateTime date_end = Convert.ToDateTime(item["medi_date_by"].ToString());
 
                 string start = date_start.ToString("yyyy-MM-dd");
                 string end = date_end.ToString("yyyy-MM-dd");
-                dataGridView1.Rows[n].Cells[6].Value = start;
-                dataGridView1.Rows[n].Cells[7].Value = end;
+                dataGridView1.Rows[n].Cells[5].Value = start;
+                dataGridView1.Rows[n].Cells[6].Value = end;
 
             }
 
@@ -82,7 +82,7 @@ namespace Clinic2018
             }
             */
 
-            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 0");
+            query = ("select medi_name,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_new_stock = 0 AND medi_status_stock = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -96,23 +96,23 @@ namespace Clinic2018
 
                 dataGridView4.Rows[n].Cells[0].Value = item["medi_name"].ToString();
 
-                dataGridView4.Rows[n].Cells[1].Value = item["medi_no"].ToString();
-                dataGridView4.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
-                dataGridView4.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
-                dataGridView4.Rows[n].Cells[4].Value = item["medi_price_unit"].ToString();
-                dataGridView4.Rows[n].Cells[5].Value = item["medi_price"].ToString();
+
+                dataGridView4.Rows[n].Cells[1].Value = item["medi_qty"].ToString();
+                dataGridView4.Rows[n].Cells[2].Value = item["medi_unit"].ToString();
+                dataGridView4.Rows[n].Cells[3].Value = item["medi_price_unit"].ToString();
+                dataGridView4.Rows[n].Cells[4].Value = item["medi_price"].ToString();
                 DateTime date_start = Convert.ToDateTime(item["medi_date_x"].ToString());
                 DateTime date_end = Convert.ToDateTime(item["medi_date_by"].ToString());
 
                 string start = date_start.ToString("yyyy-MM-dd");
                 string end = date_end.ToString("yyyy-MM-dd");
-                dataGridView4.Rows[n].Cells[6].Value = start;
-                dataGridView4.Rows[n].Cells[7].Value = end;
+                dataGridView4.Rows[n].Cells[5].Value = start;
+                dataGridView4.Rows[n].Cells[6].Value = end;
 
             }
 
 
-            query = ("select medi_name,medi_no,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_xby = 0");
+            query = ("select medi_name,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by  from medical where medi_status_xby = 0");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -126,18 +126,18 @@ namespace Clinic2018
 
                 dataGridView3.Rows[n].Cells[0].Value = item["medi_name"].ToString();
 
-                dataGridView3.Rows[n].Cells[1].Value = item["medi_no"].ToString();
-                dataGridView3.Rows[n].Cells[2].Value = item["medi_qty"].ToString();
-                dataGridView3.Rows[n].Cells[3].Value = item["medi_unit"].ToString();
-                dataGridView3.Rows[n].Cells[4].Value = item["medi_price_unit"].ToString();
-                dataGridView3.Rows[n].Cells[5].Value = item["medi_price"].ToString();
+
+                dataGridView3.Rows[n].Cells[1].Value = item["medi_qty"].ToString();
+                dataGridView3.Rows[n].Cells[2].Value = item["medi_unit"].ToString();
+                dataGridView3.Rows[n].Cells[3].Value = item["medi_price_unit"].ToString();
+                dataGridView3.Rows[n].Cells[4].Value = item["medi_price"].ToString();
                 DateTime date_start = Convert.ToDateTime(item["medi_date_x"].ToString());
                 DateTime date_end = Convert.ToDateTime(item["medi_date_by"].ToString());
 
                 string start = date_start.ToString("yyyy-MM-dd");
                 string end = date_end.ToString("yyyy-MM-dd");
-                dataGridView3.Rows[n].Cells[6].Value = start;
-                dataGridView3.Rows[n].Cells[7].Value = end;
+                dataGridView3.Rows[n].Cells[5].Value = start;
+                dataGridView3.Rows[n].Cells[6].Value = end;
 
             }
             /*
@@ -174,7 +174,6 @@ namespace Clinic2018
             txtmedinum.Text = "0";
             txtprice.Text = "0";
             txtpriceunit.Text = "0";
-            txtmedino.Text = "0";
             txtmin.Text = "0";
             conn.Close();
         }
@@ -240,7 +239,7 @@ namespace Clinic2018
 
                 }
                 */
-                if(txtmeddetailcode.Text == "")
+                if(textBox1.Text == "")
                 {
                     MessageBox.Show("ไม่มีข้อมูลการปรับปรุงยา");
                 }else
@@ -319,7 +318,7 @@ namespace Clinic2018
                                     dt = new DataTable();
 
                                     sda.Fill(dt);
-                                     query = ("insert into medical_detail (medical_detail_no,medical_detail_qty,medical_detail_date_x,medical_detail_date_y,medi_id) values ('"+txtmeddetailcode.Text+"','"+xby1+"','"+start+"','"+end+"','"+medi_id+"')");
+                                     query = ("insert into medical_detail (medical_detail_qty,medical_detail_date_x,medical_detail_date_y,medi_id) values ('"+xby1+"','"+start+"','"+end+"','"+medi_id+"')");
                                              cmd = new SqlCommand(query, conn);
                                              sda = new SqlDataAdapter(cmd);
                                               dt = new DataTable();
@@ -429,13 +428,12 @@ namespace Clinic2018
                 string start = date_start.ToString("yyyy-MM-dd");
                 string end = date_end.ToString("yyyy-MM-dd", ThaiCulture);
                 string namemedi = txtmedi.Text;
-                string medi_no = txtmedino.Text;
                 string medi_num = txtmedinum.Text;
                 string min = txtmin.Text;
                 string unit_medi = comboBox1.SelectedItem.ToString();
                 double unit_price = Convert.ToDouble(txtpriceunit.Text);
                 double price = Convert.ToDouble(txtprice.Text);
-                if (txtmedi.Text == "0" || txtmedino.Text == "0" || txtmedinum.Text == "0" || txtpriceunit.Text == "0" || txtprice.Text == "0" || unit_medi == "")
+                if (txtmedi.Text == "0" || txtmedinum.Text == "0" || txtpriceunit.Text == "0" || txtprice.Text == "0" || unit_medi == "")
                 {
                     MessageBox.Show("กรุณากรอกข้อมูลให้ครบ");
                 }
@@ -449,7 +447,7 @@ namespace Clinic2018
                     int new_stock1 = (int)cmd.ExecuteScalar();
                     if(new_stock1 < 1)
                     {
-                        query = ("insert into medical (medi_name,medi_no,medi_qty_total,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_status_stock,medi_status_new_stock,medi_status_xby,medi_min) values ('" + namemedi + "','" + medi_no + "','" + medi_num + "','" + medi_num + "','" + unit_medi + "','" + unit_price + "','" + price + "','" + start + "','" + end + "',1,0,1,'" + min + "')");
+                        query = ("insert into medical (medi_name,medi_qty_total,medi_qty,medi_unit,medi_price_unit,medi_price,medi_date_x,medi_date_by,medi_status_stock,medi_status_new_stock,medi_status_xby,medi_min) values ('" + namemedi + "','" + medi_num + "','" + medi_num + "','" + unit_medi + "','" + unit_price + "','" + price + "','" + start + "','" + end + "',1,0,1,'" + min + "')");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -509,7 +507,8 @@ namespace Clinic2018
             conn.Open();
             try
             {
-                string query = ("select medi_date_by from medical where medi_status_new_stock = 0 AND medi_date_by <= '"+ day_today + "'  ORDER BY medi_date_by ASC");
+                //  string query = ("select medi_date_by from medical where medi_status_new_stock = 0 AND medi_date_by <= '"+ day_today + "'  ORDER BY medi_date_by ASC");
+                string query = ("select medi_date_by from medical where medi_date_by <= '" + day_today + "'  ORDER BY medi_date_by ASC");
                 cmd = new SqlCommand(query, conn);
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -527,14 +526,24 @@ namespace Clinic2018
 
                     if (day >= date_by_day || month == date_by_month)
                     {
-                    
-                        query = ("UPDATE medical SET medi_status_xby = 0 ,medi_status_stock = 0,medi_status_new_stock = 0 WHERE medi_date_by <= '" + day_today + "'");
-                        cmd = new SqlCommand(query, conn);
-                        sda = new SqlDataAdapter(cmd);
-                        dt = new DataTable();
 
-                        sda.Fill(dt);
-                    
+                         query = ("UPDATE medical SET medi_status_xby = 0 ,medi_status_stock = 0,medi_status_new_stock = 0 WHERE medi_date_by <= '" + day_today + "'");
+                          cmd = new SqlCommand(query, conn);
+                          sda = new SqlDataAdapter(cmd);
+                          dt = new DataTable();
+
+                          sda.Fill(dt);
+                     //   MessageBox.Show("test");
+
+                    }else
+                    {
+                    query = ("UPDATE medical SET medi_status_xby = 0 ,medi_status_stock = 0,medi_status_new_stock = 0 WHERE medi_date_by <= '" + day_today + "'");
+                      cmd = new SqlCommand(query, conn);
+                      sda = new SqlDataAdapter(cmd);
+                      dt = new DataTable();
+
+                      sda.Fill(dt);
+                    //    MessageBox.Show("test11" +date_by_day);
                     }
 
 
@@ -643,9 +652,9 @@ namespace Clinic2018
        dateTimePicker2.Enabled = true;
 
        lblmedi.Text = row.Cells[0].Value.ToString();
-       lblcount.Text = row.Cells[2].Value.ToString();
-       lblmediunit.Text = row.Cells[3].Value.ToString();
-            lblunit.Text = row.Cells[3].Value.ToString();
+       lblcount.Text = row.Cells[1].Value.ToString();
+       lblmediunit.Text = row.Cells[2].Value.ToString();
+            lblunit.Text = row.Cells[2].Value.ToString();
 
         }
 
@@ -659,9 +668,9 @@ namespace Clinic2018
             dateTimePicker2.Enabled = true;
 
             lblmedi.Text = row.Cells[0].Value.ToString();
-            lblcount.Text = row.Cells[2].Value.ToString();
-            lblmediunit.Text = row.Cells[3].Value.ToString();
-            lblunit.Text = row.Cells[3].Value.ToString();
+            lblcount.Text = row.Cells[1].Value.ToString();
+            lblmediunit.Text = row.Cells[2].Value.ToString();
+            lblunit.Text = row.Cells[2].Value.ToString();
         }
 
         /* 

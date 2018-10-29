@@ -690,6 +690,7 @@
             this.txtnum.Name = "txtnum";
             this.txtnum.Size = new System.Drawing.Size(100, 20);
             this.txtnum.TabIndex = 35;
+            this.txtnum.TextChanged += new System.EventHandler(this.txtnum_TextChanged);
             // 
             // label14
             // 

@@ -23,9 +23,9 @@ namespace Clinic2018
             //  Application.Run(new clinic_search());
       //  Application.Run(new clinic_time_attendance());
         //   Application.Run(new clinic_doctor_service3()); 
-   Application.Run(new clinic_time_attendance());
-     Application.Run(new clinic_login());
-         //   Application.Run(new Clinic_boss());
+// Application.Run(new clinic_time_attendance());
+   //  Application.Run(new clinic_doctor_service3());
+     Application.Run(new Clinic_boss());
 //Application.Run(new clinic_app_ms());
             // Application.Run(new Clinic_boss());
             //Application.Run(new clinic_doctor_service()); //run
@@ -59,7 +59,7 @@ namespace Clinic2018
 
             //Application.Run(new clinic_doctor_service());
 
-            //   Application.Run(new clinic_pharmacist_service());
+          //  Application.Run(new clinic_pharmacist_service());
             //    Application.Run(new clinic_user_control());
 
         }

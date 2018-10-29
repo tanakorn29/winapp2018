@@ -111,6 +111,42 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r5|x86'">
     <OutputPath>bin\x86\r5\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r6|AnyCPU'">
+    <OutputPath>bin\r6\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r6|x64'">
+    <OutputPath>bin\x64\r6\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'r6|x86'">
+    <OutputPath>bin\x86\r6\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'L7|AnyCPU'">
+    <OutputPath>bin\L7\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'L7|x64'">
+    <OutputPath>bin\x64\L7\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'L7|x86'">
+    <OutputPath>bin\x86\L7\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'read11|AnyCPU'">
+    <OutputPath>bin\read11\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'read11|x64'">
+    <OutputPath>bin\x64\read11\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'read11|x86'">
+    <OutputPath>bin\x86\read11\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 't111|AnyCPU'">
+    <OutputPath>bin\t111\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 't111|x64'">
+    <OutputPath>bin\x64\t111\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 't111|x86'">
+    <OutputPath>bin\x86\t111\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>C:\Users\somklin\Desktop\Bunifu_UI_v1.5.3\Bunifu_UI_v1.5.3.dll</HintPath>
