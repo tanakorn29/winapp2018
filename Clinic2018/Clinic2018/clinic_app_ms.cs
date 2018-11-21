@@ -230,7 +230,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
                                 int count_app = (int)cmd.ExecuteScalar();
-                                if (count_app < 1)
+                                if (count_app <= 9)
                                 {
                                     //   MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
                                     if (date_app_day > today_day)
@@ -337,7 +337,7 @@ namespace Clinic2018
                                 }
                                 else
                                 {
-                                    MessageBox.Show(" มีคนไข้นัดอยู่แล้ว ");
+                                    MessageBox.Show(" มีข้อมูลการนัดหมายเต็มแล้ว");
                                 }
 
 
@@ -354,7 +354,7 @@ namespace Clinic2018
                     }
                     else
                     {
-                        MessageBox.Show("ไม่สามารถนัดหมายได้");
+                        MessageBox.Show(" มีข้อมูลการนัดหมายเต็มแล้ว");
                     }
                 
 
@@ -399,7 +399,7 @@ namespace Clinic2018
                                 dt = new DataTable();
                                 sda.Fill(dt);
                                 int count_app = (int)cmd.ExecuteScalar();
-                                if (count_app < 1)
+                                if (count_app <= 9)
                                 {
                                     //    MessageBox.Show("   " + swd_id + "    " + timezone + "   " + count_app + "    " + lbliddoc.Text);
                                     if (date_app_day > today_day)
@@ -505,7 +505,7 @@ namespace Clinic2018
                                 }
                                 else
                                 {
-                                    MessageBox.Show(" มีคนไข้นัดอยู่แล้ว ");
+                                    MessageBox.Show(" มีข้อมูลการนัดหมายเต็มแล้ว");
                                 }
 
 
@@ -519,15 +519,15 @@ namespace Clinic2018
 
                     }else
                     {
-                     //   MessageBox.Show("ddddddddddddddd");
+                        MessageBox.Show("ไม่สามารถนัดหมายได้");
                     }
 
                 }
                 else
                     {
 
-                        MessageBox.Show("ไม่สามารถนัดหมายได้");
-                    }
+                    MessageBox.Show(" มีข้อมูลการนัดหมายเต็มแล้ว");
+                }
 
                  
 

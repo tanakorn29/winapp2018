@@ -75,6 +75,7 @@
             this.lblopd = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblheart = new System.Windows.Forms.Label();
             this.lblstatusw = new System.Windows.Forms.Label();
             this.lblstatus = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -122,7 +123,6 @@
             this.dataSet2 = new Clinic2018.DataSet2();
             this.queuevisitrecordBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.queue_visit_recordTableAdapter = new Clinic2018.DataSet2TableAdapters.queue_visit_recordTableAdapter();
-            this.lblheart = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -571,6 +571,14 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "สุขภาพ";
             // 
+            // lblheart
+            // 
+            this.lblheart.AutoSize = true;
+            this.lblheart.Location = new System.Drawing.Point(301, 113);
+            this.lblheart.Name = "lblheart";
+            this.lblheart.Size = new System.Drawing.Size(0, 13);
+            this.lblheart.TabIndex = 16;
+            // 
             // lblstatusw
             // 
             this.lblstatusw.AutoSize = true;
@@ -664,6 +672,7 @@
             this.txtw.Name = "txtw";
             this.txtw.Size = new System.Drawing.Size(100, 20);
             this.txtw.TabIndex = 2;
+            this.txtw.TextChanged += new System.EventHandler(this.txtw_TextChanged);
             // 
             // txts2
             // 
@@ -679,6 +688,7 @@
             this.txts1.Name = "txts1";
             this.txts1.Size = new System.Drawing.Size(54, 20);
             this.txts1.TabIndex = 2;
+            this.txts1.TextChanged += new System.EventHandler(this.txts1_TextChanged);
             // 
             // label27
             // 
@@ -946,14 +956,6 @@
             // queue_visit_recordTableAdapter
             // 
             this.queue_visit_recordTableAdapter.ClearBeforeFill = true;
-            // 
-            // lblheart
-            // 
-            this.lblheart.AutoSize = true;
-            this.lblheart.Location = new System.Drawing.Point(301, 113);
-            this.lblheart.Name = "lblheart";
-            this.lblheart.Size = new System.Drawing.Size(0, 13);
-            this.lblheart.TabIndex = 16;
             // 
             // clinc_nurse_service
             // 

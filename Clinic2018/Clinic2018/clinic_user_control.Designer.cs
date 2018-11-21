@@ -30,19 +30,19 @@
         {
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblempid = new System.Windows.Forms.Label();
-            this.lblidcard = new System.Windows.Forms.Label();
-            this.lblbirthday = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lblbirthday = new System.Windows.Forms.Label();
+            this.lblidcard = new System.Windows.Forms.Label();
+            this.lblempid = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -73,6 +73,36 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "รหัสอ้างอิงพนักงาน";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "ชื่อพนักงาน";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "วัน/เดือน/ปีเกิด";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column4.HeaderText = "รหัสเลขที่บัตรประชาชน";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column5.HeaderText = "ตำแหน่ง";
+            this.Column5.Name = "Column5";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
@@ -89,60 +119,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ข้อมูลผู้ใช้";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "รหัสพนักงาน";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "รหัสประจำตัวประชาชน";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 136);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "วันเดือนปีเกิด";
-            // 
-            // lblempid
-            // 
-            this.lblempid.AutoSize = true;
-            this.lblempid.Location = new System.Drawing.Point(244, 45);
-            this.lblempid.Name = "lblempid";
-            this.lblempid.Size = new System.Drawing.Size(10, 13);
-            this.lblempid.TabIndex = 11;
-            this.lblempid.Text = "-";
-            // 
-            // lblidcard
-            // 
-            this.lblidcard.AutoSize = true;
-            this.lblidcard.Location = new System.Drawing.Point(244, 91);
-            this.lblidcard.Name = "lblidcard";
-            this.lblidcard.Size = new System.Drawing.Size(10, 13);
-            this.lblidcard.TabIndex = 12;
-            this.lblidcard.Text = "-";
-            // 
-            // lblbirthday
-            // 
-            this.lblbirthday.AutoSize = true;
-            this.lblbirthday.Location = new System.Drawing.Point(244, 136);
-            this.lblbirthday.Name = "lblbirthday";
-            this.lblbirthday.Size = new System.Drawing.Size(10, 13);
-            this.lblbirthday.TabIndex = 13;
-            this.lblbirthday.Text = "-";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(115, 240);
@@ -153,30 +129,59 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Column1
+            // lblbirthday
             // 
-            this.Column1.HeaderText = "รหัสอ้างอิงพนักงาน";
-            this.Column1.Name = "Column1";
+            this.lblbirthday.AutoSize = true;
+            this.lblbirthday.Location = new System.Drawing.Point(244, 136);
+            this.lblbirthday.Name = "lblbirthday";
+            this.lblbirthday.Size = new System.Drawing.Size(10, 13);
+            this.lblbirthday.TabIndex = 13;
+            this.lblbirthday.Text = "-";
             // 
-            // Column2
+            // lblidcard
             // 
-            this.Column2.HeaderText = "ชื่อพนักงาน";
-            this.Column2.Name = "Column2";
+            this.lblidcard.AutoSize = true;
+            this.lblidcard.Location = new System.Drawing.Point(244, 91);
+            this.lblidcard.Name = "lblidcard";
+            this.lblidcard.Size = new System.Drawing.Size(10, 13);
+            this.lblidcard.TabIndex = 12;
+            this.lblidcard.Text = "-";
             // 
-            // Column3
+            // lblempid
             // 
-            this.Column3.HeaderText = "วัน/เดือน/ปีเกิด";
-            this.Column3.Name = "Column3";
+            this.lblempid.AutoSize = true;
+            this.lblempid.Location = new System.Drawing.Point(244, 45);
+            this.lblempid.Name = "lblempid";
+            this.lblempid.Size = new System.Drawing.Size(10, 13);
+            this.lblempid.TabIndex = 11;
+            this.lblempid.Text = "-";
             // 
-            // Column4
+            // label3
             // 
-            this.Column4.HeaderText = "รหัสเลขที่บัตรประชาชน";
-            this.Column4.Name = "Column4";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(31, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "วันเดือนปีเกิด";
             // 
-            // Column5
+            // label2
             // 
-            this.Column5.HeaderText = "ตำแหน่ง";
-            this.Column5.Name = "Column5";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(31, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "รหัสประจำตัวประชาชน";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(31, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "รหัสพนักงาน";
             // 
             // clinic_user_control
             // 
@@ -187,6 +192,7 @@
             this.Controls.Add(this.groupBox5);
             this.Name = "clinic_user_control";
             this.Text = "จัดการข้อมูลผู้ใช้";
+            this.Load += new System.EventHandler(this.clinic_user_control_Load);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);

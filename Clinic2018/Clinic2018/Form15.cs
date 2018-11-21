@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Clinic2018
+{
+    public partial class Form15 : Form
+    {
+        public Form15()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int A = Convert.ToInt32(textBox1.Text);
+                if(A > 1)
+                {
+                    MessageBox.Show("ได้");
+                }
+                else
+                {
+                    MessageBox.Show("ไม่ได้");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("กรุณากรอกตัวเลข");
+            }
+        }
+    }
+}

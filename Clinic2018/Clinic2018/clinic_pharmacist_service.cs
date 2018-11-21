@@ -255,33 +255,51 @@ namespace Clinic2018
                 else
                 {
                     string today = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("th-TH"));
-                    query = ("Update treatment_record set treatr_status = 0 where treatr_id = '" + txttrea.Text + "'");
+
+
+                    query = ("select count(*) from medicine_use inner join medical on medical.medi_id = medicine_use.medi_id inner join treatment_record on treatment_record.treatr_id = medicine_use.treatr_id where medicine_use.medi_use_status = 3 AND treatment_record.treatr_id = '"+txttrea.Text+"'  AND medicine_use.medi_use_date = '"+today+"'");
                     cmd = new SqlCommand(query, conn);
                     sda = new SqlDataAdapter(cmd);
                     dt = new DataTable();
                     sda.Fill(dt);
 
-                    query = ("Update queue_visit_record set qvr_status = 6 where opd_id = '" + txtopdid.Text + "' AND qvr_date = '" + today + "'");
+                    int count_pay = (int)cmd.ExecuteScalar();
 
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
+                    if(count_pay >= 1)
+                    {
+                        query = ("Update treatment_record set treatr_status = 0 where treatr_id = '" + txttrea.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
 
-                    query = ("Update medicine_use set medi_use_status = 0 from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + txttrea.Text + "'");
-                    cmd = new SqlCommand(query, conn);
-                    sda = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    sda.Fill(dt);
+                        query = ("Update queue_visit_record set qvr_status = 6 where opd_id = '" + txtopdid.Text + "' AND qvr_date = '" + today + "'");
 
-                    clinic_pharmacist_service m3 = new clinic_pharmacist_service();
-                    m3.Show();
-                    clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
-                    clnlog.Close();
-                    Visible = false;
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
+
+                        query = ("Update medicine_use set medi_use_status = 0 from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where medicine_use.medi_use_status = 2 AND treatment_record.treatr_id = '" + txttrea.Text + "'");
+                        cmd = new SqlCommand(query, conn);
+                        sda = new SqlDataAdapter(cmd);
+                        dt = new DataTable();
+                        sda.Fill(dt);
 
 
-                    MessageBox.Show("จัดเก็บใบสั่งยาเรียบร้อย");
+                        clinic_pharmacist_service m3 = new clinic_pharmacist_service();
+                        m3.Show();
+                        clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
+                        clnlog.Close();
+                        Visible = false;
+
+
+                        MessageBox.Show("จัดเก็บใบสั่งยาเรียบร้อย");
+                    }else
+                    {
+                        MessageBox.Show("คุณยังไม่ได้จ่ายยา");
+                    }
+        
 
 
                 }
@@ -529,9 +547,10 @@ namespace Clinic2018
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("มีข้อผิดพลาด");
+            //   MessageBox.Show("มีข้อผิดพลาด");
+        //    MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OKCancel);
             }
          
         }
@@ -581,11 +600,43 @@ namespace Clinic2018
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedRow = e.RowIndex;
-            DataGridViewRow row = dataGridView2.Rows[selectedRow];
-          /*  textBox4.Text = row.Cells[0].Value.ToString();
-            textBox2.Text = row.Cells[1].Value.ToString();
-            textBox3.Text = row.Cells[2].Value.ToString();*/
+            try
+            {
+                selectedRow = e.RowIndex;
+                DataGridViewRow row = dataGridView2.Rows[selectedRow];
+                /*  textBox4.Text = row.Cells[0].Value.ToString();
+                  textBox2.Text = row.Cells[1].Value.ToString();
+                  textBox3.Text = row.Cells[2].Value.ToString();*/
+
+                int A = Convert.ToInt32(row.Cells[2].Value.ToString());
+
+                string name_medi = row.Cells[1].Value.ToString();
+                conn.Open();
+             
+
+
+               string query = ("Update medicine_use set medi_use_status = 3 from treatment_record inner join medicine_use on medicine_use.treatr_id = treatment_record.treatr_id inner join medical on medical.medi_id = medicine_use.medi_id where treatment_record.treatr_id = '"+txttrea.Text+"' AND medical.medi_name = '"+name_medi+"'");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+
+
+                conn.Close();
+
+
+                clinic_pharmacist_service m3 = new clinic_pharmacist_service();
+                m3.Show();
+                clinic_pharmacist_service clnlog = new clinic_pharmacist_service();
+                clnlog.Close();
+                Visible = false;
+
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -908,6 +959,11 @@ namespace Clinic2018
 
             }
   
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

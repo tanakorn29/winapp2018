@@ -116,6 +116,8 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblmedname = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -500,6 +502,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.lblmedname);
+            this.groupBox5.Controls.Add(this.label22);
             this.groupBox5.Controls.Add(this.lbltimezone);
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.label18);
@@ -530,6 +534,7 @@
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "4.จ่ายยา";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // lbltimezone
             // 
@@ -686,7 +691,7 @@
             // 
             // txtnum
             // 
-            this.txtnum.Location = new System.Drawing.Point(187, 157);
+            this.txtnum.Location = new System.Drawing.Point(187, 188);
             this.txtnum.Name = "txtnum";
             this.txtnum.Size = new System.Drawing.Size(100, 20);
             this.txtnum.TabIndex = 35;
@@ -695,7 +700,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(80, 160);
+            this.label14.Location = new System.Drawing.Point(80, 191);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(76, 13);
             this.label14.TabIndex = 34;
@@ -704,7 +709,7 @@
             // lbldoctor
             // 
             this.lbldoctor.AutoSize = true;
-            this.lbldoctor.Location = new System.Drawing.Point(187, 130);
+            this.lbldoctor.Location = new System.Drawing.Point(187, 161);
             this.lbldoctor.Name = "lbldoctor";
             this.lbldoctor.Size = new System.Drawing.Size(10, 13);
             this.lbldoctor.TabIndex = 32;
@@ -739,7 +744,7 @@
             // 
             // txtre2
             // 
-            this.txtre2.Location = new System.Drawing.Point(187, 195);
+            this.txtre2.Location = new System.Drawing.Point(187, 226);
             this.txtre2.Multiline = true;
             this.txtre2.Name = "txtre2";
             this.txtre2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -749,7 +754,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(117, 195);
+            this.label12.Location = new System.Drawing.Point(117, 226);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(39, 13);
             this.label12.TabIndex = 14;
@@ -758,7 +763,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(28, 130);
+            this.label11.Location = new System.Drawing.Point(28, 161);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(128, 13);
             this.label11.TabIndex = 13;
@@ -768,7 +773,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button5.Location = new System.Drawing.Point(324, 275);
+            this.button5.Location = new System.Drawing.Point(324, 306);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(99, 31);
             this.button5.TabIndex = 12;
@@ -807,7 +812,7 @@
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button4.Location = new System.Drawing.Point(56, 273);
+            this.button4.Location = new System.Drawing.Point(56, 304);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 31);
             this.button4.TabIndex = 8;
@@ -836,7 +841,7 @@
             // 
             this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button24.Location = new System.Drawing.Point(190, 273);
+            this.button24.Location = new System.Drawing.Point(190, 304);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(99, 31);
             this.button24.TabIndex = 0;
@@ -920,6 +925,24 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lblmedname
+            // 
+            this.lblmedname.AutoSize = true;
+            this.lblmedname.Location = new System.Drawing.Point(187, 126);
+            this.lblmedname.Name = "lblmedname";
+            this.lblmedname.Size = new System.Drawing.Size(10, 13);
+            this.lblmedname.TabIndex = 53;
+            this.lblmedname.Text = "-";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(103, 126);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(38, 13);
+            this.label22.TabIndex = 52;
+            this.label22.Text = "ชื่อยา :";
             // 
             // clinic_doctor_service3
             // 
@@ -1036,5 +1059,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lblmedname;
+        private System.Windows.Forms.Label label22;
     }
 }

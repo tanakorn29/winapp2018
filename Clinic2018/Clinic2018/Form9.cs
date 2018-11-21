@@ -97,5 +97,10 @@ namespace Clinic2018
                 MessageBox.Show("ข้อมูลว่าง");
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

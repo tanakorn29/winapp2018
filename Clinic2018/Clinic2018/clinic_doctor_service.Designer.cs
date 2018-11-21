@@ -117,6 +117,8 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblmedname = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -517,6 +519,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.lblmedname);
+            this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.lbltimezone);
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.label18);
@@ -590,15 +594,16 @@
             // 
             // txtnum
             // 
-            this.txtnum.Location = new System.Drawing.Point(211, 162);
+            this.txtnum.Location = new System.Drawing.Point(205, 189);
             this.txtnum.Name = "txtnum";
             this.txtnum.Size = new System.Drawing.Size(100, 20);
             this.txtnum.TabIndex = 35;
+            this.txtnum.TextChanged += new System.EventHandler(this.txtnum_TextChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(104, 165);
+            this.label14.Location = new System.Drawing.Point(98, 192);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(76, 13);
             this.label14.TabIndex = 34;
@@ -647,7 +652,7 @@
             // lbldoctor
             // 
             this.lbldoctor.AutoSize = true;
-            this.lbldoctor.Location = new System.Drawing.Point(211, 135);
+            this.lbldoctor.Location = new System.Drawing.Point(212, 155);
             this.lbldoctor.Name = "lbldoctor";
             this.lbldoctor.Size = new System.Drawing.Size(10, 13);
             this.lbldoctor.TabIndex = 32;
@@ -683,7 +688,7 @@
             // 
             // txtre2
             // 
-            this.txtre2.Location = new System.Drawing.Point(211, 200);
+            this.txtre2.Location = new System.Drawing.Point(205, 227);
             this.txtre2.Multiline = true;
             this.txtre2.Name = "txtre2";
             this.txtre2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -693,7 +698,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(141, 200);
+            this.label12.Location = new System.Drawing.Point(135, 227);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(39, 13);
             this.label12.TabIndex = 14;
@@ -702,7 +707,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(52, 135);
+            this.label11.Location = new System.Drawing.Point(53, 155);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(128, 13);
             this.label11.TabIndex = 13;
@@ -712,7 +717,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button5.Location = new System.Drawing.Point(295, 266);
+            this.button5.Location = new System.Drawing.Point(289, 293);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(99, 31);
             this.button5.TabIndex = 12;
@@ -751,7 +756,7 @@
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button4.Location = new System.Drawing.Point(35, 266);
+            this.button4.Location = new System.Drawing.Point(29, 293);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(110, 31);
             this.button4.TabIndex = 8;
@@ -854,7 +859,7 @@
             // 
             this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button24.Location = new System.Drawing.Point(172, 266);
+            this.button24.Location = new System.Drawing.Point(166, 293);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(99, 31);
             this.button24.TabIndex = 0;
@@ -938,6 +943,24 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(136, 131);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 42;
+            this.label2.Text = "ชื่อยา :";
+            // 
+            // lblmedname
+            // 
+            this.lblmedname.AutoSize = true;
+            this.lblmedname.Location = new System.Drawing.Point(212, 131);
+            this.lblmedname.Name = "lblmedname";
+            this.lblmedname.Size = new System.Drawing.Size(10, 13);
+            this.lblmedname.TabIndex = 43;
+            this.lblmedname.Text = "-";
             // 
             // clinic_doctor_service
             // 
@@ -1057,5 +1080,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lblmedname;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -21,7 +21,7 @@ namespace Clinic2018
         public clinic_user_control()
         {
             InitializeComponent();
-            string query = ("select employee_ru.emp_ru_id,employee_ru.emp_ru_name,employee_ru.emp_ru_birthday,employee_ru.emp_ru_idcard,position.pos_name from employee_ru inner join position on position.pos_id = employee_ru.pos_id");
+            string query = ("select employee_ru.emp_ru_id,employee_ru.emp_ru_name,employee_ru.emp_ru_birthday,employee_ru.emp_ru_idcard,position.pos_name from employee_ru inner join position on position.pos_id = employee_ru.pos_id where pos_name = 'เวชระเบียน' or pos_name = 'พยาบาล' or pos_name = 'เภสัชกรณ์' or pos_name = 'หัวหน้า'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -49,21 +49,37 @@ namespace Clinic2018
         private void button1_Click(object sender, EventArgs e)
         {
             conn.Open();
-            string query = ("Insert into user_control(uct_user, uct_password, emp_ru_id) values('"+lblidcard.Text+"', '"+lblbirthday.Text+"', '"+lblempid.Text+"'); ");
+           string query = ("select count(*) from user_control where uct_user = '"+lblidcard.Text+"'");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
-
             sda.Fill(dt);
 
+            int uct_count_app = (int)cmd.ExecuteScalar();
+            if(uct_count_app < 1)
+            {
+                query = ("Insert into user_control(uct_user, uct_password, emp_ru_id) values('" + lblidcard.Text + "', '" + lblbirthday.Text + "', '" + lblempid.Text + "'); ");
+                cmd = new SqlCommand(query, conn);
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+
+                sda.Fill(dt);
+                MessageBox.Show("เพิ่มข้อมูลเข้าใช้งานเรียบร้อย");
+
+            }else
+            {
+                MessageBox.Show("มีข้อมูลเข้าใช้งานแล้ว");
+            }
+  
+/*
              query = ("Insert into privilege(privil_status,emp_ru_idcard, emp_ru_id) values('','" + lblidcard.Text+"', '"+lblempid.Text+"'); ");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
 
-            sda.Fill(dt);
+            sda.Fill(dt);*/
             conn.Close();
-            MessageBox.Show("เพิ่มข้อมูลเข้าใช้งานเรียบร้อย");
+     
         }
         int selectedRow;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -73,6 +89,11 @@ namespace Clinic2018
             lblempid.Text = row.Cells[0].Value.ToString();
             lblidcard.Text = row.Cells[3].Value.ToString();
             lblbirthday.Text = row.Cells[2].Value.ToString();
+        }
+
+        private void clinic_user_control_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

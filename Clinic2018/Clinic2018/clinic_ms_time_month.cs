@@ -105,7 +105,7 @@ namespace Clinic2018
         {
             try
             {
-                //     conn.Open();
+                conn.Open();
 
 
                 string doc_id = textBox1.Text;
@@ -121,24 +121,41 @@ namespace Clinic2018
                 }
                 else
                 {
-              string query = ("Update schedule_work_doctor set emp_doc_id = " + textBox1.Text + ",swd_status_room = 1  where swd_date_work = '" + textBox3.Text + "' and room_id = 1 AND swd_start_time = '"+textBox4.Text+"' ");
-               cmd = new SqlCommand(query, conn);
-               sda = new SqlDataAdapter(cmd);
-               dt = new DataTable();
+                   string query = ("select count(*) from schedule_work_doctor where swd_date_work = '" + textBox3.Text + "' AND room_id = 2 AND room_id = 3 AND emp_doc_id = '" + textBox1.Text+"'");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
 
-               sda.Fill(dt);
-               clinic_ms_time_month doc1 = new clinic_ms_time_month();
-               doc1.Show();
+                    sda.Fill(dt);
 
-               clinic_ms_time_month clnlog = new clinic_ms_time_month();
-               clnlog.Close();
-               Visible = false;
-                    MessageBox.Show("การจัดตารางเสร็จสิ้น");
+                    int swd_count1 = (int)cmd.ExecuteScalar();
+                    if(swd_count1 < 1)
+                    {
+                   
+              query = ("Update schedule_work_doctor set emp_doc_id = " + textBox1.Text + ",swd_status_room = 1  where swd_date_work = '" + textBox3.Text + "' and room_id = 1 AND swd_start_time = '"+textBox4.Text+"' ");
+          cmd = new SqlCommand(query, conn);
+          sda = new SqlDataAdapter(cmd);
+          dt = new DataTable();
 
+          sda.Fill(dt);
+          clinic_ms_time_month doc1 = new clinic_ms_time_month();
+          doc1.Show();
+
+          clinic_ms_time_month clnlog = new clinic_ms_time_month();
+          clnlog.Close();
+          Visible = false;
+               MessageBox.Show("การจัดตารางเสร็จสิ้น");
+               
+                    }
+                    else
+                    {
+                        MessageBox.Show("ไม่สามารถลงตารางปฏิบัติงานได้");
+                    }
+       
                 }
 
 
-                //    conn.Close();
+                conn.Close();
 
 
             }

@@ -86,7 +86,7 @@ namespace Clinic2018
                 string month_work = sdr["swd_status"].ToString();
               lblstatus.Text = month_work;
             }
-            query = ("select swd_date_work from schedule_work_doctor ORDER BY swd_date_work DESC");
+            query = ("select swd_month_work,swd_date_work from schedule_work_doctor ORDER BY swd_date_work DESC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -97,7 +97,7 @@ namespace Clinic2018
             if (sdr.Read())
             {
                 string date_work_w = sdr["swd_date_work"].ToString();
-
+                string month_last = sdr["swd_month_work"].ToString();
                 DateTime time_swd = Convert.ToDateTime(date_work_w);
                 string day_work_ww4 = time_swd.ToString("yyyy-MM-dd");
        /*         query = ("Update schedule_work_doctor set swd_end_date = '" + day_work_ww4 + "' where swd_status = 'เปิด' AND swd_note = ''");
@@ -120,27 +120,39 @@ namespace Clinic2018
                 //   if (day_to == 20 && month_w >= Month_to)
                 if(day_to != 20)
                 {
-                     query = ("Update schedule_work_doctor set swd_end_date = '" + day_work_ww4 + "' where swd_status = 'เปิด' AND swd_month_work = '" + lblmonth1.Text + "' ");
-                      cmd = new SqlCommand(query, conn);
-                      sda = new SqlDataAdapter(cmd);
-                      dt = new DataTable();
+               query = ("Update schedule_work_doctor set swd_end_date = '" + day_work_ww4 + "' where swd_status = 'เปิด' AND swd_month_work = '" + lblmonth1.Text + "' ");
+                    cmd = new SqlCommand(query, conn);
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
 
-                      sda.Fill(dt);
+                    sda.Fill(dt);
+                    /*      query = ("Update schedule_work_doctor set swd_end_date = '" + day_work_ww4 + "' where swd_status = 'เปิด' AND swd_month_work = '" + lblmonth1.Text + "' ");
+                                        cmd = new SqlCommand(query, conn);
+                                        sda = new SqlDataAdapter(cmd);
+                                        dt = new DataTable();
+
+                                        sda.Fill(dt);*/
+                    /*          query = ("Update schedule_work_doctor set swd_status = 'การจัดตารางงานเสร็จสิ้น', swd_status_chenge = 2 where swd_month_work = '" + month_th + "' ");
+                              cmd = new SqlCommand(query, conn);
+                              sda = new SqlDataAdapter(cmd);
+                              dt = new DataTable();
+                              sda.Fill(dt);
+                              */
+                    //     MessageBox.Show(month_last);
+                    /*           query = ("Update schedule_work_doctor set swd_status = 'เปิด', swd_status_chenge = 1 where swd_month_work = '" + lblmonth1.Text + "' ");
+                                 cmd = new SqlCommand(query, conn);
+                                 sda = new SqlDataAdapter(cmd);
+                                 dt = new DataTable();
+
+                                 sda.Fill(dt);*/
 
 
-                      query = ("Update schedule_work_doctor set swd_status = 'การจัดตารางงานเสร็จสิ้น', swd_status_chenge = 2 where swd_month_work = '" + month_th + "' ");
-                      cmd = new SqlCommand(query, conn);
-                      sda = new SqlDataAdapter(cmd);
-                      dt = new DataTable();
-                      sda.Fill(dt);
-
-                      query = ("Update schedule_work_doctor set swd_status = 'เปิด', swd_status_chenge = 1 where swd_month_work = '" + lblmonth1.Text + "' ");
-                      cmd = new SqlCommand(query, conn);
-                      sda = new SqlDataAdapter(cmd);
-                      dt = new DataTable();
-
-                      sda.Fill(dt);
-              //      MessageBox.Show("test");
+                    /*       query = ("Update schedule_work_doctor set swd_status = 'รอการกำหนดช่วงเวลาปฏิบัติงาน', swd_status_chenge = 3 where swd_month_work = '" + month_th + "' ");
+                           cmd = new SqlCommand(query, conn);
+                           sda = new SqlDataAdapter(cmd);
+                           dt = new DataTable();
+                           sda.Fill(dt);*/
+                    //      MessageBox.Show("test");
                 }
 
                 /*     else if (day_to >= 1 && day_to <= 19)
@@ -544,7 +556,8 @@ namespace Clinic2018
                     {
                         conn.Open();
                         //        string query = ("select count(*) from schedule_work_doctor where swd_status = 'เปิด' AND swd_status_chenge = 0");
-                        string query = ("select count(*) from schedule_work_doctor where swd_status = 'เปิด' AND swd_status_chenge = 1 AND swd_month_work = '" + lblmonth1.Text + "' ");
+                      //  string query = ("select count(*) from schedule_work_doctor where swd_status = 'เปิด' AND swd_status_chenge = 1 AND swd_month_work = '" + lblmonth1.Text + "' ");
+                        string query = ("select count(*) from schedule_work_doctor where swd_status = 'การจัดตารางงานเสร็จสิ้น' AND swd_status_chenge = 2 AND swd_month_work = '" + lblmonth1.Text + "' ");
                         cmd = new SqlCommand(query, conn);
                         sda = new SqlDataAdapter(cmd);
                         dt = new DataTable();
@@ -644,14 +657,14 @@ namespace Clinic2018
                                                          */
 
 
-                                                query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork,swd_status_chenge,emp_doc_id) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '08.30', '11.30', 'เช้า', '" + value + "', 'จัดตารางเรียบร้อย','0',0,0,0)");
+                                                query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork,swd_status_chenge,emp_doc_id) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '08.30', '11.30', 'เช้า', '" + value + "', 'เปิด','0',0,1,0)");
                                                 cmd = new SqlCommand(query, conn);
                                                 sda = new SqlDataAdapter(cmd);
                                                 dt = new DataTable();
 
                                                 sda.Fill(dt);
 
-                                                query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork,swd_status_chenge,emp_doc_id) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '13.00', '15.30', 'บ่าย', '" + value + "', 'จัดตารางเรียบร้อย','0',0,0,0)");
+                                                query = ("insert into schedule_work_doctor (swd_date_work,swd_day_work,room_id,swd_start_time,swd_end_time,swd_timezone,swd_month_work,swd_status,swd_status_room,swd_status_checkwork,swd_status_chenge,emp_doc_id) values('" + day_work_place + "', '" + day_only + "', '" + room + "', '13.00', '15.30', 'บ่าย', '" + value + "', 'เปิด','0',0,1,0)");
                                                 cmd = new SqlCommand(query, conn);
                                                 sda = new SqlDataAdapter(cmd);
                                                 dt = new DataTable();

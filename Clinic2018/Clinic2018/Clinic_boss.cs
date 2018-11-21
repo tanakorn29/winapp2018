@@ -100,13 +100,24 @@ namespace Clinic2018
                     {
                         if (day == 20)
                         {
+                            DialogResult dialogResult = MessageBox.Show("กรุณาจัดตารางการปฏิบัติงานแพทย์","status", MessageBoxButtons.YesNo);
+                            //   MessageBox.Show("กรุณาส่งข้อมูลการทำงาน");
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                clinic_time_schms log1 = new clinic_time_schms();
+                                log1.Show();
+                                clinic_time_schms main1 = new clinic_time_schms();
+                                main1.Close();
+                                Visible = false;
 
-                            MessageBox.Show("กรุณาส่งข้อมูลการทำงาน");
-                            clinic_time_schms log1 = new clinic_time_schms();
-                            log1.Show();
-                            clinic_time_schms main1 = new clinic_time_schms();
-                            main1.Close();
-                            Visible = false;
+
+
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+
+                            }
+                   
 
 
                             if (swd_count1 != 0)
@@ -116,12 +127,25 @@ namespace Clinic2018
 
 
 
-                                    MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                                    clinic_time_schms log = new clinic_time_schms();
-                                    log.Show();
-                                    clinic_time_schms main = new clinic_time_schms();
-                                    main.Close();
-                                    Visible = false;
+
+                                    dialogResult = MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน", "status", MessageBoxButtons.YesNo);
+                                    // MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                    if (dialogResult == DialogResult.Yes)
+                                    {
+                                        clinic_time_schms log = new clinic_time_schms();
+                                        log.Show();
+                                        clinic_time_schms main = new clinic_time_schms();
+                                        main.Close();
+                                        Visible = false;
+                                    }
+                                    else if (dialogResult == DialogResult.No)
+                                    {
+
+                                    }
+
+
+
+
 
 
 
@@ -133,12 +157,24 @@ namespace Clinic2018
                                 {
 
 
-                                    MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                                    clinic_time_schms log = new clinic_time_schms();
-                                    log.Show();
-                                    clinic_time_schms main = new clinic_time_schms();
-                                    main.Close();
-                                    Visible = false;
+                                    dialogResult = MessageBox.Show("คุณต้องการจัดช่วงเวลาการทำงานหรือไม่", "status", MessageBoxButtons.YesNo);
+                                    // MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                    if (dialogResult == DialogResult.Yes)
+                                    {
+                                        clinic_time_schms log = new clinic_time_schms();
+                                        log.Show();
+                                        clinic_time_schms main = new clinic_time_schms();
+                                        main.Close();
+                                        Visible = false;
+                                    }
+                                    else if (dialogResult == DialogResult.No)
+                                    {
+
+                                    }
+
+
+
+
 
 
 
@@ -161,13 +197,20 @@ namespace Clinic2018
                             {
 
 
+                                DialogResult dialogResult = MessageBox.Show("คุณต้องการจัดช่วงเวลาการทำงานหรือไม่", "status", MessageBoxButtons.YesNo);
+                                // MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    clinic_time_schms log = new clinic_time_schms();
+                                    log.Show();
+                                    clinic_time_schms main = new clinic_time_schms();
+                                    main.Close();
+                                    Visible = false;
+                                }else if (dialogResult == DialogResult.No)
+                                {
 
-                                MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                                clinic_time_schms log = new clinic_time_schms();
-                                log.Show();
-                                clinic_time_schms main = new clinic_time_schms();
-                                main.Close();
-                                Visible = false;
+                                }
+                      
 
 
 
@@ -178,13 +221,25 @@ namespace Clinic2018
                             else if (day >= 1 && day <= 19)
                             {
 
+                                DialogResult dialogResult = MessageBox.Show("คุณต้องการจัดช่วงเวลาการทำงานหรือไม่", "status", MessageBoxButtons.YesNo);
+                                // MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
+                                if (dialogResult == DialogResult.Yes)
+                                {
 
-                                MessageBox.Show("กรุณาจัดช่วงเวลาการทำงาน");
-                                clinic_time_schms log = new clinic_time_schms();
-                                log.Show();
-                                clinic_time_schms main = new clinic_time_schms();
-                                main.Close();
-                                Visible = false;
+                                    clinic_time_schms log = new clinic_time_schms();
+                                    log.Show();
+                                    clinic_time_schms main = new clinic_time_schms();
+                                    main.Close();
+                                    Visible = false;
+
+
+
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+
+                                }
+                       
 
 
 

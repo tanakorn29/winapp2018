@@ -462,6 +462,12 @@
     <Compile Include="clinic_schedule.Designer.cs">
       <DependentUpon>clinic_schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="clinic_schedule_now.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clinic_schedule_now.Designer.cs">
+      <DependentUpon>clinic_schedule_now.cs</DependentUpon>
+    </Compile>
     <Compile Include="clinic_show_data_att.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -585,6 +591,18 @@
     </Compile>
     <Compile Include="Form14.Designer.cs">
       <DependentUpon>Form14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form15.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form15.Designer.cs">
+      <DependentUpon>Form15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form16.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form16.Designer.cs">
+      <DependentUpon>Form16.cs</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
@@ -807,6 +825,9 @@
     <EmbeddedResource Include="clinic_schedule.resx">
       <DependentUpon>clinic_schedule.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clinic_schedule_now.resx">
+      <DependentUpon>clinic_schedule_now.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="clinic_show_data_att.resx">
       <DependentUpon>clinic_show_data_att.cs</DependentUpon>
     </EmbeddedResource>
@@ -860,6 +881,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form14.resx">
       <DependentUpon>Form14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form15.resx">
+      <DependentUpon>Form15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form16.resx">
+      <DependentUpon>Form16.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
