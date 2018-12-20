@@ -80,7 +80,7 @@ namespace Clinic2018
 
             }
 
-            query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND schedule_work_doctor.swd_status_checkwork = 0 ORDER BY swd_date_work ASC");
+         query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND schedule_work_doctor.swd_status_checkwork = 0 ORDER BY swd_date_work ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -138,7 +138,7 @@ namespace Clinic2018
 
             dataGridView3.Rows.Clear();
             dataGridView3.Refresh();
-            query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND employee_doctor.emp_doc_name LIKE '%" + lbldoc.Text + "%' AND schedule_work_doctor.swd_status_checkwork = 0 ORDER BY swd_date_work ASC");
+            query = ("select employee_doctor.emp_doc_name , schedule_work_doctor.swd_day_work, schedule_work_doctor.swd_date_work,schedule_work_doctor.swd_start_time,schedule_work_doctor.room_id,schedule_work_doctor.swd_note from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id where schedule_work_doctor.swd_status_room = 1 AND employee_doctor.emp_doc_name = '" + lbldoc.Text + "' AND schedule_work_doctor.swd_status_checkwork = 0 ORDER BY swd_date_work ASC");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -164,7 +164,6 @@ namespace Clinic2018
 
 
             }
-
 
 
             conn.Close();

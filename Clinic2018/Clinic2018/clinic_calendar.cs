@@ -355,7 +355,7 @@ namespace Clinic2018
 
         private void msswd_Click(object sender, EventArgs e)
         {
-            clinic_schedule_now sc = new clinic_schedule_now();
+            clinic_schedule_now_today sc = new clinic_schedule_now_today();
             sc.Show();
         }
     }

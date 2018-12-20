@@ -157,11 +157,47 @@ namespace Clinic2018
                     int doc_id = Convert.ToInt32(sdr["emp_doc_id"].ToString());
 
                   string doc_name = sdr["emp_doc_name"].ToString();
-                    if (doc_name == txtdoctorname.Text)
+                    query = ("select schedule_work_doctor.room_id from schedule_work_doctor inner join employee_doctor on employee_doctor.emp_doc_id = schedule_work_doctor.emp_doc_id inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where schedule_work_doctor.swd_date_work = '" + txttime.Text + "' AND schedule_work_doctor.emp_doc_id = '" + doc_id + "'");
+                    cmd = new SqlCommand(query, conn);
+
+                    sda = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    sdr = cmd.ExecuteReader();
+                    if (sdr.Read())
                     {
-                        MessageBox.Show("ไม่สามารถส่งคำขอทำงานแทนได้");
-                    }
-                    else
+                        int room_id = Convert.ToInt32(sdr["room_id"].ToString());
+                        int room_swd = Convert.ToInt32(txtroom.Text);
+                        if (room_id == room_swd)
+                        {
+                            if (doc_name == txtdoctorname.Text)
+                            {
+                                MessageBox.Show("ไม่สามารถส่งคำขอทำงานแทนได้");
+                            }
+                            else
+                            {
+                                query = ("Update schedule_work_doctor set swd_note = 'รอการอนุมัติทำงานแทน',swd_status_room = 4, swd_emp_work_place = '" + txtdoctorname.Text + "',emp_doc_id ='" + doc_id + "' where swd_id = '" + txtswd.Text + "'");
+                                cmd = new SqlCommand(query, conn);
+                                sda = new SqlDataAdapter(cmd);
+                                dt = new DataTable();
+                                sda.Fill(dt);
+
+
+                                clinic_schedule m3 = new clinic_schedule();
+                                m3.Show();
+                                clinic_schedule clnlog = new clinic_schedule();
+                                clnlog.Close();
+                                Visible = false;
+
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("แพทย์มีข้อมูลการทำงานแล้ว");
+                        }
+
+                    }else
                     {
                         query = ("Update schedule_work_doctor set swd_note = 'รอการอนุมัติทำงานแทน',swd_status_room = 4, swd_emp_work_place = '" + txtdoctorname.Text + "',emp_doc_id ='" + doc_id + "' where swd_id = '" + txtswd.Text + "'");
                         cmd = new SqlCommand(query, conn);
@@ -176,8 +212,9 @@ namespace Clinic2018
                         clnlog.Close();
                         Visible = false;
 
-
                     }
+
+
 
 
 
@@ -208,6 +245,7 @@ namespace Clinic2018
             id_doc.Text = row.Cells[1].Value.ToString();
             txtspecialist.Text = row.Cells[3].Value.ToString();
             txtdoctorname.Text = row.Cells[2].Value.ToString();
+            txtroom.Text = row.Cells[7].Value.ToString();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -273,12 +311,15 @@ namespace Clinic2018
                         dt = new DataTable();
                         sda.Fill(dt);
                         sdr = cmd.ExecuteReader();
-                        if (sdr.Read())
+                       while (sdr.Read())
                         {
-                            int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
-                         DateTime date_sed = Convert.ToDateTime(sdr["swd_date_work"].ToString());
-                            string date_swd = date_sed.ToString("yyyy-MM-dd");
+                            /*          int swd_id = Convert.ToInt32(sdr["swd_id"].ToString());
+                                   DateTime date_sed = Convert.ToDateTime(sdr["swd_date_work"].ToString());
+                                      string date_swd = date_sed.ToString("yyyy-MM-dd");*/
+                     int swd_id = sdr.GetInt32(0);
 
+                      DateTime date_sed = sdr.GetDateTime(1);
+                         string date_swd = date_sed.ToString("yyyy-MM-dd");
                             query = ("select count(appointment.app_date) from appointment  inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where app_date = '" + date_swd + "' AND employee_doctor.emp_doc_name = '"+txtname1.Text+"'");
                             cmd = new SqlCommand(query, conn);
                             sda = new SqlDataAdapter(cmd);
@@ -287,7 +328,7 @@ namespace Clinic2018
                             int count_app = (int)cmd.ExecuteScalar();
                             if(count_app >= 1)
                             {
-                                    query = ("update appointment SET appointment.status_approve = 3,appointment.swd_id = '" + swd_id + "' from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '" + txtname1.Text + "'");
+                                    query = ("update appointment SET appointment.status_approve = 3,appointment.swd_id = '" + swd_id + "' from appointment inner join employee_doctor on employee_doctor.emp_doc_id = appointment.emp_doc_id where employee_doctor.emp_doc_name = '" + txtname1.Text + "' AND appointment.app_date = '"+date_swd+"'");
                                     cmd = new SqlCommand(query, conn);
                                     sda = new SqlDataAdapter(cmd);
                                     dt = new DataTable();
@@ -492,8 +533,9 @@ namespace Clinic2018
 
             // string query = ("select emp_doc_name from employee_doctor  inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid where specialist.emp_doc_specialist = '" + txtspecialist.Text + "' ORDER BY emp_doc_id DESC ");
             int doc_id = Convert.ToInt32(id_doc.Text);
-
-         string query = ("SELECT emp_doc_name FROM employee_doctor inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid  WHERE specialist.emp_doc_specialist = '"+txtspecialist.Text+"' AND emp_doc_id IN(SELECT emp_doc_id FROM employee_doctor WHERE emp_doc_id < '"+id_doc.Text+"' OR emp_doc_id > '"+ id_doc.Text + "' AND specialist.emp_doc_specialist = '"+txtspecialist.Text+"')");
+            comboBox1.Items.Clear();
+            comboBox1.Refresh();
+            string query = ("SELECT emp_doc_name FROM employee_doctor inner join specialist on specialist.emp_doc_specialistid = employee_doctor.emp_doc_specialistid  WHERE specialist.emp_doc_specialist = '"+txtspecialist.Text+"' AND emp_doc_id IN(SELECT emp_doc_id FROM employee_doctor WHERE emp_doc_id < '"+id_doc.Text+"' OR emp_doc_id > '"+ id_doc.Text + "' AND specialist.emp_doc_specialist = '"+txtspecialist.Text+"')");
             cmd = new SqlCommand(query, conn);
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();

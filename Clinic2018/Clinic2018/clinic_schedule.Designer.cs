@@ -79,6 +79,8 @@
             this.txtname1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtroom = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -180,6 +182,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.txtroom);
             this.groupBox1.Controls.Add(this.id_doc);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.txtdoctorname);
@@ -198,7 +202,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox1.Location = new System.Drawing.Point(120, 87);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(394, 283);
+            this.groupBox1.Size = new System.Drawing.Size(394, 327);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "จัดการแพทย์ทำงานแทน";
@@ -207,7 +211,7 @@
             // id_doc
             // 
             this.id_doc.Enabled = false;
-            this.id_doc.Location = new System.Drawing.Point(153, 84);
+            this.id_doc.Location = new System.Drawing.Point(153, 114);
             this.id_doc.Name = "id_doc";
             this.id_doc.Size = new System.Drawing.Size(168, 22);
             this.id_doc.TabIndex = 18;
@@ -216,7 +220,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.Location = new System.Drawing.Point(80, 87);
+            this.label11.Location = new System.Drawing.Point(80, 117);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(63, 16);
             this.label11.TabIndex = 17;
@@ -225,7 +229,7 @@
             // txtdoctorname
             // 
             this.txtdoctorname.Enabled = false;
-            this.txtdoctorname.Location = new System.Drawing.Point(153, 115);
+            this.txtdoctorname.Location = new System.Drawing.Point(153, 145);
             this.txtdoctorname.Name = "txtdoctorname";
             this.txtdoctorname.Size = new System.Drawing.Size(168, 22);
             this.txtdoctorname.TabIndex = 16;
@@ -235,7 +239,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label13.Location = new System.Drawing.Point(88, 118);
+            this.label13.Location = new System.Drawing.Point(88, 148);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 16);
             this.label13.TabIndex = 15;
@@ -244,7 +248,7 @@
             // txtspecialist
             // 
             this.txtspecialist.Enabled = false;
-            this.txtspecialist.Location = new System.Drawing.Point(153, 53);
+            this.txtspecialist.Location = new System.Drawing.Point(153, 83);
             this.txtspecialist.Name = "txtspecialist";
             this.txtspecialist.Size = new System.Drawing.Size(168, 22);
             this.txtspecialist.TabIndex = 14;
@@ -254,7 +258,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(61, 56);
+            this.label10.Location = new System.Drawing.Point(61, 86);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 16);
             this.label10.TabIndex = 13;
@@ -281,7 +285,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(153, 143);
+            this.comboBox1.Location = new System.Drawing.Point(153, 173);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(168, 24);
             this.comboBox1.TabIndex = 10;
@@ -291,16 +295,16 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(116, 224);
+            this.label6.Location = new System.Drawing.Point(65, 257);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 16);
+            this.label6.Size = new System.Drawing.Size(78, 16);
             this.label6.TabIndex = 9;
-            this.label6.Text = "เวลา:";
+            this.label6.Text = "วันที่ปฏิบัติงาน:";
             // 
             // txttime
             // 
             this.txttime.Enabled = false;
-            this.txttime.Location = new System.Drawing.Point(153, 224);
+            this.txttime.Location = new System.Drawing.Point(153, 254);
             this.txttime.Name = "txttime";
             this.txttime.Size = new System.Drawing.Size(168, 22);
             this.txttime.TabIndex = 8;
@@ -308,14 +312,14 @@
             // txtday
             // 
             this.txtday.Enabled = false;
-            this.txtday.Location = new System.Drawing.Point(153, 185);
+            this.txtday.Location = new System.Drawing.Point(153, 215);
             this.txtday.Name = "txtday";
             this.txtday.Size = new System.Drawing.Size(168, 22);
             this.txtday.TabIndex = 7;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(153, 252);
+            this.button2.Location = new System.Drawing.Point(153, 282);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(108, 23);
             this.button2.TabIndex = 3;
@@ -327,7 +331,7 @@
             // 
             this.t3.AutoSize = true;
             this.t3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.t3.Location = new System.Drawing.Point(77, 188);
+            this.t3.Location = new System.Drawing.Point(77, 218);
             this.t3.Name = "t3";
             this.t3.Size = new System.Drawing.Size(70, 16);
             this.t3.TabIndex = 0;
@@ -337,7 +341,7 @@
             // 
             this.t1.AutoSize = true;
             this.t1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.t1.Location = new System.Drawing.Point(40, 146);
+            this.t1.Location = new System.Drawing.Point(40, 176);
             this.t1.Name = "t1";
             this.t1.Size = new System.Drawing.Size(107, 16);
             this.t1.TabIndex = 0;
@@ -460,7 +464,7 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox4.Location = new System.Drawing.Point(120, 400);
+            this.groupBox4.Location = new System.Drawing.Point(120, 420);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(394, 226);
             this.groupBox4.TabIndex = 12;
@@ -568,6 +572,24 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "ชื่อแพทย์ :";
             // 
+            // txtroom
+            // 
+            this.txtroom.Enabled = false;
+            this.txtroom.Location = new System.Drawing.Point(153, 52);
+            this.txtroom.Name = "txtroom";
+            this.txtroom.Size = new System.Drawing.Size(168, 22);
+            this.txtroom.TabIndex = 21;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label12.Location = new System.Drawing.Point(87, 55);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 16);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "ห้องตรวจ:";
+            // 
             // clinic_schedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -649,5 +671,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox id_doc;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtroom;
+        private System.Windows.Forms.Label label12;
     }
 }
